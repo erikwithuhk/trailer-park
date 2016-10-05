@@ -30,4 +30,6 @@ We're always searching for something to watch—sifting through _____ ? [APP NAM
 ## Wish list
 - Expand to other media:
   - Books
+  - Music
 - Form a watch group to binge watch
+- Form a group to go to a movie
