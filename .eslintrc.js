@@ -5,5 +5,6 @@ module.exports = {
         "react",
         "jsx-a11y",
         "import"
-    ]
+    ],
+    "env": { "browser": true }
 };
