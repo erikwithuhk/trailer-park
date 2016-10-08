@@ -4,8 +4,8 @@
   "description": "## Problem Statement:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --progress --colors"
+    "test": "jasmine",
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",
