@@ -19,10 +19,10 @@ CREATE TABLE users (
   email VARCHAR(255),
   first_name VARCHAR(255),
   last_name VARCHAR(255),
-  bio TEXT
+  bio TEXT,
 );
 
 CREATE TABLE friends (
-  friends_id INTEGER PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   users_id INTEGER
 );
