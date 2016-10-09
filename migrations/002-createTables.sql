@@ -12,7 +12,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE trailers (
-  id SERIAL PRIMARY KEY,  --PK
+  id SERIAL PRIMARY KEY,
   media_type VARCHAR(255) NOT NULL,
   tmdb_id INTEGER NOT NULL,
   title VARCHAR(255) NOT NULL,
