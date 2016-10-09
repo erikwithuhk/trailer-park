@@ -1,28 +1,27 @@
---schema
-
-
-DROP TABLE IF EXISTS trailers;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS trailers;
 DROP TABLE IF EXISTS friends;
-
-CREATE TABLE trailers (
-  id SERIAL PRIMARY KEY,  --PK
-  media_type VARCHAR(255),
-  tmdb_id INTEGER,
-  title VARCHAR(255),
-  adult BOOLEAN,
-  users_id INTEGER --FK
-);
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  email VARCHAR(255),
+  email VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
   first_name VARCHAR(255),
   last_name VARCHAR(255),
-  bio TEXT,
+  bio TEXT
+);
+
+CREATE TABLE trailers (
+  id SERIAL PRIMARY KEY,  --PK
+  media_type VARCHAR(255) NOT NULL,
+  tmdb_id INTEGER NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  adult BOOLEAN NOT NULL,
+  users_id INTEGER NOT NULL --FK
 );
 
 CREATE TABLE friends (
   id SERIAL PRIMARY KEY,
-  users_id INTEGER
+  friends_id INTEGER NOT NULL,
+  users_id INTEGER NOT NULL
 );
