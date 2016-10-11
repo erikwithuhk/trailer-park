@@ -42,7 +42,7 @@ class UserProfile extends Component {
   }
 
   handleDeleteUser() {
-    request.del('/api/profile')
+    request.del('/api/users/:user_id')
   };
 
   handleDeleteClick(e) {
