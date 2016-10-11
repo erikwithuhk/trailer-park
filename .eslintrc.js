@@ -6,5 +6,9 @@ module.exports = {
         "jsx-a11y",
         "import"
     ],
-    "env": { "browser": true }
+    "env": {
+      "browser": true,
+      "node": true,
+      "jasmine": true
+    }
 };
