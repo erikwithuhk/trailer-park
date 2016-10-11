@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import request from 'superagent';
 import cookie from 'react-cookie';
-import UserForm from '../users/UserForm.jsx';
-import UserProfile from '../components/UserProfile.jsx';
 
-const propTypes = {};
+const propTypes = {
+  children: React.PropTypes.element,
+};
 
 class App extends Component {
   constructor(props) {
@@ -72,12 +72,12 @@ class App extends Component {
     });
     return (
       <div>
-      {userDisplayElement}
-      <h1>
-        <div id="trailericon">
-          <img src="trailerparklogo.png" alt="trailerparklogo" />
-        </div>
-      </h1>
+        {userDisplayElement}
+        <h1>
+          <div id="trailericon">
+            <img src="trailerparklogo.png" alt="trailerparklogo" />
+          </div>
+        </h1>
         <h2>This is the Trailer Park App Component</h2>
         {childrenWithProps}
       </div>

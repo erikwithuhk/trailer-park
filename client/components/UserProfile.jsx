@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
 
 const propTypes = {
+  currentUser: React.PropTypes.object,
 };
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
+      email: this.props.currentUser.email || '',
       username: '',
       first_name: '',
       last_name: '',
       bio: '',
       password: '',
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.getUserEmail();
+  }
+  handleChange(e) {
+    const target = e.target;
+    const name = target.getAttribute('name');
+    const value = target.value;
+    const updated = {};
+    updated[name] = value;
+    this.setState(updated);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    // >>>> TODO need to submit to the users profile
   }
   getUserEmail() {
-    this.setState({ email: 'email goes here' });
+    // this.setState({ email: this.props.currentUser.email });
   }
   render() {
     return (
@@ -31,6 +45,7 @@ class UserProfile extends Component {
             name="email"
             onChange={this.handleChange}
             placeholder="Email"
+            value={this.state.email}
           />
           <input
             type="text"
