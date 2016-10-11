@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router';
+import request from 'superagent';
+import cookie from 'react-cookie';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
@@ -17,6 +20,8 @@ class UserProfile extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDeleteUser = this.handleDeleteUser.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
   componentDidMount() {
   }
@@ -35,6 +40,17 @@ class UserProfile extends Component {
   getUserEmail() {
     // this.setState({ email: this.props.currentUser.email });
   }
+
+  handleDeleteUser() {
+    request.del('/api/profile')
+  };
+
+  handleDeleteClick(e) {
+    e.preventDefault();
+    this.handleDeleteUser(e.target.value);
+  }
+
+
   render() {
     return (
       <div>
@@ -74,6 +90,11 @@ class UserProfile extends Component {
             type="submit"
             value="Update"
           />
+          <input
+            type="submit"
+            value="Delete"
+            onClick={this.handleDeleteClick}
+          />
         </form>
         <button onClick={this.signOut}>Logout</button>
       </div>
@@ -84,3 +105,4 @@ class UserProfile extends Component {
 UserProfile.propTypes = propTypes;
 
 export default UserProfile;
+

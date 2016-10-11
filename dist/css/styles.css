@@ -6,10 +6,17 @@
 
 body {
     background-color: black;
-    color: white;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+#trailericon {
+    position: relative;
+    top:5%;
+    left:70%;
+    padding: 0px;
+    display: block;
+    margin: 0em auto;
+}
 
 h1 {
     position: relative;
@@ -56,8 +63,8 @@ h3 {
 }
 
 input {
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   top: 0;
   left: 25%;
   width: 25%;
@@ -67,6 +74,31 @@ input {
   margin-bottom: 0rem;
   padding: 1%;
   font-family: 'Roboto Condensed', sans-serif;
- font-size: 1.5rem;
+  font-size: 1.5rem;
+  display: block;
+  margin: 1em auto;
 }
+
+button{
+  margin-top: 50px;
+  margin: .5em;
+  width: 100px;
+  height: 40px;
+  background: 0;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  font-family: 'Norwester', arial;
+  font-weight: bold;
+  border: 3px solid #42eef4;
+  color: #42eef4;
+}
+
+button:focus {
+  text-decoration: none;
+  outline:none;
+  border: none;
+  box-shadow: none;
+}
+
+
 
