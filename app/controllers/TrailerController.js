@@ -1,4 +1,3 @@
-const superagent = require('superagent');
 const TrailerDAO = require('../services/TrailerDAO');
 
 class TrailerController {
