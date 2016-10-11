@@ -13,14 +13,14 @@ class TrailerController {
   }
   static getTrailerInfo(request, response) {
     const apiKey = process.env.API_KEY;
-    const movieId = 550;
+    const trailerID = request.params.trailer_id;
 
     // ONCE WE ALREADY HAVE THE movieId (above)
     // GET DETAILS BASED ON movieId
     superagent
-      .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=videos,credits`)
+      .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${apiKey}&append_to_response=videos,credits`)
       .catch(err => response.status(500).json(err))
-      .then(movieDetails => response.send(movieDetails.body));
+      .then(trailerDetails => response.send(trailerDetails.body));
 
     // NEXT WE NEED TO TAKE OUT THE RELEVANT DATA WE WANT (CLEAN IT UP)
   }
