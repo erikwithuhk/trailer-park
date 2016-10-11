@@ -48,7 +48,6 @@ class Login extends Component {
     }
     return (
       <div>
-        <h2>This is the Trailer Park Login Component</h2>
         {userDisplayElement}
       </div>
     );

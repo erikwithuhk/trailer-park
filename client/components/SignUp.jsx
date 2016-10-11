@@ -55,7 +55,6 @@ class SignUp extends Component {
     }
     return (
       <div>
-        <h2>This is the Trailer Park SignUp Component</h2>
         {userDisplayElement}
       </div>
     );
