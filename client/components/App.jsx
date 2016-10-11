@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import request from 'superagent';
 import cookie from 'react-cookie';
-import UserForm from '../users/UserForm.jsx';
 
 const propTypes = {
   children: React.PropTypes.element,
