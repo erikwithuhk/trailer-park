@@ -11,7 +11,6 @@ class UserDAO {
     const value = keyValue[key];
     return db.one(sql.find, [key, value])
              .then((row) => {
-               console.log(row);
                return new User(row);
              });
   }
