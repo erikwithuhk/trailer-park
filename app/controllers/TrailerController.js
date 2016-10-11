@@ -8,7 +8,7 @@ class TrailerController {
               .then((trailerListItems) => {
                 response.status(200).send(trailerListItems);
               })
-              .catch(err => console.log(err));
+              .catch(err => send(err));
   }
 }
 
