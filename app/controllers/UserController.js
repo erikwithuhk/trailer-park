@@ -1,18 +1,20 @@
 const UserDAO = require('../services/UserDAO');
 
 class UserController {
-  static getAll(req, res) {
+  static getAll(request, response) {
     UserDAO.all()
-           .then(users => res.status(200).json(users));
+           .then(users => response.status(200).json(users))
+           .catch(err => response.status(500).json(err));
   }
-  static getOne(req, res) {
-    UserDAO.findBy({ id: req.params.id })
-           .then(user => res.status(200).json(user));
+  static getOne(request, response) {
+    UserDAO.findBy({ id: request.params.user_id })
+           .then(user => response.status(200).json(user))
+           .catch(err => response.status(500).json(err));
   }
-  static deleteUser(req, res) {
-    UserDAO.delete({ id: req.params.id })
-           .then(() => res.status(204).end())
-           .catch(err => res.status(500).json(err));
+  static delete(request, response) {
+    UserDAO.delete(request.params.user_id)
+           .then(() => response.status(204).end())
+           .catch(err => response.status(500).json(err));
   }
 }
 
