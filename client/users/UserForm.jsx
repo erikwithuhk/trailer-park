@@ -1,7 +1,8 @@
 import React from 'react';
 
 const propTypes = {
-  handleSubmit: React.PropTypes.func,
+  handleLogin: React.PropTypes.func,
+  handleSignup: React.PropTypes.func,
   buttonText: React.PropTypes.string,
 };
 
@@ -22,7 +23,12 @@ class UserForm extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.handleSubmit(this.state);
+    const formType = this.props.route.path;
+    if (formType === 'login') {
+      this.props.handleLogin(this.state);
+    } else if (formType === 'signup') {
+      this.props.handleSignup(this.state);
+    }
   }
   render() {
     return (
