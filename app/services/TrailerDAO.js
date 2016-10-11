@@ -44,6 +44,12 @@ class TrailerDAO {
     );
     return Promise.all(getVideoData).then(videosData => videosData);
   }
+  static getTrailerInfo(trailerID) {
+    return superagent
+      .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)
+      .then(trailerDetails => trailerDetails.body)
+      .catch(err => err);
+  }
 }
 
 module.exports = TrailerDAO;
