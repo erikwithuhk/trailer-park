@@ -10,7 +10,10 @@ class UserDAO {
     const key = Object.keys(keyValue)[0];
     const value = keyValue[key];
     return db.one(sql.find, [key, value])
-             .then((row) => new User(row));
+             .then((row) => {
+               console.log(row);
+               return new User(row);
+             });
   }
   static create({ email, password }) {
     return db.one(sql.create, [email, password])
