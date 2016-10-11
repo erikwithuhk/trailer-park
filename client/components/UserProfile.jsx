@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
-import request from 'superagent';
-import UserForm from '../users/UserForm.jsx';
 
 const propTypes = {
-  handleSubmit: React.PropTypes.func,
-  handleInputChange: React.PropTypes.func,
 };
 
 class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.email,
+      email: '',
       username: '',
       first_name: '',
       last_name: '',
@@ -22,11 +18,14 @@ class UserProfile extends Component {
   componentDidMount() {
     this.getUserEmail();
   }
+  getUserEmail() {
+    this.setState({ email: 'email goes here' });
+  }
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h1>My Profile</h1>
+          <h1>My Profile {this.state.email} </h1>
           <input
             type="text"
             name="email"

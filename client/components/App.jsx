@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import cookie from 'react-cookie';
 import UserForm from '../users/UserForm.jsx';
+import UserProfile from '../components/UserProfile.jsx';
 
 const propTypes = {};
 
@@ -50,6 +51,7 @@ class App extends Component {
     if (this.state.token) {
       userDisplayElement = (
         <div>
+          <UserProfile currentUser={this.state.user} />
           <button onClick={this.signOut} >Logout</button>
         </div>
         );
@@ -67,6 +69,7 @@ class App extends Component {
       <div>
         <h1>This is the Trailer Park App Component</h1>
         {userDisplayElement}
+
       </div>
     );
   }
