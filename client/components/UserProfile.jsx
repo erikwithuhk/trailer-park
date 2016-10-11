@@ -23,11 +23,12 @@ class UserProfile extends Component {
     this.props.handleSubmit(this.state);
   }
   componentDidMount() {
+    // SUPERAGENT req to /api/users/:id
     // need to grab user login info
     // set state with logged in user's
-    // this.setState({
-    //   email: ??
-    // })
+    this.setState({
+      email: 'grab the logged in user email',
+    });
   }
   render() {
     return (
