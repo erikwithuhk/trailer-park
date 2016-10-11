@@ -27,7 +27,6 @@ class UserForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>This is the top of the UserForm</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

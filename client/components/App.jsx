@@ -50,7 +50,9 @@ class App extends Component {
     } else {
       userDisplayElement = (
         <div>
+          <h1>This is the signUp form</h1>
           <UserForm handleSubmit={this.signUp} buttonText="Sign Up" />
+          <h1>This is the logIn form</h1>
           <UserForm handleSubmit={this.logIn} buttonText="Log In" />
         </div>
       );

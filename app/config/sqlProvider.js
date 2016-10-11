@@ -12,7 +12,7 @@ const sqlProvider = {
     find: sql('./sql/user/find.sql'),
     create: sql('./sql/user/create.sql'),
     delete: sql('./sql/user/delete.sql'),
-  }
+  },
 };
 
 module.exports = sqlProvider;

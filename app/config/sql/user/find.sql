@@ -1,1 +1,1 @@
-SELECT * FROM user_auth WHERE $1^=$2;
+SELECT * FROM users WHERE $1^=$2;

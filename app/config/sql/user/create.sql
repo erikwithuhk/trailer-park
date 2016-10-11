@@ -1,1 +1,1 @@
-INSERT INTO user_auth (email, password) VALUES($1, $2) RETURNING *;
+INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *;
