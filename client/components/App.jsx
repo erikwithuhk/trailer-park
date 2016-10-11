@@ -50,16 +50,16 @@ class App extends Component {
     } else {
       userDisplayElement = (
         <div>
-          <h1>This is the signUp form</h1>
+          <h3>This is the signUp form</h3>
           <UserForm handleSubmit={this.signUp} buttonText="Sign Up" />
-          <h1>This is the logIn form</h1>
+          <h3>This is the logIn form</h3>
           <UserForm handleSubmit={this.logIn} buttonText="Log In" />
         </div>
       );
     }
     return (
       <div>
-        <h1>This is the Trailer Park App Component</h1>
+        <h2>This is the Trailer Park App Component</h2>
         {userDisplayElement}
       </div>
     );

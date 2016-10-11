@@ -41,14 +41,14 @@ class Login extends Component {
       userDisplayElement = (
         <div>
 
-          <h2>This is the logIn form</h2>
+          <h3>This is the logIn form</h3>
           <UserForm handleSubmit={this.logIn} buttonText="Log In" />
         </div>
       );
     }
     return (
       <div>
-        <h1>This is the Trailer Park Login Component</h1>
+        <h2>This is the Trailer Park Login Component</h2>
         {userDisplayElement}
       </div>
     );

@@ -48,14 +48,14 @@ class SignUp extends Component {
     } else {
       userDisplayElement = (
         <div>
-          <h2>This is the signUp form</h2>
+          <h3>This is the signUp form</h3>
           <UserForm handleSubmit={this.signUp} buttonText="Sign Up" />
         </div>
       );
     }
     return (
       <div>
-        <h1>This is the Trailer Park SignUp Component</h1>
+        <h2>This is the Trailer Park SignUp Component</h2>
         {userDisplayElement}
       </div>
     );
