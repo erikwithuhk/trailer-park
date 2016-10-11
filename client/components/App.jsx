@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router';
 import request from 'superagent';
 import cookie from 'react-cookie';
 import UserForm from '../users/UserForm.jsx';
@@ -11,7 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       token: null,
-      user: {},
+      currentUser: {},
     };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -24,10 +25,10 @@ class App extends Component {
     request.post('/api/signout')
            .then(() => this.updateAuth());
   }
-  updateAuth(user) {
+  updateAuth(currentUser) {
     this.setState({
       token: cookie.load('token'),
-      user,
+      currentUser,
     });
   }
   logIn(userDetails) {
@@ -51,25 +52,34 @@ class App extends Component {
     if (this.state.token) {
       userDisplayElement = (
         <div>
-          <UserProfile currentUser={this.state.user} />
           <button onClick={this.signOut} >Logout</button>
+          <Link to="/profile" id="profile"><button>Go to my Profile</button></Link>
         </div>
         );
     } else {
       userDisplayElement = (
         <div>
-          <h1>This is the signUp form</h1>
-          <UserForm handleSubmit={this.signUp} buttonText="Sign Up" />
-          <h1>This is the logIn form</h1>
-          <UserForm handleSubmit={this.logIn} buttonText="Log In" />
+          <Link to="/login" id="login"><button>Login</button></Link>
+          <Link to="/signup" id="signup"><button>Sign Up</button></Link>
         </div>
       );
     }
+    const childrenWithProps = React.cloneElement(this.props.children, {
+      currentUser: this.state.currentUser,
+      handleLogin: this.logIn,
+      handleSignup: this.signUp,
+      handleSignout: this.signOut,
+    });
     return (
       <div>
-        <h1>This is the Trailer Park App Component</h1>
-        {userDisplayElement}
-
+      {userDisplayElement}
+      <h1>
+        <div id="trailericon">
+          <img src="trailerparklogo.png" alt="trailerparklogo" />
+        </div>
+      </h1>
+        <h2>This is the Trailer Park App Component</h2>
+        {childrenWithProps}
       </div>
     );
   }
