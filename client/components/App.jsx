@@ -8,7 +8,10 @@ const propTypes = {};
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { token: null }
+    this.state = {
+      token: null,
+      user: {},
+    };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
     this.signOut = this.signOut.bind(this);
@@ -20,23 +23,26 @@ class App extends Component {
     request.post('/api/signout')
            .then(() => this.updateAuth());
   }
-  updateAuth() {
+  updateAuth(user) {
     this.setState({
       token: cookie.load('token'),
+      user,
     });
   }
   logIn(userDetails) {
     request.post('/api/login')
            .send(userDetails)
-           .then(() => {
-             this.updateAuth();
+           .then((currentUserData) => {
+             const currentUser = currentUserData.body;
+             this.updateAuth(currentUser);
            });
   }
   signUp(userDetails) {
     request.post('/api/signup')
            .send(userDetails)
-           .then(() => {
-             this.updateAuth();
+           .then((currentUserData) => {
+             const currentUser = currentUserData.body;
+             this.updateAuth(currentUser);
            });
   }
   render() {
