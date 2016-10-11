@@ -10,10 +10,18 @@ body {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+.title {
+  font-family: 'Airstream', arial;
+  color: black;
+  text-align: center;
+  font-size: 3em;
+  background-color: white;
+  width: 100%;
+}
 
-#main-nav {
+h1 {
   background-color: lightgrey;
-  color: white;
+  color: black;
   top: 0;
   left: 0;
   width: 100%;
@@ -22,16 +30,12 @@ body {
   vertical-align: middle;
   margin-bottom: 0rem;
   padding: 1%;
-  font-family: 'Sans Serif Shaded', arial;
+  font-family: 'Shrikhand', cursive;
  font-size: 1.5rem;
 }
 
 
-#register-form{
- font-family: 'Shrikhand', cursive;
- text-align: center;
- color: black;
- }
+
 
 
 

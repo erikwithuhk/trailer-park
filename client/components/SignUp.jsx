@@ -48,7 +48,7 @@ class SignUp extends Component {
     } else {
       userDisplayElement = (
         <div>
-          <h1>This is the signUp form</h1>
+          <h2>This is the signUp form</h2>
           <UserForm handleSubmit={this.signUp} buttonText="Sign Up" />
         </div>
       );
