@@ -10,7 +10,9 @@ class UserController {
            .then(user => res.status(200).json(user));
   }
   static deleteUser(req, res) {
-    res.status(200).send('Deleted');
+    UserDAO.delete({ id: req.params.id })
+           .then(() => res.status(204).end())
+           .catch(err => res.status(500).json(err));
   }
 }
 
