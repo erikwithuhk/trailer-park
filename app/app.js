@@ -5,10 +5,10 @@ const logger = require('morgan');
 const trailerRouter = require('./routes/trailerRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const request = require('superagent');
+require('dotenv').config();
 
 const app = express();
 
-require('dotenv').config();
 process.env.ENV = process.env.ENV || 'dev';
 
 app.use(bodyParser.urlencoded({ extended: false }));
