@@ -3,6 +3,6 @@ const TrailerController = require('../controllers/TrailerController');
 
 const router = express.Router();
 
-router.get('/', TrailerController.getTrailers);
+router.get('/', TrailerController.searchTrailers);
 
 module.exports = router;
