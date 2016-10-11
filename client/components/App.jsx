@@ -53,6 +53,7 @@ class App extends Component {
       userDisplayElement = (
         <div>
           <button onClick={this.signOut} >Logout</button>
+          <Link to="/profile" id="profile"><button>Go to my Profile</button></Link>
         </div>
         );
     } else {
