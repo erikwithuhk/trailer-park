@@ -9,8 +9,8 @@ class UserController {
     UserDAO.findBy({ id: req.params.id })
            .then(user => res.status(200).json(user));
   }
-  static deleteUser(req, res) {
-    UserDAO.delete({ id: req.params.id })
+  static delete(req, res) {
+    UserDAO.delete(req.params.id)
            .then(() => res.status(204).end())
            .catch(err => res.status(500).json(err));
   }
