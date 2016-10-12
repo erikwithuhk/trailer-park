@@ -1,3 +1,6 @@
+const TrailerDAO = require('../services/TrailerDAO');
+const UserTrailerDAO = require('../services/UserTrailerDAO');
+
 class UserTrailerController {
   static getTrailers(request, response) {
     const userID = request.params.user_id;

@@ -20,8 +20,7 @@ class TrailerDAO {
                 });
                 return this.getVideoKeys(searchResults);
               })
-              .then(response => response)
-              // TODO return trailer objects
+              .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);
   }
   static getVideoKeys(trailers) {
