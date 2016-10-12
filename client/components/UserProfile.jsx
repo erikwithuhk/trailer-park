@@ -100,8 +100,8 @@ class UserProfile extends Component {
             onClick={this.handleDeleteClick}
           />
         </form>
-        <button onClick={this.signOut}>Logout</button>
-        <MovieCarousel currentUser={this.currentUser} />
+
+        <MovieCarousel />
       </div>
     );
   }
@@ -110,4 +110,9 @@ class UserProfile extends Component {
 UserProfile.propTypes = propTypes;
 
 export default withRouter(UserProfile);
+
+
+
+//REMOVED because the LogOut button was showing up twice:
+//button onClick={this.signOut}>Logout</button>
 
