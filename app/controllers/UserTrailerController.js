@@ -3,8 +3,10 @@ const UserTrailerDAO = require('../services/UserTrailerDAO');
 
 class UserTrailerController {
   static getTrailers(request, response) {
-    const userID = request.params.user_id;
-    response.status(200).send(`Trailers for ${userID}`);
+    UserTrailerDAO.allUserTrailers(request.params.user_id).then((trailerListItems) => {
+      response.status(200).send(trailerListItems);
+    })
+    .catch(err => response.status(500).json(err));
   }
 }
 

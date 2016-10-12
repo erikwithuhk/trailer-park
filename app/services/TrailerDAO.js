@@ -8,11 +8,11 @@ class TrailerDAO {
                 const searchResultsData = response.body.results;
                 const searchResults = [];
                 searchResultsData.forEach((searchResultData) => {
-                  const mediaType = searchResultData.media_type;
-                  if (mediaType === 'tv' || mediaType === 'movie') {
+                  const { media_type } = searchResultData;
+                  if (media_type === 'tv' || media_type === 'movie') {
                     const trailerData = {
-                      tmdbID: searchResultData.id,
-                      mediaType,
+                      tmdb_id: searchResultData.id,
+                      media_type,
                       title: searchResultData.name || searchResultData.title,
                     };
                     searchResults.push(trailerData);
@@ -25,7 +25,7 @@ class TrailerDAO {
   }
   static getVideoKeys(trailers) {
     const getVideoData = trailers.map(trailer =>
-      superagent.get(`https://api.themoviedb.org/3/${trailer.mediaType}/${trailer.tmdbID}/videos?api_key=${process.env.API_KEY}`)
+      superagent.get(`https://api.themoviedb.org/3/${trailer.media_type}/${trailer.tmdb_id}/videos?api_key=${process.env.API_KEY}`)
                        .then((response) => {
                          const trailerWithVideo = trailer;
                          const videoData = response.body.results;

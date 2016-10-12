@@ -1,10 +1,10 @@
 const db = require('../config/db');
-const sql = require('../config/sqlProvider').users;
+const sql = require('../config/sqlProvider').usersTrailers;
 const TrailerListItem = require('../models/TrailerListItem');
 
 class UserTrailerDAO {
-  static all() {
-    return db.map(sql.all, [], row => new TrailerListItem(row));
+  static allUserTrailers(userID) {
+    return db.map(sql.all, [userID], row => new TrailerListItem(row));
   }
 }
 
