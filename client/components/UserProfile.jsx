@@ -31,7 +31,9 @@ class UserProfile extends Component {
     this.getTrailers();
   }
   getTrailers() {
-    request.get(`/api/users/${this.props.currentUser.id}/trailers`)
+    const url = `/api/users/${this.props.currentUser.id}/trailers`;
+    console.log(url);
+    request.get(url)
     .then((response) => {
       const trailers = response.body;
       this.setState({ trailers });
