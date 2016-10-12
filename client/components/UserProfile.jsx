@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { hashHistory, withRouter, Link } from 'react-router';
+import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
@@ -10,14 +12,16 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       email: this.props.currentUser.email || '',
-      username: '',
-      first_name: '',
-      last_name: '',
-      bio: '',
-      password: '',
+      username: this.props.currentUser.username || '',
+      firstName: this.props.currentUser.firstName || '',
+      lastName: this.props.currentUser.lastName || '',
+      bio: this.props.currentUser.bio || '',
+      password: this.props.currentUser.password || '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDeleteUser = this.handleDeleteUser.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
   componentDidMount() {
   }
@@ -32,6 +36,24 @@ class UserProfile extends Component {
   handleSubmit(e) {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
+  }
+
+  getUserEmail() {
+    // this.setState({  email: this.props.currentUser.email });
+  }
+
+  handleDeleteUser() {
+    request.del(`/api/users/${this.props.currentUser.id}`)
+           .then(() => {
+             this.props.handleSignout();
+             // TODO handle signout
+             hashHistory.push('/');
+           });
+  };
+
+  handleDeleteClick(e) {
+    e.preventDefault();
+    this.handleDeleteUser();
   }
 
   render() {
@@ -72,6 +94,11 @@ class UserProfile extends Component {
             type="submit"
             value="Update"
           />
+          <input
+            type="submit"
+            value="Delete"
+            onClick={this.handleDeleteClick}
+          />
         </form>
         <button onClick={this.signOut}>Logout</button>
         <MovieCarousel currentUser={this.currentUser} />
@@ -82,4 +109,5 @@ class UserProfile extends Component {
 
 UserProfile.propTypes = propTypes;
 
-export default UserProfile;
+export default withRouter(UserProfile);
+

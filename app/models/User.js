@@ -1,3 +1,5 @@
+const UserDAO = require('../services/UserDAO');
+
 class User {
   constructor({ id, email, password, username, first_name, last_name, bio }) {
     this.id = id;
