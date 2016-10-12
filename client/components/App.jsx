@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router';
+import { hashHistory, withRouter, Link } from 'react-router';
 import request from 'superagent';
 import cookie from 'react-cookie';
 
@@ -24,6 +24,7 @@ class App extends Component {
   signOut() {
     request.post('/api/signout')
            .then(() => this.updateAuth());
+           hashHistory.push('/');
   }
   updateAuth(currentUser) {
     this.setState({
@@ -37,6 +38,7 @@ class App extends Component {
            .then((currentUserData) => {
              const currentUser = currentUserData.body;
              this.updateAuth(currentUser);
+             hashHistory.push('/profile');
            });
   }
   signUp(userDetails) {
@@ -45,6 +47,7 @@ class App extends Component {
            .then((currentUserData) => {
              const currentUser = currentUserData.body;
              this.updateAuth(currentUser);
+             hashHistory.push('/profile');
            });
   }
   render() {
@@ -87,4 +90,4 @@ class App extends Component {
 
 App.propTypes = propTypes;
 
-export default App;
+export default withRouter(App);
