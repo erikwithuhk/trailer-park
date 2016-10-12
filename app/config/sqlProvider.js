@@ -16,6 +16,7 @@ const sqlProvider = {
   },
   usersTrailers: {
     all: sql('./sql/userTrailer/all.sql'),
+    create: sql('./sql/userTrailer/create.sql'),
   },
 };
 
