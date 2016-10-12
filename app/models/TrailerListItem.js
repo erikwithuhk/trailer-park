@@ -1,10 +1,11 @@
 const superagent = require('superagent');
 
 class TrailerListItem {
-  constructor({ tmdb_id, title, media_type, hasTrailer, videoSite, videoKey }) {
+  constructor({ tmdb_id, title, media_type, backdrop_path, hasTrailer, videoSite, videoKey }) {
     this.tmdbID = tmdb_id;
     this.title = title;
     this.mediaType = media_type;
+    this.backdrop_path = backdrop_path;
     this.hasTrailer = hasTrailer;
     this.videoSite = videoSite;
     this.videoKey = videoKey;
