@@ -24,6 +24,8 @@ class UserProfile extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
+    this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
   componentDidMount() {
     this.getTrailers();
@@ -39,6 +41,19 @@ class UserProfile extends Component {
   handleSubmit(e) {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
+  }
+ handleUpdateProfile() {
+    request.patch(`/api/users/${this.props.currentUser.id}`)
+           .send(this.state)
+           .then((response) => {
+            const updated = response.body;
+              console.log(updated);
+             this.setState(updated);
+      });
+  }
+  handleUpdateClick(e) {
+    e.preventDefault();
+    this.handleUpdateProfile();
   }
   handleDeleteUser() {
     request.del(`/api/users/${this.props.currentUser.id}`)
@@ -77,27 +92,33 @@ class UserProfile extends Component {
             name="username"
             onChange={this.handleChange}
             placeholder="User Name"
+            value={this.state.username}
           />
           <input
-            type="text" name="first_name"
+            type="text"
+            name="firstName"
             onChange={this.handleChange}
             placeholder="First Name"
+            value={this.state.firstName}
           />
           <input
             type="text"
             name="lastName"
             onChange={this.handleChange}
             placeholder="Last Name"
+            value={this.state.lastName}
           />
           <input
             type="text"
             name="bio"
             onChange={this.handleChange}
             placeholder="My Bio"
+            value={this.state.bio}
           />
           <input
             type="submit"
             value="Update"
+            onClick={this.handleUpdateClick}
           />
           <input
             type="submit"
