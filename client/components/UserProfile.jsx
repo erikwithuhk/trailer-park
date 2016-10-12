@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { hashHistory, withRouter, Link } from 'react-router';
+import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
+  handleSignout: React.PropTypes.func,
 };
 
 class UserProfile extends Component {
@@ -37,11 +38,6 @@ class UserProfile extends Component {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
   }
-
-  getUserEmail() {
-    // this.setState({  email: this.props.currentUser.email });
-  }
-
   handleDeleteUser() {
     request.del(`/api/users/${this.props.currentUser.id}`)
            .then(() => {
@@ -49,13 +45,11 @@ class UserProfile extends Component {
              // TODO handle signout
              hashHistory.push('/');
            });
-  };
-
+  }
   handleDeleteClick(e) {
     e.preventDefault();
     this.handleDeleteUser();
   }
-
   render() {
     return (
       <div>
@@ -110,9 +104,3 @@ class UserProfile extends Component {
 UserProfile.propTypes = propTypes;
 
 export default withRouter(UserProfile);
-
-
-
-//REMOVED because the LogOut button was showing up twice:
-//button onClick={this.signOut}>Logout</button>
-
