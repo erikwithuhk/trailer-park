@@ -1,0 +1,89 @@
+section {
+  width: 40em;
+  height: 25em;
+  margin: 0 auto;
+  position: relative;
+}
+
+li {
+  width: 500px;
+  height: 281px;
+  background: #333;
+  display: inline-block;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+}
+
+li p {
+  color: white;
+  font-weight: bold;
+  font-size: 5em;
+  text-align: center;
+  margin-top: 1.175em;
+}
+
+.items {
+  position: absolute;
+}
+
+.main-pos {
+  margin-left: 2em !important;
+  z-index: 3000;
+}
+
+.left-pos {
+  opacity: .8;
+  margin-left: -17em !important;
+  z-index: 1000;
+  -webkit-transform: scale(.75);
+  -moz-transform: scale(.75);
+  transform: scale(.75);
+}
+
+.back-pos {
+  margin-left: 2em !important;
+  opacity: .05;
+  -webkit-transform: scale(.5);
+  -moz-transform: scale(.5);
+  transform: scale(.5);
+}
+
+.right-pos {
+  opacity: .8;
+  margin-left:  21em !important;
+  z-index: 1000;
+  -webkit-transform: scale(.75);
+  -moz-transform: scale(.75);
+  transform: scale(.75);
+}
+
+span {
+  position: relative;
+  margin: 0 auto;
+  left: 17em;
+  top: 20em;
+}
+
+.heart,
+.broken-heart {
+  background-size: 80%;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  height: 30px;
+  left: 50%;
+  position: absolute;
+  width: 30px;
+  background-position: 50%;
+  opacity: .7;
+}
+.heart {
+  top: 25px;
+  background-image: url(../images/heart.png);
+}
+.broken-heart {
+  bottom: 10px;
+  background-image: url(../images/broken-heart.png);
+}
+
