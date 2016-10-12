@@ -57,7 +57,6 @@ class UserProfile extends Component {
            .then((response) => {
              const trailers = response.body;
              this.setState({ trailers });
-             console.log(this.state.trailers);
            })
            .catch(err => err);
   }
@@ -106,7 +105,7 @@ class UserProfile extends Component {
             onClick={this.handleDeleteClick}
           />
         </form>
-        <MovieCarousel />
+        <MovieCarousel trailers={this.state.trailers} />
       </div>
     );
   }
