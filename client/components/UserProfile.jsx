@@ -18,6 +18,7 @@ class UserProfile extends Component {
       lastName: this.props.currentUser.lastName || '',
       bio: this.props.currentUser.bio || '',
       password: this.props.currentUser.password || '',
+      trailers: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,7 @@ class UserProfile extends Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
   componentDidMount() {
+    this.getTrailers();
   }
   handleChange(e) {
     const target = e.target;
@@ -49,6 +51,15 @@ class UserProfile extends Component {
   handleDeleteClick(e) {
     e.preventDefault();
     this.handleDeleteUser();
+  }
+  getTrailers() {
+    request.get(`/api/users/${this.props.currentUser.id}/trailers`)
+           .then((response) => {
+             const trailers = response.body;
+             this.setState({ trailers });
+             console.log(this.state.trailers);
+           })
+           .catch(err => err);
   }
   render() {
     return (
