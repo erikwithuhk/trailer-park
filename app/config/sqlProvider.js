@@ -11,6 +11,7 @@ const sqlProvider = {
     all: sql('./sql/user/all.sql'),
     find: sql('./sql/user/find.sql'),
     create: sql('./sql/user/create.sql'),
+    save: sql('./sql/user/save.sql'),
     delete: sql('./sql/user/delete.sql'),
   },
 };
