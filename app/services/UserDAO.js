@@ -16,6 +16,14 @@ class UserDAO {
     return db.one(sql.create, [email, password])
              .then(row => new User(row));
   }
+  static update({ id, email, username, firstName, lastName, bio, password }) {
+    // console.log('hit save UserDAO ********************');
+    // return 'hit save userdao *****';
+    return [id, email, username, firstName, lastName, bio, password];
+    return db.one(sql.save, [id, email, username, firstName, lastName, bio, password])
+             .then(row => new User(row))
+             .catch(err => err);
+  }
   static delete(id) {
     return db.none(sql.delete, [id]);
   }
