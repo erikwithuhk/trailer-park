@@ -39,6 +39,9 @@ class UserController {
            .then(() => response.status(204).end())
            .catch(err => response.status(500).json(err));
   }
+  static getTrailers(request, response) {
+    
+  }
 }
 
 module.exports = UserController;
