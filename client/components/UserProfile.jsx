@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router';
+import { hashHistory, withRouter, Link } from 'react-router';
 import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
@@ -12,11 +12,11 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       email: this.props.currentUser.email || '',
-      username: '',
-      first_name: '',
-      last_name: '',
-      bio: '',
-      password: '',
+      username: this.props.currentUser.username || '',
+      firstName: this.props.currentUser.firstName || '',
+      lastName: this.props.currentUser.lastName || '',
+      bio: this.props.currentUser.bio || '',
+      password: this.props.currentUser.password || '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,16 +39,21 @@ class UserProfile extends Component {
   }
 
   getUserEmail() {
-    // this.setState({ email: this.props.currentUser.email });
+    // this.setState({  email: this.props.currentUser.email });
   }
 
   handleDeleteUser() {
-    request.del('/api/users/:user_id')
+    request.del(`/api/users/${this.props.currentUser.id}`)
+           .then(() => {
+             this.props.handleSignout();
+             // TODO handle signout
+             hashHistory.push('/');
+           });
   };
 
   handleDeleteClick(e) {
     e.preventDefault();
-    this.handleDeleteUser(e.target.value);
+    this.handleDeleteUser();
   }
 
   render() {
@@ -105,5 +110,5 @@ class UserProfile extends Component {
 
 UserProfile.propTypes = propTypes;
 
-export default UserProfile;
+export default withRouter(UserProfile);
 
