@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import request from 'superagent';
-import cookie from 'react-cookie';
+import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
@@ -37,6 +37,7 @@ class UserProfile extends Component {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
   }
+
   getUserEmail() {
     // this.setState({ email: this.props.currentUser.email });
   }
@@ -49,7 +50,6 @@ class UserProfile extends Component {
     e.preventDefault();
     this.handleDeleteUser(e.target.value);
   }
-
 
   render() {
     return (
@@ -97,6 +97,7 @@ class UserProfile extends Component {
           />
         </form>
         <button onClick={this.signOut}>Logout</button>
+        <MovieCarousel />
       </div>
     );
   }

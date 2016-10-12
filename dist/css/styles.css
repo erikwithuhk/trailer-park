@@ -1,4 +1,4 @@
-
+/* >>>>>> TODO need to delete unused fonts linked in index.html file   */
 * {
   margin: 0;
   padding: 0;
@@ -19,47 +19,47 @@ body {
 }
 
 h1 {
-    position: relative;
-    float: center;
-    top:5%;
-    left: 0;
-    right: 28%;
-    padding: 0px;
-    box-sizing: border-box;
-    display: inline-block;
-    margin: 0 auto;
-    width: 50%;
-    height: 100%;
+  box-sizing: border-box;
+  display: inline-block;
+  float: center;
+  height: 100%;
+  left: 0;
+  margin: 0 auto;
+  padding: 0px;
+  position: relative;
+  right: 28%;
+  top:5%;
+  width: 50%;
 }
 
 h2 {
   background-color: lightgrey;
   color: black;
-  top: 0;
-  left: 0;
-  width: 100%;
+  font-family: 'Shrikhand', cursive;
+  font-size: 1.5rem;
   height: 15%;
-  text-align: center;
-  vertical-align: middle;
+  left: 0;
   margin-bottom: 0rem;
   padding: 1%;
-  font-family: 'Shrikhand', cursive;
- font-size: 1.5rem;
+  text-align: center;
+  top: 0;
+  vertical-align: middle;
+  width: 100%;
 }
 
 h3 {
   background-color: black;
   color: white;
-  top: 0;
-  left: 0;
-  width: 100%;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.5rem;
   height: 15%;
-  text-align: center;
-  vertical-align: middle;
+  left: 0;
   margin-bottom: 0rem;
   padding: 1%;
-  font-family: 'Roboto Condensed', sans-serif;
- font-size: 1.5rem;
+  text-align: center;
+  top: 0;
+  vertical-align: middle;
+  width: 100%;
 }
 
 input {
@@ -80,18 +80,19 @@ input {
 }
 
 button{
-  margin-top: 50px;
-  padding:.1em;
-  margin: .5em;
-  width: auto;
-  height: 40px;
-  background: 0;
+  background-color: black;
   border-radius: 10px;
-  font-size: 1.5rem;
-  font-family: 'Norwester', arial;
-  font-weight: bold;
   border: 3px solid #42eef4;
-  color: #42eef4;
+  color: white;
+  display: block;
+  font-family: 'Norwester', arial;
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 40px;
+  margin: 10px auto;
+  padding:.1em;
+  text-align: center;
+  width: auto;
 }
 
 button:focus {
