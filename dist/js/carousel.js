@@ -1,33 +1,29 @@
-const autoSwap = setInterval( swap,3500);
+const autoSwap = setInterval( swap, 3500 );
 
-//pause slideshow and reinstantiate on mouseout
+// pause slideshow and reinstantiate on mouseout
 $('ul, span').hover(
   function () {
     clearInterval(autoSwap);
 },
   function () {
-   autoSwap = setInterval( swap,3500);
+   autoSwap = setInterval( swap, 3500 );
 });
 
 const items = [];
-const startItem = 1;
-const position = 0;
+let startItem = 1;
+let position = 0;
 const itemCount = $('.carousel li.items').length;
 const leftpos = itemCount;
 const resetCount = itemCount;
 
-//unused: gather text inside items class
-$('li.items').each(function(index) {
-    items[index] = $(this).text();
-});
 
 //swap images function
 function swap(action) {
-  const direction = action;
+  let direction = action;
 
   //moving carousel backwards
   if(direction == 'counter-clockwise') {
-    const leftitem = $('.left-pos').attr('id') - 1;
+    let leftitem = $('.left-pos').attr('id') - 1;
     if(leftitem == 0) {
       leftitem = itemCount;
     }
@@ -43,7 +39,7 @@ function swap(action) {
     }
   }
 
-  //moving carousel forward
+  // moving carousel forward
   if(direction == 'clockwise' || direction == '' || direction == null ) {
     function pos(positionvalue) {
       if(positionvalue != 'leftposition') {
@@ -83,22 +79,22 @@ function swap(action) {
   }
 }
 
-//next button click function
-$('#next').click(function() {
-  swap('clockwise');
-});
+// //next button click function
+// $('#next').click(function() {
+//   swap('clockwise');
+// });
 
-//prev button click function
-$('#prev').click(function() {
-  swap('counter-clockwise');
-});
+// //prev button click function
+// $('#prev').click(function() {
+//   swap('counter-clockwise');
+// });
 
-//if any visible items are clicked
-$('li').click(function() {
-  if($(this).attr('class') == 'items left-pos') {
-     swap('counter-clockwise');
-  }
-  else {
-    swap('clockwise');
-  }
-});
+// //if any visible items are clicked
+// $('li').click(function() {
+//   if($(this).attr('class') == 'items left-pos') {
+//      swap('counter-clockwise');
+//   }
+//   else {
+//     swap('clockwise');
+//   }
+// });
