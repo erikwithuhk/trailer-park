@@ -4,7 +4,8 @@ const UserTrailerDAO = require('../services/UserTrailerDAO');
 class UserTrailerController {
   static getTrailers(request, response) {
     UserTrailerDAO.allUserTrailers(request.params.user_id).then((trailerListItems) => {
-      response.status(200).send(trailerListItems);
+      const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKey());
+      return Promise.all(trailersWithVideo).then(videosData => response.status(200).send(videosData));
     })
     .catch(err => response.status(500).json(err));
   }
