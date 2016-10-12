@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
@@ -32,9 +33,7 @@ class UserProfile extends Component {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
   }
-  getUserEmail() {
-    // this.setState({ email: this.props.currentUser.email });
-  }
+
   render() {
     return (
       <div>
@@ -76,6 +75,7 @@ class UserProfile extends Component {
           />
         </form>
         <button onClick={this.signOut}>Logout</button>
+        <MovieCarousel />
       </div>
     );
   }
