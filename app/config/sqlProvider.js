@@ -14,6 +14,9 @@ const sqlProvider = {
     save: sql('./sql/user/save.sql'),
     delete: sql('./sql/user/delete.sql'),
   },
+  usersTrailers: {
+    all: sql('./sql/userTrailer/all.sql'),
+  },
 };
 
 module.exports = sqlProvider;

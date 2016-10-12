@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { hashHistory, withRouter, Link } from 'react-router';
+import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
+  handleSignout: React.PropTypes.func,
 };
 
 class UserProfile extends Component {
@@ -17,6 +18,7 @@ class UserProfile extends Component {
       lastName: this.props.currentUser.lastName || '',
       bio: this.props.currentUser.bio || '',
       password: this.props.currentUser.password || '',
+      trailers: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,6 +28,17 @@ class UserProfile extends Component {
     this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
   componentDidMount() {
+    this.getTrailers();
+  }
+  getTrailers() {
+    const url = `/api/users/${this.props.currentUser.id}/trailers`;
+    console.log(url);
+    request.get(url)
+    .then((response) => {
+      const trailers = response.body;
+      this.setState({ trailers });
+    })
+    .catch(err => err);
   }
   handleChange(e) {
     const target = e.target;
@@ -39,28 +52,18 @@ class UserProfile extends Component {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
   }
-
-  getUserEmail() {
-    // this.setState({  email: this.props.currentUser.email });
-  }
-
-
- handleUpdateProfile() {
+  handleUpdateProfile() {
     request.patch(`/api/users/${this.props.currentUser.id}`)
            .send(this.state)
            .then((response) => {
-            const updated = response.body;
-              console.log(updated);
+             const updated = response.body;
              this.setState(updated);
-      });
+           });
   }
-
   handleUpdateClick(e) {
     e.preventDefault();
     this.handleUpdateProfile();
   }
-
-
   handleDeleteUser() {
     request.del(`/api/users/${this.props.currentUser.id}`)
            .then(() => {
@@ -68,13 +71,11 @@ class UserProfile extends Component {
              // TODO handle signout
              hashHistory.push('/');
            });
-  };
-
+  }
   handleDeleteClick(e) {
     e.preventDefault();
     this.handleDeleteUser();
   }
-
   render() {
     return (
       <div>
@@ -125,8 +126,7 @@ class UserProfile extends Component {
             onClick={this.handleDeleteClick}
           />
         </form>
-
-        <MovieCarousel />
+        <MovieCarousel trailers={this.state.trailers} />
       </div>
     );
   }
@@ -135,5 +135,3 @@ class UserProfile extends Component {
 UserProfile.propTypes = propTypes;
 
 export default withRouter(UserProfile);
-
-
