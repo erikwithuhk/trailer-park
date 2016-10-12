@@ -45,4 +45,3 @@ class MovieCarousel extends Component {
 MovieCarousel.propTypes = propTypes;
 
 export default MovieCarousel;
-
