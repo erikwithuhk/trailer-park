@@ -30,6 +30,14 @@ class UserProfile extends Component {
   componentDidMount() {
     this.getTrailers();
   }
+  getTrailers() {
+    request.get(`/api/users/${this.props.currentUser.id}/trailers`)
+    .then((response) => {
+      const trailers = response.body;
+      this.setState({ trailers });
+    })
+    .catch(err => err);
+  }
   handleChange(e) {
     const target = e.target;
     const name = target.getAttribute('name');
@@ -42,14 +50,13 @@ class UserProfile extends Component {
     e.preventDefault();
     // >>>> TODO need to submit to the users profile
   }
- handleUpdateProfile() {
+  handleUpdateProfile() {
     request.patch(`/api/users/${this.props.currentUser.id}`)
            .send(this.state)
            .then((response) => {
-            const updated = response.body;
-              console.log(updated);
+             const updated = response.body;
              this.setState(updated);
-      });
+           });
   }
   handleUpdateClick(e) {
     e.preventDefault();
@@ -66,14 +73,6 @@ class UserProfile extends Component {
   handleDeleteClick(e) {
     e.preventDefault();
     this.handleDeleteUser();
-  }
-  getTrailers() {
-    request.get(`/api/users/${this.props.currentUser.id}/trailers`)
-           .then((response) => {
-             const trailers = response.body;
-             this.setState({ trailers });
-           })
-           .catch(err => err);
   }
   render() {
     return (
