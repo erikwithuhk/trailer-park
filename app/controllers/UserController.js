@@ -12,15 +12,27 @@ class UserController {
            .catch(err => response.status(500).json(err));
   }
   static update(request, response) {
-    const dataToUpdate = request.body;
+    const { email, username, firstName, lastName, bio } = request.body;
     UserDAO.findBy({ id: request.params.user_id })
-           .then((user) => {
-             response.status(200).send(user.update(dataToUpdate));
-            //  user.update(dataToUpdate)
-            //      .then(updatedUser => response.status(200).send(updatedUser))
-            //      .catch(err => response.status(500).json(err));
-           })
-           .catch(err => response.status(500).json(err));
+      .then((user) => {
+        const dataToUpdate = {
+          id: user.id,
+          email: email || user.email,
+          username: username || user.username,
+          firstName: firstName || user.firstName,
+          lastName: lastName || user.lastName,
+          bio: bio || user.bio,
+          password: user.password,
+        };
+        UserDAO.save(dataToUpdate)
+          .then((updatedUser) => {
+            response.status(200).send(updatedUser);
+          })
+          .catch((err) => {
+            response.send(err);
+          });
+      })
+      .catch(err => response.send(err));
   }
   static delete(request, response) {
     UserDAO.delete(request.params.user_id)
