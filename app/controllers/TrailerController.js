@@ -5,8 +5,10 @@ class TrailerController {
     const searchTerm = request.query.q;
     TrailerDAO.search(searchTerm)
               .then((trailerListItems) => {
-                response.status(200).send(trailerListItems);
+                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKey());
+                return Promise.all(trailersWithVideo).then(videosData => response.status(200).send(videosData));
               })
+
               .catch(err => response.status(500).send(err));
   }
   static getTrailerInfo(request, response) {

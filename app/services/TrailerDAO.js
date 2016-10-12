@@ -18,31 +18,11 @@ class TrailerDAO {
                     searchResults.push(trailerData);
                   }
                 });
-                return this.getVideoKeys(searchResults);
+                return searchResults;
               })
               .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);
   }
-  // static getVideoKeys(trailers) {
-  //   const getVideoData = trailers.map(trailer =>
-  //     superagent.get(`https://api.themoviedb.org/3/${trailer.media_type}/${trailer.tmdb_id}/videos?api_key=${process.env.API_KEY}`)
-  //                      .then((response) => {
-  //                        const trailerWithVideo = trailer;
-  //                        const videoData = response.body.results;
-  //                        if (videoData.length > 0) {
-  //                          trailerWithVideo.hasTrailer = true;
-  //                          trailerWithVideo.videoSite = videoData[0].site;
-  //                          trailerWithVideo.videoKey = videoData[0].key;
-  //                          // TODO search through videos returned and find trailers if present
-  //                          return trailerWithVideo;
-  //                        }
-  //                        trailerWithVideo.hasTrailer = false;
-  //                        return trailerWithVideo;
-  //                      })
-  //                      .catch(err => err)
-  //   );
-  //   return Promise.all(getVideoData).then(videosData => videosData);
-  // }
   static getTrailerInfo(trailerID) {
     return superagent
       .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)
