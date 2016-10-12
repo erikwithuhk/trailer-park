@@ -5,7 +5,7 @@ class TrailerController {
     const searchTerm = request.query.q;
     TrailerDAO.search(searchTerm)
               .then((trailerListItems) => {
-                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKey());
+                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
                 return Promise.all(trailersWithVideo).then(videosData => response.status(200).send(videosData));
               })
 

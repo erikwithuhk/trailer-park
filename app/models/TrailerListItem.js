@@ -10,11 +10,13 @@ class TrailerListItem {
     this.videoSite = videoSite;
     this.videoKey = videoKey;
   }
-  getVideoKey() {
-    const url = `https://api.themoviedb.org/3/${this.mediaType}/${this.tmdbID}/videos?api_key=${process.env.API_KEY}`;
+  getVideoKeyAndImage() {
+    const url = `https://api.themoviedb.org/3/${this.mediaType}/${this.tmdbID}?api_key=${process.env.API_KEY}&append_to_response=videos`;
     return superagent.get(url)
                      .then((response) => {
-                       const videoData = response.body.results;
+                       const trailerData = response.body;
+                       this.backdrop_path = trailerData.backdrop_path;
+                       const videoData = trailerData.videos.results;
                        if (videoData.length > 0) {
                          this.hasTrailer = true;
                          this.videoSite = videoData[0].site;
