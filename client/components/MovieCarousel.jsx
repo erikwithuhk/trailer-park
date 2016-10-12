@@ -1,42 +1,11 @@
 import React, { Component } from 'react';
 
 const propTypes = {
+  currentUser: React.PropTypes.object,
   trailers: React.PropTypes.array,
 };
 
 class MovieCarousel extends Component {
-
-
-  // this.handleAddLoveMovie = this.handleAddLoveMovie.bind(this);
-  // this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
-
-  // handleAddLoveMovie() {
-  //   request.patch(`/api/users/${this.props.currentUser.id}`)
-  //          .send(this.state)
-  //          .then((response) => {
-  //           const updated = response.body;
-  //             console.log(updated);
-  //            this.setState(updated);
-  //     });
-  // }
-  // handleAddLoveMovieClick(e) {
-  //   e.preventDefault();
-  //   this.handleAddLoveMovie();
-  // }
-  // handleAddHateMovie() {
-  //   request.patch(`/api/users/${this.props.currentUser.id}`)
-  //          .send(this.state)
-  //          .then((response) => {
-  //           const updated = response.body;
-  //             console.log(updated);
-  //            this.setState(updated);
-  //     });
-  // }
-  // handleAddHateMovieClick(e) {
-  //   e.preventDefault();
-  //   this.handleAddLoveMovie();
-  // }
-
   constructor() {
     super();
     this.state = {
@@ -47,9 +16,12 @@ class MovieCarousel extends Component {
         videoKey: '',
       },
       currentTrailerURL: '',
+
     };
     this.createVideoEmbedCode = this.createVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
+    this.handleAddLoveMovie = this.handleAddLoveMovie.bind(this);
+    this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
@@ -80,18 +52,37 @@ class MovieCarousel extends Component {
     const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
     this.setState({ currentTrailerURL });
   }
+  handleAddLoveMovie() {
+    console.log(this.props.currentUser.id)
+    // request.patch(`/api/trailers/${this.props.currentUser.id}`)
+    //        .send(this.state)
+    //        .then((response) => {
+    //         const updated = response.body;
+    //           console.log(updated);
+    //          this.setState(updated);
+    //   });
+  }
+  handleAddLoveMovieClick(e) {
+    e.preventDefault();
+    this.handleAddLoveMovie();
+  }
+  handleAddHateMovie() {
+    // request.patch(`/api/users/${this.props.currentUser.id}`)
+    //        .send(this.state)
+    //        .then((response) => {
+    //         const updated = response.body;
+    //           console.log(updated);
+    //          this.setState(updated);
+    //   });
+  }
+  handleAddHateMovieClick(e) {
+    e.preventDefault();
+    this.handleAddHateMovie();
+  }
   render() {
-    // const youTubeUrl = 'https://www.youtube.com/embed/';
-    // const movieTrailerKey1 = 's7EdQ4FqbhY';
-    // const movieControls = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=30'
-    // const movieTrailer = youTubeUrl + movieTrailerKey1 + movieControls;
     // const movieStill = 'http://image.tmdb.org/t/p//w500/';
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
-
-
-
     return (
-
 
       <section>
         <ul className="carousel">
@@ -103,8 +94,8 @@ class MovieCarousel extends Component {
               frameBorder="0"
               allowFullScreen
             />
-            <div className="heart" />
-            <div className="broken-heart" />
+            <div className="heart" onClick={this.handleAddLoveMovieClick} />
+            <div className="broken-heart" onClick={this.handleAddLoveMovieClick} />
 
           </li>
           <li className="items right-pos" id="2">
