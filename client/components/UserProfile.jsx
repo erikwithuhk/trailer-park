@@ -78,13 +78,12 @@ class UserProfile extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h1>My Profile {this.state.email} </h1>
+          <h1>My Profile {this.state.email}</h1>
           <input
             type="text"
             name="email"
             onChange={this.handleChange}
-            placeholder="Email"
-            value={this.state.email}
+            placeholder="email"
           />
           <input
             type="text"
