@@ -14,6 +14,7 @@ class TrailerDAO {
                       tmdb_id: searchResultData.id,
                       media_type,
                       title: searchResultData.name || searchResultData.title,
+                      backdrop_path: searchResultData.backdrop_path,
                     };
                     searchResults.push(trailerData);
                   }
