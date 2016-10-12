@@ -38,20 +38,18 @@ class UserProfile extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h1>My Profile</h1>
+          <h1>My Profile {this.state.email}</h1>
           <input
             type="text"
             name="email"
             onChange={this.handleChange}
-            placeholder="Email"
-            value={this.state.email}
+            placeholder="email"
           />
           <input
             type="text"
             name="username"
             onChange={this.handleChange}
             placeholder="User Name"
-            value={this.state.username}
           />
           <input
             type="text" name="first_name"
@@ -76,7 +74,7 @@ class UserProfile extends Component {
           />
         </form>
         <button onClick={this.signOut}>Logout</button>
-        <MovieCarousel />
+        <MovieCarousel currentUser={this.currentUser} />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import cookie from 'react-cookie';
 
 const propTypes = {
   children: React.PropTypes.element,
+  currentUser: React.PropTypes.object,
 };
 
 class App extends Component {
