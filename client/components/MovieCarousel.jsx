@@ -10,7 +10,9 @@ class MovieCarousel extends Component {
       <section>
         <ul className="carousel">
           <li className="items main-pos" id="1">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/SUXWAEX2jlg?autoplay=1" frameBorder="0" allowFullScreen />
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/s7EdQ4FqbhY?autoplay=1&controls=0&showinfo=0&autohide=1&start=30" frameBorder="0" allowFullScreen />
+            <div className="heart" />
+            <div className="broken-heart" />
           </li>
           <li className="items right-pos" id="2">
             <iframe width="560" height="315" frameBorder="0" allowFullScreen="" />

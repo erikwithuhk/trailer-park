@@ -34,7 +34,7 @@ li p {
 }
 
 .left-pos {
-  opacity: .3;
+  opacity: .8;
   margin-left: -17em !important;
   z-index: 1000;
   -webkit-transform: scale(.75);
@@ -51,7 +51,7 @@ li p {
 }
 
 .right-pos {
-  opacity: .3;
+  opacity: .8;
   margin-left:  21em !important;
   z-index: 1000;
   -webkit-transform: scale(.75);
@@ -65,3 +65,25 @@ span {
   left: 17em;
   top: 20em;
 }
+
+.heart,
+.broken-heart {
+  background-size: 80%;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  height: 30px;
+  left: 50%;
+  position: absolute;
+  width: 30px;
+  background-position: 50%;
+  opacity: .7;
+}
+.heart {
+  top: 25px;
+  background-image: url(../images/heart.png);
+}
+.broken-heart {
+  bottom: 10px;
+  background-image: url(../images/broken-heart.png);
+}
+
