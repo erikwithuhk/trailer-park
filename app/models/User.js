@@ -16,7 +16,9 @@ class User {
         this[key] = options[key];
       }
     });
-    return UserDAO.update(this);
+    // const updatedUser = this;
+    // return this;
+    UserDAO.save(this);
   }
 }
 

@@ -16,7 +16,7 @@ class UserDAO {
     return db.one(sql.create, [email, password])
              .then(row => new User(row));
   }
-  static update({ id, email, username, firstName, lastName, bio, password }) {
+  static save({ id, email, username, firstName, lastName, bio, password }) {
     // console.log('hit save UserDAO ********************');
     // return 'hit save userdao *****';
     return [id, email, username, firstName, lastName, bio, password];
