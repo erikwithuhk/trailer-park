@@ -33,8 +33,7 @@ class TrailerCarousel extends Component {
       const currentTrailer = this.state.trailers[this.state.currentTrailerIndex];
       const videoHostDomain = 'https://www.youtube.com/embed/';
       const currentTrailerKey = currentTrailer.videoKey;
-      const videoHostOptions = '?controls=0&showinfo=0&autohide=1&start=0';
-      // const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=0';
+      const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1';
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
         <iframe
@@ -132,10 +131,8 @@ class TrailerCarousel extends Component {
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
       <div className="carousel-container">
-        <section
-          className="carousel"
-        >
-          <h3 className="carousel_header" >{this.props.header}</h3>
+        <section className="carousel">
+          <h3 className="carousel_header" >{this.state.header}</h3>
           <ul className="carousel">
             <li className="previous-trailer_li">
               {this.generatePreviousPoster()}
@@ -146,7 +143,8 @@ class TrailerCarousel extends Component {
                 <button className="heart" onClick={this.handleAddTrailer} />
                 <button className="broken-heart" onClick={this.handleBlockTrailer} />
               </div>
-              <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
+              <button className="prev" onClick={this.handleCarouselButton} >&lt;</button>
+              <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
             </li>
             <li className="next-trailer_li">
               {this.generateNextPoster()}
@@ -154,10 +152,7 @@ class TrailerCarousel extends Component {
             <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
           </ul>
         </section>
-        <div className="carousel-buttons">
-          <button className="prev" onClick={this.handleCarouselButton} >&lt;</button>
-          <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
-        </div>
+        <h4 className="current-trailer_title">{this.state.currentTrailerTitle}</h4>
       </div>
       );
   }

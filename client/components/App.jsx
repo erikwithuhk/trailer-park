@@ -80,6 +80,7 @@ class App extends Component {
           {userDisplayElement}
         </div>
         {childrenWithProps}
+        <footer>&copy;2016 Erik Jonsson, Annie Burns, and Lynn Fleck</footer>
       </div>
     );
   }
