@@ -26,14 +26,18 @@ class TrailerCarousel extends Component {
     this.handleAddHateMovieClick = this.handleAddHateMovieClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
+    const previousTrailerIndex = (nextProps.trailers.length - 1) || 0;
     const currentTrailerIndex = this.state.currentTrailerIndex || 0;
     const currentTrailer = nextProps.trailers[currentTrailerIndex];
+    const nextTrailerIndex = currentTrailerIndex + 1 || 1;
     this.setState({
-      previousTrailerIndex: (nextProps.trailers.length - 1) || 0,
+      previousTrailerIndex,
+      previousTrailerImage: nextProps.trailers[previousTrailerIndex].backdrop_path || '',
       currentTrailerIndex,
       currentTrailer: currentTrailer || 0,
       currentTrailerTitle: currentTrailer.title || '',
-      nextTrailerIndex: currentTrailerIndex + 1 || 1,
+      nextTrailerIndex,
+      nextTrailerImage: nextProps.trailers[nextTrailerIndex].backdrop_path || '',
       header: nextProps.header,
     });
   }
@@ -124,8 +128,6 @@ class TrailerCarousel extends Component {
     });
   }
   render() {
-    // const movieStill = 'http://image.tmdb.org/t/p//w500/';
-    // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
       <div className="carousel-container">
@@ -137,7 +139,7 @@ class TrailerCarousel extends Component {
             <li className="previous-trailer_li">
               <div
                 className="trailer_container previous-trailer_container"
-                style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500//mte63qJaVnoxkkXbHkdFujBnBgd.jpg\')' }}
+                style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.previousTrailerImage}\')` }}
               />
             </li>
             <li className="current-trailer_li">
@@ -151,7 +153,7 @@ class TrailerCarousel extends Component {
             <li className="next-trailer_li">
               <div
                 className="trailer_container next-trailer_container"
-                style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500/zkBN7dRpNiK4aaWF6c4WfecyXof.jpg\')' }}
+                style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500/${this.state.nextTrailerImage}\')` }}
               />
             </li>
             <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
