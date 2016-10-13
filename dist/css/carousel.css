@@ -78,4 +78,8 @@ span {
   bottom: 10px;
   background-image: url(../images/broken-heart.png);
 }
+.heart:hover,
+.broken-heart:hover {
+  background-color: red;
+}
 

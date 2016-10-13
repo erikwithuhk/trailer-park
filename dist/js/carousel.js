@@ -1,13 +1,5 @@
 const autoSwap = setInterval( swap, 3500 );
 
-// pause slideshow and reinstantiate on mouseout
-$('ul, span').hover(
-  function () {
-    clearInterval(autoSwap);
-},
-  function () {
-   autoSwap = setInterval( swap, 3500 );
-});
 
 const items = [];
 let startItem = 1;
@@ -21,23 +13,7 @@ const resetCount = itemCount;
 function swap(action) {
   let direction = action;
 
-  //moving carousel backwards
-  if(direction == 'counter-clockwise') {
-    let leftitem = $('.left-pos').attr('id') - 1;
-    if(leftitem == 0) {
-      leftitem = itemCount;
-    }
 
-    $('.right-pos').removeClass('right-pos').addClass('back-pos');
-    $('.main-pos').removeClass('main-pos').addClass('right-pos');
-    $('.left-pos').removeClass('left-pos').addClass('main-pos');
-    $('#'+leftitem+'').removeClass('back-pos').addClass('left-pos');
-
-    startItem--;
-    if(startItem < 1) {
-      startItem = itemCount;
-    }
-  }
 
   // moving carousel forward
   if(direction == 'clockwise' || direction == '' || direction == null ) {
@@ -78,23 +54,3 @@ function swap(action) {
     }
   }
 }
-
-// //next button click function
-// $('#next').click(function() {
-//   swap('clockwise');
-// });
-
-// //prev button click function
-// $('#prev').click(function() {
-//   swap('counter-clockwise');
-// });
-
-// //if any visible items are clicked
-// $('li').click(function() {
-//   if($(this).attr('class') == 'items left-pos') {
-//      swap('counter-clockwise');
-//   }
-//   else {
-//     swap('clockwise');
-//   }
-// });
