@@ -19,10 +19,10 @@ class MovieCarousel extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
   }
-  getVideoEmbedCode() {
-    if (this.state.currentTrailer) {
+  getVideoEmbedCode(trailer = this.state.currentTrailer) {
+    if (trailer) {
       const videoHostDomain = 'https://www.youtube.com/embed/';
-      const currentTrailerKey = this.state.currentTrailer.videoKey;
+      const currentTrailerKey = trailer.videoKey;
       const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=0';
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
@@ -53,6 +53,10 @@ class MovieCarousel extends Component {
       };
     }
     this.setState({ nextIndices });
+    this.setCurrentTrailer();
+  }
+  setCurrentTrailer() {
+    this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
   }
   render() {
     // const youTubeUrl = 'https://www.youtube.com/embed/';
@@ -61,7 +65,7 @@ class MovieCarousel extends Component {
     // const movieTrailer = youTubeUrl + movieTrailerKey1 + movieControls;
     // const movieStill = 'http://image.tmdb.org/t/p//w500/';
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
-    const videoEmbedCode = this.getVideoEmbedCode();
+    const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
       <section>
         <ul className="carousel">
