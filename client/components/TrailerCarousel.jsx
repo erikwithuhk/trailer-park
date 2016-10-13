@@ -131,7 +131,7 @@ class TrailerCarousel extends Component {
         <section
           className="carousel"
         >
-          <h3 className="carousel_header" >{this.state.header}</h3>
+          <h3 className="carousel_header" >{this.props.header}</h3>
           <ul className="carousel">
             <li className="previous-trailer_li">
               <div
