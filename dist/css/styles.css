@@ -50,7 +50,6 @@ input {
 3. Global Styles
 ======================= */
 
-
 body {
   background-color: #020304;
   font-family: 'Roboto', sans-serif;
@@ -65,7 +64,7 @@ body {
    content: " ";
    clear: both;
    height: 0;
-}
+  }
 h1 {
   font-size: 3rem;
   margin: 1rem;
@@ -99,19 +98,20 @@ input {
   letter-spacing: .3rem;
   font-size: 1.25rem;
 }
-footer {
-    display: block;
-    font-size: .75rem;
-    padding: 1rem;
-    background-color: #626266;
-    margin-top: 2rem;
-    letter-spacing: .05em;
-}
+
 /* =======================
 4. App
 ======================= */
 
-
+footer {
+  background-color: #541F14;
+  color: #938172;
+  display: block;
+  font-size: .75rem;
+  letter-spacing: .05em;
+  margin-top: 2rem;
+  padding: 1rem;
+}
 
 /* =======================
 5. Top Nav
@@ -141,6 +141,8 @@ footer {
 }
 .top-nav_links a:hover {
   color: #541F14;
+  font-family: airstream;
+  font-size: 1.5em;
 }
 
 /* =======================
@@ -236,10 +238,10 @@ button.next {
   right: 0;
 }
 .current-trailer_li > button:hover {
-    opacity: .3;
-    background-color: #938172;
-    border-radius: 1.5rem;
-    color: #000;
+  opacity: .3;
+  background-color: #938172;
+  border-radius: 1.5rem;
+  color: #000;
 }
 .spacer {
   position: relative;
@@ -249,36 +251,35 @@ button.next {
   position: relative;
   padding-bottom: 56.25%;
 }
-.heart,
-.broken-heart {
-  background-size: 80%;
+button.heart,
+button.broken-heart {
+  background-position: 50%;
   background-repeat: no-repeat;
+  background-size: 60%;
   border-radius: 20px;
+  border: none;
   height: 30px;
   left: 50%;
+  opacity: .7;
   position: absolute;
   width: 30px;
-  background-position: 50%;
-  opacity: .7;
 }
-.heart {
+button.heart {
   top: 10px;
   background-image: url(../images/heart.png);
 }
-.broken-heart {
+button.broken-heart {
   bottom: 10px;
   background-image: url(../images/broken-heart.png);
 }
-.heart:hover,
-.broken-heart:hover {
+button.heart:hover,
+button.broken-heart:hover {
   background-color: red;
 }
-
 
 /* =======================
 7. Search
 ======================= */
-
 
 form.search-form {
   margin: 2rem auto;
@@ -332,8 +333,3 @@ h4.current-trailer_title:before {
 10. Media Queries
 ======================= */
 
-@media (max-width: 768px) {
-
-
-
-}

@@ -153,12 +153,8 @@ class TrailerCarousel extends Component {
                 <button className="heart" onClick={this.handleAddLoveMovieClick} />
                 <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
               </div>
-<<<<<<< HEAD
               <button className="prev" onClick={this.handleCarouselButton} >&lt;</button>
               <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
-=======
-              <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
->>>>>>> master
             </li>
             <li className="next-trailer_li">
               {this.generateNextPoster()}
