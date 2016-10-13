@@ -47,6 +47,9 @@ class TrailerCarousel extends Component {
     }
     return 'Loading';
   }
+  setCurrentTrailer() {
+    this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
+  }
   generatePreviousPoster() {
     if (this.state.trailers.length) {
       return (
@@ -56,6 +59,7 @@ class TrailerCarousel extends Component {
         />
       );
     }
+    return (<div />);
   }
   generateNextPoster() {
     if (this.state.trailers.length) {
@@ -66,9 +70,13 @@ class TrailerCarousel extends Component {
         />
       );
     }
+    return (<div />);
   }
-  setCurrentTrailer() {
-    this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
+  generateTrailerTitle() {
+    if (this.state.trailers.length) {
+      return `${this.state.trailers[this.state.currentTrailerIndex].title}`;
+    }
+    return '';
   }
   handleCarouselButton(e) {
     let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
@@ -130,12 +138,6 @@ class TrailerCarousel extends Component {
     e.preventDefault();
     this.handleAddHateMovie();
   }
-  componentDidMount() {
-    const carouselHeight = document.querySelector('.current-trailer_li').offsetHeight;
-    this.setState({
-      carouselHeight,
-    });
-  }
   render() {
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
@@ -154,7 +156,7 @@ class TrailerCarousel extends Component {
                 <button className="heart" onClick={this.handleAddLoveMovieClick} />
                 <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
               </div>
-              <h4 className="current-trailer_title">{this.state.currentTrailerTitle}</h4>
+              <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
             </li>
             <li className="next-trailer_li">
               {this.generateNextPoster()}
