@@ -64,7 +64,7 @@ class Community extends Component {
     }
   }
   render() {
-    let carousels = [];
+    const carousels = [];
     if (this.state.user3) {
       carousels.push((
         <TrailerCarousel
