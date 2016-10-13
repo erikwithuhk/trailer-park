@@ -1,42 +1,54 @@
-# The Trailer Park
+# Trailer Park
 
 ## Problem Statement:
 
-Netflix’s recommender system is hit or miss – and let’s face it: mostly a miss. (Partly caused by all of the anime films watched by one of the nine friends who share your account.)  
-TRAILER PARK is a social Movie/TV library that allows you to easily find what you want to watch next through a constantly improving, hyper-personalized playlist of entertainment suggestions based on your preferences, as well as those of the friends you follow.  Sit back and watch your suggestions seamlessly loop through a tailored playlist of trailers that you can add to your Watchlist with just a click. Keep your Favorites organized with multiple Watchlists based on categories of your choosing. Find the link to watch plus full details of every Favorite added to your Watchlist.
+Movie and TV platforms’ recommender systems are a hit or miss (Partly caused by all of the anime films watched by one of the nine friends who share your account.)  
 
-### Solution:
-- Follow your favorite TV/filmbuff friends so when you're looking for something to watch, go to one place to find recommendations.
+Trailer Park allows users to create a collection of trailers by simply searching movies and shows and saving them to a personalized library.  Users can also curate Movie/TV playlists based on other Trailer Park users and their Trailer Libraries.
+
+
+## User Scenario
+
+All of Mike’s coworkers are talking about how they are watching Stranger Things. He is feeling left out because he thinks he is last to know about every show (he only just discovered Game of Thrones).  Separately, another colleague, Alice, is frustrated by her movie suggestions that show up on her favorite movie/TV providers… She spends hours each week to reading critic reviews and to diving into independent movie blogs in order to save a note on her computer with some possible movies her (obscure) dark taste might enjoy.  Their mutual friend recommends that they join this new site called Trailer Park to be able to easily discover movies and shows based on common interests and preferences.  Trailer Park takes away the social anxiety of being the last to watch something and the hours long search for niche films.
+
+As a new user, you want to sign into the site, search movies or shows you’re interested in, and add Trailers (content) to your every-changing and updating profile.
 
 ### Problems:
-- Always looking for stuff to watch
-- Don't want to sift through reviews
-- Want credibility from your choice of credible sources
-- And don't want to be the last one in your group to watch something
-- Visual playlist/radio of trailers
-  - Like trailers before a movie
-- Where can you find it?
+* **Always looking for stuff to watch
+* **Don't want to sift through reviews
+* **Want credibility from your choice of credible sources
+* **And don't want to be the last one in your group to watch something
+* **Love watching trailers in theatres but always forget to write down which movies you want to see
 
-## Research
-- TMDB - https://www.themoviedb.org/documentation/api
-- Does OMDB have trailer links?
+## Coming Soon!
+- Influencers / Spotlight Curators - Highlighted in the Trailer Park Community
+- Increasing the social component functionality and recommendation system
 
-## Spikes
-- Selecting meaty chunk of video
+### Installing
+To get a development env running, please follow the below steps in the command line and then open up your browser to localhost:8080.
+```
+- npm install
+- npm start
 
-## Feature list
-- Authenticate users
-- Create movie/tv lists
-- Add friends
-- Make suggestions
-- Pull ratings from Rotten Tomatoes
-- Follow directors, actors, etc.
+```
 
-## Wish list
-- Influencers / Spotlight Curators
-- Expand to other media:
-  - Books
-  - Music
-- Form a watch group to binge watch
-- Form a group to go to a movie
-- add an insignificant addition for initial clone
+## Authors
+* **Erik Jönsson** 
+* **Lynn Fleck** 
+* **Annie Burns** 
+
+* **Initial Version ** * - *10/13/2016* - Version 1.0
+
+## Special Thanks:
+* General Assembly UX Class for initial consultation
+
+## Built With:
+* tmdb - The Movie Database - [tmdb](https://www.themoviedb.org)
+* allfonts.net
+* google fonts
+* allfonts.net
+* atom
+* sublime
+* PostgreSQL
+* React JS
+* Node JS
