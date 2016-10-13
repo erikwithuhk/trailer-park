@@ -1,22 +1,24 @@
 import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from '../../client/components/App.jsx';
-import SearchTest from '../../client/components/SearchTest.jsx';
-import UserProfile from '../components/UserProfile.jsx';
+import Search from '../../client/components/Search.jsx';
 import UserForm from '../components/users/UserForm.jsx';
-import MovieCarousel from '../components/MovieCarousel.jsx';
+import UserProfile from '../components/UserProfile.jsx';
+import TrailerCarousel from '../components/TrailerCarousel.jsx';
+import Community from '../components/Community.jsx';
 
 
 const Routes = () => (
   <Router history={hashHistory} >
     <Route path="/" component={App} >
-      <IndexRoute component={SearchTest} />
+      <IndexRoute component={Search} />
       <Route path="signup" component={UserForm} />
       <Route path="login" component={UserForm} />
       <Route path="profile" component={UserProfile} />
-      <Route path="carousel" component={MovieCarousel} />
+      <Route path="carousel" component={TrailerCarousel} />
+      <Route path="community" component={Community} />
+      <Route path="search" component={Search} />
     </Route>
-    <Route path="/search-test" component={SearchTest} />
   </Router>
 );
 

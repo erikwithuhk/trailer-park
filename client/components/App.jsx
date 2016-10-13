@@ -5,7 +5,6 @@ import cookie from 'react-cookie';
 
 const propTypes = {
   children: React.PropTypes.element,
-  currentUser: React.PropTypes.object,
 };
 
 class App extends Component {
@@ -13,7 +12,6 @@ class App extends Component {
     super(props);
     this.state = {
       token: null,
-      currentUser: {},
     };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -24,30 +22,29 @@ class App extends Component {
   }
   signOut() {
     request.post('/api/signout')
-           .then(() => this.updateAuth());
-           hashHistory.push('/');
+           .then(() => {
+             this.updateAuth();
+             hashHistory.push('/');
+           });
   }
-  updateAuth(currentUser) {
+  updateAuth() {
     this.setState({
       token: cookie.load('token'),
-      currentUser,
     });
   }
   logIn(userDetails) {
     request.post('/api/login')
            .send(userDetails)
-           .then((currentUserData) => {
-             const currentUser = currentUserData.body;
-             this.updateAuth(currentUser);
+           .then(() => {
+             this.updateAuth();
              hashHistory.push('/profile');
            });
   }
   signUp(userDetails) {
     request.post('/api/signup')
            .send(userDetails)
-           .then((currentUserData) => {
-             const currentUser = currentUserData.body;
-             this.updateAuth(currentUser);
+           .then(() => {
+             this.updateAuth();
              hashHistory.push('/profile');
            });
   }
@@ -55,34 +52,33 @@ class App extends Component {
     let userDisplayElement;
     if (this.state.token) {
       userDisplayElement = (
-        <div>
-          <button onClick={this.signOut} >Logout</button>
-          <Link to="/profile" id="profile"><button>Go to my Profile</button></Link>
+        <div className="top-nav_links">
+          <Link to="/search" >Search</Link>
+          <Link to="/community" >Community</Link>
+          <Link to="/profile" className="profile" >Profile</Link>
+          <Link to="#" onClick={this.signOut} >Sign out</Link>
         </div>
         );
     } else {
       userDisplayElement = (
-        <div>
-          <Link to="/login" id="login"><button>Login</button></Link>
-          <Link to="/signup" id="signup"><button>Sign Up</button></Link>
+        <div className="top-nav_links">
+          <Link to="/signup" className="signup" >Sign up</Link>
+          <Link to="/login" className="login" >Login</Link>
         </div>
       );
     }
     const childrenWithProps = React.cloneElement(this.props.children, {
-      currentUser: this.state.currentUser,
+      token: this.state.token,
       handleLogin: this.logIn,
       handleSignup: this.signUp,
       handleSignout: this.signOut,
     });
     return (
       <div>
-        {userDisplayElement}
-        <h1>
-          <div id="trailericon">
-            <img src="trailerparklogo.png" alt="trailerparklogo" />
-          </div>
-        </h1>
-        <h2>This is the Trailer Park App Component</h2>
+        <div className="top-nav clearfix">
+          <Link to="/"><img className="trailericon" src="./images/TrailerParkLogo_main.png" alt="trailerparklogo" /></Link>
+          {userDisplayElement}
+        </div>
         {childrenWithProps}
       </div>
     );

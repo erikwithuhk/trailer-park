@@ -143,12 +143,8 @@ class TrailerCarousel extends Component {
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
                 {videoEmbedCode}
-                <button
-                    className="heart"
-                    onClick={this.handleAddLoveMovieClick} />
-                <button
-                    className="broken-heart"
-                    onClick={this.handleAddLoveMovieClick} />
+                <button className="heart" onClick={this.handleAddLoveMovieClick} />
+                <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
               </div>
               <h4 className="current-trailer_title">{this.state.currentTrailerTitle}</h4>
             </li>

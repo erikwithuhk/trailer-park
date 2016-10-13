@@ -1,7 +1,6 @@
-section {
-  width: 40em;
-  height: 25em;
-  margin: 0 auto;
+.carousel-container {
+  width: 100%;
+  margin: 3rem auto;
   position: relative;
 }
 
@@ -10,8 +9,6 @@ li {
   height: 281px;
   background: #333;
   display: inline-block;
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
   overflow: hidden;
 }
@@ -20,50 +17,80 @@ li p {
   color: white;
   font-weight: bold;
   font-size: 5em;
-  text-align: center;
-  margin-top: 1.175em;
+}
+.carousel_header {
+  margin: 1rem;
+  font-weight: 300;
+  font-style: italic;
 }
 
-.items {
+.previous-trailer_li,
+.next-trailer_li {
   position: absolute;
+  opacity: 0.5;
+  width: 40%;
 }
 
-.main-pos {
-  margin-left: 2em !important;
+.previous-trailer_li {
+  left: 0;
+}
+
+.next-trailer_li {
+  right: 0;
+}
+
+.previous-trailer_container,
+.next-trailer_container {
+  background-color: #ccc;
+  background-size: cover;
+}
+
+.current-trailer_li {
+  position: absolute;
+  left: 20%;
+  width: 60%;
   z-index: 3000;
 }
 
-.left-pos {
-  opacity: .8;
-  margin-left: -17em !important;
-  z-index: 1000;
-  -webkit-transform: scale(.75);
-  -moz-transform: scale(.75);
-  transform: scale(.75);
-}
 
-.back-pos {
-  margin-left: 2em !important;
-  opacity: .05;
-  -webkit-transform: scale(.5);
-  -moz-transform: scale(.5);
-  transform: scale(.5);
-}
-
-.right-pos {
-  opacity: .8;
-  margin-left:  21em !important;
-  z-index: 1000;
-  -webkit-transform: scale(.75);
-  -moz-transform: scale(.75);
-  transform: scale(.75);
-}
-
-span {
+.trailer_container {
+  background-color: #fff;
   position: relative;
-  margin: 0 auto;
-  left: 17em;
-  top: 20em;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.current-trailer_container iframe,
+.current-trailer_container object,
+.current-trailer_container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.current-trailer_title {
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 1rem;
+  text-align: center;
+}
+
+.carousel-buttons {
+  text-align: center;
+}
+
+.spacer {
+  position: relative;
+}
+
+.spacer-div {
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
 }
 
 .heart,
@@ -86,4 +113,7 @@ span {
   bottom: 10px;
   background-image: url(../images/broken-heart.png);
 }
-
+.heart:hover,
+.broken-heart:hover {
+  background-color: red;
+}
