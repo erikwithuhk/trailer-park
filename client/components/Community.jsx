@@ -1,36 +1,52 @@
+import { hashHistory, withRouter } from 'react-router';
 import React, { Component } from 'react';
 import request from 'superagent';
-
+import MovieCarousel from './MovieCarousel.jsx';
 
 class Community extends Component {
   constructor() {
     super();
     this.state = {
-      userName: [],
+      users: [],
       trailers: [],
-   };
-};
-
-componentDidMount() {
-    this.getUserId();
+    };
   }
-  getUserId() {
+ componentDidMount() {
+    this.getUsers();
+  }
+  getUsers() {
     request.get('/api/users')
     .then((response) => {
-      this.setState({ username: response.body });
+      const users = response.body;
+      this.setState({ users });
     });
   }
-// TO DO: WE JUST WANT A SIMPLE LIST OF USERNAMES AND THEIR TRAILERS
-  // TODO: NEED TO GET THE ID FOR THE ABOVE USER NAME
-  // TODO: THEN A SECOND API REQUEST TO GET THE TRAILERS BASED ON THE USER ID
-
+   getTrailers() {
+    const url = `/api/users/${this.state.users}/trailers`;
+    console.log(url);
+    request.get(url)
+    .then((response) => {
+      const trailers = response.body;
+      this.setState({ trailers });
+    })
+    .catch(err => err);
+  }
 
 render() {
+const usernames = this.state.users.map((user, idx) => {
+  return(
+    <div key={user.id} >
+      <li >{user.username}</li>
+      <MovieCarousel trailers={this.state.trailers[idx]} />
+    </div>
+    );
+});
   return (
     <div>
-      <h3>{this.state}</h3>
+      <ul>{usernames}</ul>
     </div>
   );
-}
-}
-export default Community;
+ }
+};
+
+export default withRouter(Community);
