@@ -1,4 +1,3 @@
-import { hashHistory, withRouter } from 'react-router';
 import React, { Component } from 'react';
 import request from 'superagent';
 import TrailerCarousel from './TrailerCarousel.jsx';
@@ -8,10 +7,10 @@ class Community extends Component {
     super();
     this.state = {
       users: [],
-      trailers: [],
     };
+    this.getTrailers = this.getTrailers.bind(this);
   }
- componentDidMount() {
+  componentDidMount() {
     this.getUsers();
   }
   getUsers() {
@@ -19,34 +18,37 @@ class Community extends Component {
     .then((response) => {
       const users = response.body;
       this.setState({ users });
+      // this.getTrailers(users);
     });
   }
-   getTrailers() {
-    const url = `/api/users/${this.state.users}/trailers`;
-    console.log(url);
-    request.get(url)
-    .then((response) => {
-      const trailers = response.body;
-      this.setState({ trailers });
-    })
-    .catch(err => err);
+  getTrailers(users) {
+    const usersTrailers = users.map((user) => {
+      const url = `/api/users/${user.id}/trailers`;
+      return request.get(url);
+    });
+    let components;
+    Promise.all(usersTrailers)
+           .then((responseArray) => {
+             components = responseArray.map((response) => {
+               const trailers = response.body;
+               return (
+                 <li>
+                   <TrailerCarousel header={`s Trailers`} trailers={trailers} />
+                 </li>
+               );
+             });
+             console.log(components);
+             return components;
+           })
+           .catch(err => err);
   }
-
-render() {
-const usernames = this.state.users.map((user, idx) => {
-  return(
-    <div key={user.id} >
-      <li >{user.username}</li>
-      <TrailerCarousel trailers={this.state.trailers[idx]} />
-    </div>
+  render() {
+    return (
+      <div>
+        <ul>{this.getTrailers(this.state.users)}</ul>
+      </div>
     );
-});
-  return (
-    <div>
-      <ul>{usernames}</ul>
-    </div>
-  );
- }
-};
+  }
+}
 
-export default withRouter(Community);
+export default Community;

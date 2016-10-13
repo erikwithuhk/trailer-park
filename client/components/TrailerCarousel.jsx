@@ -21,7 +21,9 @@ class TrailerCarousel extends Component {
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
     this.handleAddLoveMovie = this.handleAddLoveMovie.bind(this);
+    this.handleAddLoveMovieClick = this.handleAddLoveMovieClick.bind(this);
     this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
+    this.handleAddHateMovieClick = this.handleAddHateMovieClick.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     const currentTrailerIndex = this.state.currentTrailerIndex || 0;
@@ -90,27 +92,26 @@ class TrailerCarousel extends Component {
     });
   }
   handleAddLoveMovie() {
-    console.log(this.props.currentUser.id)
-    // request.patch(`/api/trailers/${this.props.currentUser.id}`)
-    //        .send(this.state)
-    //        .then((response) => {
-    //         const updated = response.body;
-    //           console.log(updated);
-    //          this.setState(updated);
-    //   });
+   request.post(`/api/users/${this.props.currentUser.id}/trailers`)
+           .send(this.state)
+           .then((response) => {
+            const updated = response.body;
+              console.log(updated);
+             this.setState(updated);
+      });
   }
   handleAddLoveMovieClick(e) {
     e.preventDefault();
     this.handleAddLoveMovie();
   }
   handleAddHateMovie() {
-    // request.patch(`/api/users/${this.props.currentUser.id}`)
-    //        .send(this.state)
-    //        .then((response) => {
-    //         const updated = response.body;
-    //           console.log(updated);
-    //          this.setState(updated);
-    //   });
+    request.post(`/api/users/${this.props.currentUser.id}/trailers`)
+           .send(this.state)
+           .then((response) => {
+            const updated = response.body;
+              console.log(updated);
+             this.setState(updated);
+      });
   }
   handleAddHateMovieClick(e) {
     e.preventDefault();
