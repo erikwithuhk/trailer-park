@@ -75,10 +75,8 @@ class App extends Component {
     });
     return (
       <div>
-        <div className="top-nav">
-          <Link to="/">
-            <img className="trailericon" src="trailerparklogo.png" alt="trailerparklogo" />
-          </Link>
+        <div className="top-nav clearfix">
+          <Link to="/"><img className="trailericon" src="./images/TrailerParkLogo_main.png" alt="trailerparklogo" /></Link>
           {userDisplayElement}
         </div>
         {childrenWithProps}

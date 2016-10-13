@@ -157,8 +157,8 @@ class TrailerCarousel extends Component {
           </ul>
         </section>
         <div className="carousel-buttons">
-          <button className="prev" onClick={this.handleCarouselButton} >Prev</button>
-          <button className="next" onClick={this.handleCarouselButton} >Next </button>
+          <button className="prev" onClick={this.handleCarouselButton} >&lt;</button>
+          <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
         </div>
       </div>
       );

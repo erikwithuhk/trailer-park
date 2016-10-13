@@ -51,9 +51,12 @@ class Search extends Component {
     let signupButton;
     if (!this.props.token) {
       welcomeText = (
-        <h1 className="welcome-text">
-          Welcome to the Trailer Park! Add movies to your list...etc...
-        </h1>
+        <div>
+          <h1 className="welcome-text">
+            Welcome to the <em>Trailer Park</em>!
+          </h1>
+          <h2>Add movies to your list...etc...</h2>
+        </div>
       );
       signupButton = (
         <Link to="/signup" className="signup-link">
@@ -74,7 +77,6 @@ class Search extends Component {
             placeholder="Search for a movie or TV show"
             value={this.state.searchQuery}
           />
-          <input className="search-form_submit-button" type="submit" value="Search" />
         </form>
         <TrailerCarousel
           header={`Search results for: ${this.state.querySearched}`}

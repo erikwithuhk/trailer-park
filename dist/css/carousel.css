@@ -1,14 +1,27 @@
-section {
+.carousel-container {
   width: 100%;
-  margin: 0 auto;
+  margin: 3rem auto;
   position: relative;
 }
 
+li {
+  width: 500px;
+  height: 281px;
+  background: #333;
+  display: inline-block;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+}
+
+li p {
+  color: white;
+  font-weight: bold;
+  font-size: 5em;
+}
 .carousel_header {
-  color: #fff;
-  font-size: 2rem;
   margin: 1rem;
-  text-align: center;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .previous-trailer_li,
@@ -38,6 +51,7 @@ section {
   width: 60%;
   z-index: 3000;
 }
+
 
 .trailer_container {
   background-color: #fff;

@@ -1,3 +1,14 @@
+
+/*  ---------- COLORS AND FONTS ----------------
+#020304 - BLACK - Sequential black
+#541F14 - MAROON - Ruby Tuesday
+#938172 - TAUPE - Reclining Nude
+#CC9E61 - AMBER - Nylon Stockings
+#626266 - GRAY - Pit pony
+font-family: 'Airstream', arial;
+font-family: 'Roboto', sans-serif;
+-----------------------------------*/
+
 /* =======================
 
 TABLE OF CONTENTS
@@ -30,29 +41,72 @@ TABLE OF CONTENTS
 2. Reset Styles
 ======================= */
 
-* {
+
+
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 
-button,
+
+/* button,
 input {
   -webkit-appearance: none;
-}
-
+  }
+ */
 
 
 /* =======================
 3. Global Styles
 ======================= */
 
+
 body {
-    background-color: black;
-    font: normal 16px 'Roboto Condensed', sans-serif;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size:  1rem;
+  color:  #fff;
 }
-
-
+.clearfix:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+}
+h1 {
+  font-size: 3rem;
+  margin: 1rem;
+  font-weight: 300;
+}
+h1 em {
+  font-family: 'airstream', arial;
+  font-size: 1.3em;
+  letter-spacing: .05em;
+  padding-right: .05em;
+}
+h2 {
+  font-weight:  300;
+  margin: 1rem;
+}
+input {
+  border: 2px solid #938172;
+  border-radius: 6px;
+  background: none;
+  box-sizing: border-box;
+  color: #CC9E61;
+  padding: 1rem;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  text-transform: uppercase;
+  letter-spacing: .3rem;
+  font-size: 1.25rem;
+}
 
 /* =======================
 4. App
@@ -65,37 +119,34 @@ body {
 ======================= */
 
 .top-nav {
-  background-color: #eee;
-  padding: 1rem 1rem 0;
+  background-color: #938172;
+  box-sizing: border-box;
+  margin-bottom: 100px;
 }
-
-.top-nav .trailericon,
-.top-nav .top-nav_links {
-  display: inline-block;
+.trailericon {
+  display: block;
+  left: 10px;
+  max-height: 150px;
+  position: absolute;
+  top: 5px;
 }
-
 .top-nav_links {
   float: right;
+  position:  relative;
 }
 
 .top-nav_links a {
-  color: #000;
+  color: #fff;
   display: inline-block;
-  font-size: 1rem;
-  padding: 0.5rem;
+  padding: 1.5rem 1.5rem 1.5rem 0;
   text-decoration: none;
 }
 
 .top-nav_links a:hover {
-  background-color: #000;
-  color: #fff;
+  color: #541F14;
 }
 
-.trailericon {
-  margin-bottom: -2rem;
-  position: relative;
-  width: 15%;
-}
+
 
 
 
@@ -110,59 +161,48 @@ body {
 7. Search
 ======================= */
 
-.search-container {
-  padding: 5rem 0;
+
+form.search-form {
+    margin: 2rem auto;
 }
 
-.welcome-text {
-  color: #fff;
-  margin: 2rem auto;
-  text-align: center;
-  width: 90%;
-}
-
-.search-form {
-  margin: 0 auto 2rem;
-  width: 80%;
-}
-
-.search-form_searchbar,
+/* .search-form_searchbar,
 .search-form_submit-button,
 .signup-button {
   border: 2px solid #989898;
   display: inline-block;
   font-size: 1.25rem;
   padding: 0.5rem;
-}
+} */
 
-.search-form_searchbar {
+/* .search-form_searchbar {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border-right: none;
   width: 67%;
-}
+} */
 
-.search-form_submit-button,
+/* .search-form_submit-button,
 .signup-button {
   background-color: #ddd;
   color: #000;
   cursor: pointer;
   width: 33%;
-}
+} */
 
-.search-form_submit-button:hover,
+/* .search-form_submit-button:hover,
 .signup-button:hover {
   background-color: #989898;
   color: #fff;
-}
+} */
 
-.search-form_submit-button {
+/* .search-form_submit-button {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-}
+} */
 
 
-.signup-link {
+/* .signup-link {
   display: block;
   text-align: center;
 }
@@ -170,7 +210,7 @@ body {
 .signup-button {
   border-radius: 5px;
   margin: 0 auto;
-}
+} */
 
 
 /* =======================
@@ -188,3 +228,9 @@ body {
 /* =======================
 10. Media Queries
 ======================= */
+
+@media (max-width: 768px) {
+
+
+
+}
