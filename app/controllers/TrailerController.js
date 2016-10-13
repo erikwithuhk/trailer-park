@@ -14,6 +14,18 @@ class TrailerController {
 
               .catch(err => response.status(500).send(err));
   }
+  static searchTrailers(request, response) {
+    TrailerDAO.popular
+              .then((trailerListItems) => {
+                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
+                return Promise.all(trailersWithVideo).then((videosData) => {
+                  const hasVideo = trailer => trailer.hasTrailer;
+                  response.status(200).send(videosData.filter(hasVideo));
+                });
+              })
+
+              .catch(err => response.status(500).send(err));
+  }
   static getTrailerInfo(request, response) {
     const trailerID = request.params.trailer_id;
     TrailerDAO.getTrailerInfo(trailerID)

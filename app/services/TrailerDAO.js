@@ -23,6 +23,27 @@ class TrailerDAO {
               .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);
   }
+  static search(searchTerm) {
+    return superagent.get(`https://api.themoviedb.org/3/search/multi?query=${searchTerm}&api_key=${process.env.API_KEY}`)
+              .then((response) => {
+                const searchResultsData = response.body.results;
+                const searchResults = [];
+                searchResultsData.forEach((searchResultData) => {
+                  const { media_type } = searchResultData;
+                  if (media_type === 'tv' || media_type === 'movie') {
+                    const trailerData = {
+                      tmdb_id: searchResultData.id,
+                      media_type,
+                      title: searchResultData.name || searchResultData.title,
+                    };
+                    searchResults.push(trailerData);
+                  }
+                });
+                return searchResults;
+              })
+              .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
+              .catch(err => err);
+  }
   static getTrailerInfo(trailerID) {
     return superagent
       .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)
