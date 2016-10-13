@@ -12,6 +12,7 @@ class Search extends Component {
     super();
     this.state = {
       searchQuery: 'hook',
+      querySearched: 'Popular Trailers',
       trailers: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -40,7 +41,10 @@ class Search extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.getVideos();
-    this.setState({ searchQuery: '' });
+    this.setState({
+      querySearched: this.state.searchQuery,
+      searchQuery: '',
+    });
   }
   render() {
     let welcomeText;
@@ -72,7 +76,10 @@ class Search extends Component {
           />
           <input className="search-form_submit-button" type="submit" value="Search" />
         </form>
-        <TrailerCarousel trailers={this.state.trailers} />
+        <TrailerCarousel
+          header={`Search results for: ${this.state.querySearched}`}
+          trailers={this.state.trailers}
+        />
         {signupButton}
       </div>
     );

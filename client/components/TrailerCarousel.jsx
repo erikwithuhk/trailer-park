@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 const propTypes = {
   currentUser: React.PropTypes.object,
   trailers: React.PropTypes.array,
+  header: React.PropTypes.header,
 };
 
 class TrailerCarousel extends Component {
@@ -37,8 +38,6 @@ class TrailerCarousel extends Component {
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
         <iframe
-          width="560"
-          height="315"
           src={currentTrailerURL}
           frameBorder="0"
           allowFullScreen
@@ -54,9 +53,9 @@ class TrailerCarousel extends Component {
     let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
     const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
     let nextIndices;
-    if (e.target.value === 'Next') {
+    if (e.target.getAttribute('class') === 'next') {
       nextIndices = this.advanceIndices(indices);
-    } else if (e.target.value === 'Prev') {
+    } else if (e.target.getAttribute('class') === 'prev') {
       nextIndices = this.reverseIndices(indices);
     }
     [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
@@ -116,47 +115,34 @@ class TrailerCarousel extends Component {
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
-
       <section>
+        <h3 className="carousel_header" >{this.props.header}</h3>
         <ul className="carousel">
-          <li className="items main-pos" id="1">
-            {videoEmbedCode}
-            <div className="heart" onClick={this.handleAddLoveMovieClick} />
-            <div className="broken-heart" onClick={this.handleAddLoveMovieClick} />
-          </li>
-          <li className="items right-pos" id="2">
-            <img
-              width="560"
-              height="315"
-              src="http://image.tmdb.org/t/p//w500//mte63qJaVnoxkkXbHkdFujBnBgd.jpg"
-              alt=""
+          <li className="previous-trailer_li">
+            <div
+              className="trailer_container previous-trailer_container"
+              style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500//mte63qJaVnoxkkXbHkdFujBnBgd.jpg\')' }}
             />
           </li>
-          <li className="items back-pos" id="3">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
+          <li className="current-trailer_li">
+            <div className="trailer_container current-trailer_container">
+              {videoEmbedCode}
+              <button className="heart" onClick={this.handleAddLoveMovieClick} />
+              <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
+            </div>
+            <h4 className="current-trailer_title">{this.state.currentTrailer.title}</h4>
           </li>
-          <li className="items back-pos" id="4">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items back-pos" id="5">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items back-pos" id="6">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items left-pos" id="7">
-            <img
-              src="http://image.tmdb.org/t/p//w500/zkBN7dRpNiK4aaWF6c4WfecyXof.jpg"
-              width="560"
-              height="315"
-              alt=""
+          <li className="next-trailer_li">
+            <div
+              className="trailer_container next-trailer_container"
+              style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500/zkBN7dRpNiK4aaWF6c4WfecyXof.jpg\')' }}
             />
           </li>
         </ul>
-        <span>
-          <input type="button" value="Prev" id="prev" onClick={this.handleCarouselButton} />
-          <input type="button" value="Next" id="next" onClick={this.handleCarouselButton} />
-        </span>
+        <div className="carousel-buttons">
+          <button className="prev" onClick={this.handleCarouselButton} >Prev</button>
+          <button className="next" onClick={this.handleCarouselButton} >Next </button>
+        </div>
       </section>
       );
   }
