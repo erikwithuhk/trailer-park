@@ -19,23 +19,6 @@ class MovieCarousel extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
   }
-  handleCarouselButton(e) {
-    let nextIndices;
-    if (e.target.value === 'Next') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex += 1,
-        previousTrailerIndex: this.state.previousTrailerIndex += 1,
-        nextTrailerIndex: this.state.nextTrailerIndex += 1,
-      };
-    } else if (e.target.value === 'Prev') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex -= 1,
-        previousTrailerIndex: this.state.previousTrailerIndex -= 1,
-        nextTrailerIndex: this.state.nextTrailerIndex -= 1,
-      };
-    }
-    this.setState({ nextIndices });
-  }
   getVideoEmbedCode() {
     if (this.state.currentTrailer) {
       const videoHostDomain = 'https://www.youtube.com/embed/';
@@ -53,6 +36,23 @@ class MovieCarousel extends Component {
       );
     }
     return 'Loading';
+  }
+  handleCarouselButton(e) {
+    let nextIndices;
+    if (e.target.value === 'Next') {
+      nextIndices = {
+        currentTrailerIndex: this.state.currentTrailerIndex += 1,
+        previousTrailerIndex: this.state.previousTrailerIndex += 1,
+        nextTrailerIndex: this.state.nextTrailerIndex += 1,
+      };
+    } else if (e.target.value === 'Prev') {
+      nextIndices = {
+        currentTrailerIndex: this.state.currentTrailerIndex -= 1,
+        previousTrailerIndex: this.state.previousTrailerIndex -= 1,
+        nextTrailerIndex: this.state.nextTrailerIndex -= 1,
+      };
+    }
+    this.setState({ nextIndices });
   }
   render() {
     // const youTubeUrl = 'https://www.youtube.com/embed/';
