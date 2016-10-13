@@ -10,8 +10,8 @@ class MovieCarousel extends Component {
     super();
     this.state = {
       currentTrailerIndex: 0,
-      previousTrailerIndex: -1,
-      nextTrailerIndex: 1,
+      previousTrailerIndex: 0,
+      nextTrailerIndex: 0,
       currentTrailer: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
@@ -20,7 +20,13 @@ class MovieCarousel extends Component {
     this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
+    const currentTrailerIndex = this.state.currentTrailerIndex || 0;
+    this.setState({
+      previousTrailerIndex: (nextProps.trailers.length - 1) || 0,
+      currentTrailerIndex,
+      currentTrailer: nextProps.trailers[currentTrailerIndex || 0],
+      nextTrailerIndex: currentTrailerIndex + 1 || 1,
+    });
   }
   getVideoEmbedCode(trailer = this.state.currentTrailer) {
     if (trailer) {
