@@ -6,6 +6,7 @@
 #CC9E61 - AMBER - Nylon Stockings
 #626266 - GRAY - Pit pony
 font-family: 'Airstream', arial;
+font-family: 'Roboto', sans-serif;
 -----------------------------------*/
 
 /* =======================
@@ -40,6 +41,8 @@ TABLE OF CONTENTS
 2. Reset Styles
 ======================= */
 
+
+
 /* * {
   box-sizing: border-box;
   margin: 0;
@@ -58,15 +61,31 @@ input {
 3. Global Styles
 ======================= */
 
+
 body {
-    background-color: black;
-    font: normal 16px 'Roboto Condensed', sans-serif;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  font-size:  1rem;
+}
+
+.clearfix:after {
+   visibility: hidden;
+   display: block;
+   font-size: 0;
+   content: " ";
+   clear: both;
+   height: 0;
+}
+
+h1 {
+  font-size:  2.5rem;
 }
 
 h2 {
   background-color: lightgrey;
   color: black;
-  font-size: 1.5rem;
+  font-size: 2rem;
   height: 15%;
   left: 0;
   margin-bottom: 0rem;
@@ -104,37 +123,44 @@ h3 {
 ======================= */
 
 .top-nav {
-  background-color: #eee;
-  padding: 1rem 1rem 0;
+  background-color: #938172;
+  box-sizing: border-box;
 }
-
-.top-nav .trailericon,
-.top-nav .top-nav_links {
-  display: inline-block;
+.trailericon {
+  display: block;
+  left: 10px;
+  max-height: 150px;
+  position: absolute;
+  top: 5px;
 }
-
 .top-nav_links {
   float: right;
+  position:  relative;
+  padding: 1rem;
 }
 
-.top-nav_links a {
-  color: #000;
+
+
+
+
+/* .top-nav .trailericon,
+.top-nav .top-nav_links {
   display: inline-block;
-  font-size: 1rem;
-  padding: 0.5rem;
+} */
+
+
+.top-nav_links a {
+  color: #fff;
+  display: inline-block;
+  padding: 1.5rem 1.5rem 1.5rem 0;
   text-decoration: none;
 }
 
 .top-nav_links a:hover {
-  background-color: #000;
-  color: #fff;
+  color: #541F14;
 }
 
-.trailericon {
-  margin-bottom: -2rem;
-  position: relative;
-  width: 15%;
-}
+
 
 
 
@@ -152,20 +178,16 @@ h3 {
   padding: 5rem 0;
 }
 
-.welcome-text {
+h1.welcome-text {
   color: #fff;
-  margin: 2rem auto;
-  text-align: center;
-<<<<<<< HEAD
-  vertical-align: middle;
-  margin-bottom: 0rem;
-  padding: 1%;
-  font-size: 1.5rem;
-  display: block;
-  margin: 1em auto;
-=======
-  width: 90%;
->>>>>>> master
+  font-weight: 300;
+  margin: .5em 1em;
+}
+h1 em {
+  font-family: 'airstream', arial;
+  font-size: 1.3em;
+  letter-spacing: .05em;
+  padding-right: .05em;
 }
 
 .search-form {
@@ -235,3 +257,9 @@ h3 {
 /* =======================
 10. Media Queries
 ======================= */
+
+@media (max-width: 768px) {
+
+
+
+}

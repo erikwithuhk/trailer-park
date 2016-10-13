@@ -48,7 +48,7 @@ class Search extends Component {
     if (!this.props.token) {
       welcomeText = (
         <h1 className="welcome-text">
-          Welcome to the Trailer Park! Add movies to your list...etc...
+          Welcome to the <em>Trailer Park</em>! Add movies to your list...etc...
         </h1>
       );
       signupButton = (
