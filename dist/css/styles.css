@@ -1,4 +1,12 @@
-/* >>>>>> TODO need to delete unused fonts linked in index.html file   */
+
+/*  ---------- COLORS AND FONTS ----------------
+#020304 - BLACK - Sequential black
+#541F14 - MAROON - Ruby Tuesday
+#938172 - TAUPE - Reclining Nude
+#CC9E61 - AMBER - Nylon Stockings
+#626266 - GRAY - Pit pony
+font-family: 'Airstream', arial;
+-----------------------------------*/
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +14,7 @@
 
 body {
     background-color: black;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: sans-serif;
 }
 
 #trailericon {
@@ -35,7 +43,6 @@ h1 {
 h2 {
   background-color: lightgrey;
   color: black;
-  font-family: 'Shrikhand', cursive;
   font-size: 1.5rem;
   height: 15%;
   left: 0;
@@ -50,7 +57,6 @@ h2 {
 h3 {
   background-color: black;
   color: white;
-  font-family: 'Roboto Condensed', sans-serif;
   font-size: 1.5rem;
   height: 15%;
   left: 0;
@@ -73,7 +79,6 @@ input {
   vertical-align: middle;
   margin-bottom: 0rem;
   padding: 1%;
-  font-family: 'Roboto Condensed', sans-serif;
   font-size: 1.5rem;
   display: block;
   margin: 1em auto;
