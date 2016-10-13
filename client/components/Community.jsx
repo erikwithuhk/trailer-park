@@ -1,7 +1,7 @@
 import { hashHistory, withRouter } from 'react-router';
 import React, { Component } from 'react';
 import request from 'superagent';
-import MovieCarousel from './MovieCarousel.jsx';
+import TrailerCarousel from './TrailerCarousel.jsx';
 
 class Community extends Component {
   constructor() {
@@ -37,7 +37,7 @@ const usernames = this.state.users.map((user, idx) => {
   return(
     <div key={user.id} >
       <li >{user.username}</li>
-      <MovieCarousel trailers={this.state.trailers[idx]} />
+      <TrailerCarousel trailers={this.state.trailers[idx]} />
     </div>
     );
 });
