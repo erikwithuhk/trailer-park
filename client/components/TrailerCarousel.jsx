@@ -5,7 +5,7 @@ const propTypes = {
   trailers: React.PropTypes.array,
 };
 
-class MovieCarousel extends Component {
+class TrailerCarousel extends Component {
   constructor() {
     super();
     this.state = {
@@ -162,6 +162,6 @@ class MovieCarousel extends Component {
   }
 }
 
-MovieCarousel.propTypes = propTypes;
+TrailerCarousel.propTypes = propTypes;
 
-export default MovieCarousel;
+export default TrailerCarousel;

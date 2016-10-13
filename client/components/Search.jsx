@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import request from 'superagent';
-import MovieCarousel from './MovieCarousel.jsx';
+import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   token: React.PropTypes.string,
@@ -72,7 +72,7 @@ class Search extends Component {
           />
           <input className="search-form_submit-button" type="submit" value="Search" />
         </form>
-        <MovieCarousel trailers={this.state.trailers} />
+        <TrailerCarousel trailers={this.state.trailers} />
         {signupButton}
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
 import jwtDecode from 'jwt-decode';
-import MovieCarousel from './MovieCarousel.jsx';
+import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   token: React.PropTypes.string,
@@ -143,7 +143,7 @@ class UserProfile extends Component {
             onClick={this.handleDelete}
           />
         </form>
-        <MovieCarousel trailers={this.state.trailers} />
+        <TrailerCarousel trailers={this.state.trailers} />
       </div>
     );
   }
