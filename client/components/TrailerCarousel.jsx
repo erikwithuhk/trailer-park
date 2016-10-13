@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import request from 'superagent';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
@@ -18,10 +19,8 @@ class TrailerCarousel extends Component {
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
-    this.handleAddLoveMovie = this.handleAddLoveMovie.bind(this);
-    this.handleAddLoveMovieClick = this.handleAddLoveMovieClick.bind(this);
-    this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
-    this.handleAddHateMovieClick = this.handleAddHateMovieClick.bind(this);
+    this.handleAddTrailer = this.handleAddTrailer.bind(this);
+    this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -112,31 +111,23 @@ class TrailerCarousel extends Component {
       return index - 1;
     });
   }
-  handleAddLoveMovie() {
-   request.post(`/api/users/${this.props.currentUser.id}/trailers`)
-           .send(this.state)
-           .then((response) => {
-            const updated = response.body;
-              console.log(updated);
-             this.setState(updated);
-      });
-  }
-  handleAddLoveMovieClick(e) {
+  handleAddTrailer(e) {
     e.preventDefault();
-    this.handleAddLoveMovie();
-  }
-  handleAddHateMovie() {
     request.post(`/api/users/${this.props.currentUser.id}/trailers`)
            .send(this.state)
            .then((response) => {
-            const updated = response.body;
-              console.log(updated);
+             const updated = response.body;
              this.setState(updated);
-      });
+           });
   }
-  handleAddHateMovieClick(e) {
+  handleBlockTrailer(e) {
     e.preventDefault();
-    this.handleAddHateMovie();
+    request.post(`/api/users/${this.props.currentUser.id}/trailers`)
+           .send(this.state)
+           .then((response) => {
+             const updated = response.body;
+             this.setState(updated);
+           });
   }
   render() {
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
@@ -153,8 +144,8 @@ class TrailerCarousel extends Component {
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
                 {videoEmbedCode}
-                <button className="heart" onClick={this.handleAddLoveMovieClick} />
-                <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
+                <button className="heart" onClick={this.handleAddTrailer} />
+                <button className="broken-heart" onClick={this.handleBlockTrailer} />
               </div>
               <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
             </li>
