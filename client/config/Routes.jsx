@@ -2,8 +2,8 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from '../../client/components/App.jsx';
 import Search from '../../client/components/Search.jsx';
-import UserProfile from '../components/UserProfile.jsx';
 import UserForm from '../components/users/UserForm.jsx';
+import UserProfile from '../components/UserProfile.jsx';
 import MovieCarousel from '../components/MovieCarousel.jsx';
 import Community from '../components/Community.jsx';
 
@@ -17,8 +17,8 @@ const Routes = () => (
       <Route path="profile" component={UserProfile} />
       <Route path="carousel" component={MovieCarousel} />
       <Route path="community" component={Community} />
+      <Route path="search" component={Search} />
     </Route>
-    <Route path="/search" component={Search} />
   </Router>
 );
 
