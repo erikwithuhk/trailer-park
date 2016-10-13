@@ -10,8 +10,8 @@ class MovieCarousel extends Component {
     super();
     this.state = {
       currentTrailerIndex: 0,
-      previousTrailerIndex: -1,
-      nextTrailerIndex: 2,
+      previousTrailerIndex: 0,
+      nextTrailerIndex: 0,
       currentTrailer: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
@@ -20,12 +20,18 @@ class MovieCarousel extends Component {
     this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
+    const currentTrailerIndex = this.state.currentTrailerIndex || 0;
+    this.setState({
+      previousTrailerIndex: (nextProps.trailers.length - 1) || 0,
+      currentTrailerIndex,
+      currentTrailer: nextProps.trailers[currentTrailerIndex || 0],
+      nextTrailerIndex: currentTrailerIndex + 1 || 1,
+    });
   }
-  getVideoEmbedCode() {
-    if (this.state.currentTrailer) {
+  getVideoEmbedCode(trailer = this.state.currentTrailer) {
+    if (trailer) {
       const videoHostDomain = 'https://www.youtube.com/embed/';
-      const currentTrailerKey = this.state.currentTrailer.videoKey;
+      const currentTrailerKey = trailer.videoKey;
       const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=0';
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
@@ -40,22 +46,42 @@ class MovieCarousel extends Component {
     }
     return 'Loading';
   }
+  setCurrentTrailer() {
+    this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
+  }
   handleCarouselButton(e) {
+    let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
+    const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
     let nextIndices;
     if (e.target.value === 'Next') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex += 1,
-        previousTrailerIndex: this.state.previousTrailerIndex += 1,
-        nextTrailerIndex: this.state.nextTrailerIndex += 1,
-      };
+      nextIndices = this.advanceIndices(indices);
     } else if (e.target.value === 'Prev') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex -= 1,
-        previousTrailerIndex: this.state.previousTrailerIndex -= 1,
-        nextTrailerIndex: this.state.nextTrailerIndex -= 1,
-      };
+      nextIndices = this.reverseIndices(indices);
     }
-    this.setState({ nextIndices });
+    [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
+    const nextState = {
+      previousTrailerIndex,
+      currentTrailerIndex,
+      currentTrailer: this.props.trailers[currentTrailerIndex],
+      nextTrailerIndex,
+    };
+    this.setState(nextState);
+  }
+  advanceIndices(indices) {
+    return indices.map((index) => {
+      if (index >= this.props.trailers.length - 1) {
+        return 0;
+      }
+      return index + 1;
+    });
+  }
+  reverseIndices(indices) {
+    return indices.map((index) => {
+      if (index <= 0) {
+        return this.props.trailers.length - 1;
+      }
+      return index - 1;
+    });
   }
   handleAddLoveMovie() {
     console.log(this.props.currentUser.id)
@@ -87,7 +113,7 @@ class MovieCarousel extends Component {
   render() {
     // const movieStill = 'http://image.tmdb.org/t/p//w500/';
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
-    const videoEmbedCode = this.getVideoEmbedCode();
+    const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
 
       <section>
