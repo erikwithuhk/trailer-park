@@ -6,7 +6,10 @@ class TrailerController {
     TrailerDAO.search(searchTerm)
               .then((trailerListItems) => {
                 const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
-                return Promise.all(trailersWithVideo).then(videosData => response.status(200).send(videosData));
+                return Promise.all(trailersWithVideo).then((videosData) => {
+                  const hasVideo = trailer => trailer.hasTrailer;
+                  response.status(200).send(videosData.filter(hasVideo));
+                });
               })
 
               .catch(err => response.status(500).send(err));
