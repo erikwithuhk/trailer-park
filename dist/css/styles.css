@@ -31,6 +31,7 @@ TABLE OF CONTENTS
 ======================= */
 
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -43,44 +44,7 @@ TABLE OF CONTENTS
 
 body {
     background-color: black;
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-button{
-  background-color: black;
-  border-radius: 10px;
-  border: 3px solid #42eef4;
-  color: white;
-  display: block;
-  font-family: 'Norwester', arial;
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 40px;
-  margin: 10px auto;
-  padding:.1em;
-  text-align: center;
-  width: auto;
-}
-
-button:focus {
-  text-decoration: none;
-  outline:none;
-  border: none;
-  box-shadow: none;
-}
-
-h1 {
-  box-sizing: border-box;
-  display: inline-block;
-  float: center;
-  height: 100%;
-  left: 0;
-  margin: 0 auto;
-  padding: 0px;
-  position: relative;
-  right: 28%;
-  top:5%;
-  width: 50%;
+    font: normal 16px 'Roboto Condensed', sans-serif;
 }
 
 h2 {
@@ -142,13 +106,37 @@ input {
 5. Top Nav
 ======================= */
 
-#trailericon {
-    position: relative;
-    top:5%;
-    left:70%;
-    padding: 0px;
-    display: block;
-    margin: 0em auto;
+.top-nav {
+  background-color: #eee;
+  padding: 1rem 1rem 0;
+}
+
+.top-nav .trailericon,
+.top-nav .top-nav_links {
+  display: inline-block;
+}
+
+.top-nav_links {
+  float: right;
+}
+
+.top-nav_links a {
+  color: #000;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.5rem;
+  text-decoration: none;
+}
+
+.top-nav_links a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.trailericon {
+  margin-bottom: -2rem;
+  position: relative;
+  width: 15%;
 }
 
 
@@ -162,6 +150,11 @@ input {
 /* =======================
 7. Search
 ======================= */
+
+.welcome-text {
+  color: #fff;
+  text-align: center;
+}
 
 
 

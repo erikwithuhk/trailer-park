@@ -52,16 +52,16 @@ class App extends Component {
     let userDisplayElement;
     if (this.state.token) {
       userDisplayElement = (
-        <div>
+        <div className="top-nav_links">
           <button onClick={this.signOut} >Logout</button>
           <Link to="/profile" id="profile"><button>Go to my Profile</button></Link>
         </div>
         );
     } else {
       userDisplayElement = (
-        <div>
-          <Link to="/login" id="login"><button>Login</button></Link>
-          <Link to="/signup" id="signup"><button>Sign Up</button></Link>
+        <div className="top-nav_links">
+          <Link to="/login" id="login">Login</Link>
+          <Link to="/signup" id="signup">Sign Up</Link>
         </div>
       );
     }
@@ -73,13 +73,10 @@ class App extends Component {
     });
     return (
       <div>
-        {userDisplayElement}
-        <h1>
-          <div id="trailericon">
-            <img src="trailerparklogo.png" alt="trailerparklogo" />
-          </div>
-        </h1>
-        <h2>This is the Trailer Park App Component</h2>
+        <div className="top-nav">
+          <Link to="/"><img className="trailericon" src="trailerparklogo.png" alt="trailerparklogo" /></Link>
+          {userDisplayElement}
+        </div>
         {childrenWithProps}
       </div>
     );

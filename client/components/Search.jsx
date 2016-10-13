@@ -46,8 +46,18 @@ class Search extends Component {
     let welcomeText;
     let signupButton;
     if (!this.props.token) {
-      welcomeText = (<h1>Test</h1>);
-      signupButton = (<Link to="/signup"><button className="signup-button">Create a list</button></Link>);
+      welcomeText = (
+        <h1 className="welcome-text">
+          Welcome to the Trailer Park! Add movies to your list...etc...
+        </h1>
+      );
+      signupButton = (
+        <Link to="/signup">
+          <button className="signup-button">
+            Create a list
+          </button>
+        </Link>
+      );
     }
     return (
       <div className="search-container">
