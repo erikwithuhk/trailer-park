@@ -163,7 +163,10 @@ form.search-form {
     margin: 2rem auto;
 }
 
-
+a.signup-link {
+    margin: 0 auto;
+    width: 300px;
+}
 
 /* =======================
 8. User Profile

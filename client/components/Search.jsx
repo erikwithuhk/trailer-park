@@ -60,6 +60,7 @@ class Search extends Component {
       );
       signupButton = (
         <Link to="/signup" className="signup-link">
+          <img src="./images/button-bkgd.png" />
           <button className="signup-button">
             Create a list
           </button>
