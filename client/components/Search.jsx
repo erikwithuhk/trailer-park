@@ -52,7 +52,7 @@ class Search extends Component {
         </h1>
       );
       signupButton = (
-        <Link to="/signup">
+        <Link to="/signup" className="signup-link">
           <button className="signup-button">
             Create a list
           </button>
@@ -67,10 +67,10 @@ class Search extends Component {
             className="search-form_searchbar"
             type="text"
             onChange={this.handleChange}
-            placeholder="search for a movie or tv show"
+            placeholder="Search for a movie or TV show"
             value={this.state.searchQuery}
           />
-          <input className="search-form_submit-button" type="submit" value="search" />
+          <input className="search-form_submit-button" type="submit" value="Search" />
         </form>
         <MovieCarousel trailers={this.state.trailers} />
         {signupButton}

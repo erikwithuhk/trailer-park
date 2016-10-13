@@ -60,8 +60,8 @@ class App extends Component {
     } else {
       userDisplayElement = (
         <div className="top-nav_links">
+        <Link to="/signup" id="signup">Sign up</Link>
           <Link to="/login" id="login">Login</Link>
-          <Link to="/signup" id="signup">Sign Up</Link>
         </div>
       );
     }
