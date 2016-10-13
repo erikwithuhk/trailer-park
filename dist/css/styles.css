@@ -1,14 +1,3 @@
-
-/*  ---------- COLORS AND FONTS ----------------
-#020304 - BLACK - Sequential black
-#541F14 - MAROON - Ruby Tuesday
-#938172 - TAUPE - Reclining Nude
-#CC9E61 - AMBER - Nylon Stockings
-#626266 - GRAY - Pit pony
-font-family: 'Airstream', arial;
-font-family: 'Roboto', sans-serif;
------------------------------------*/
-
 /* =======================
 
 TABLE OF CONTENTS
@@ -31,7 +20,13 @@ TABLE OF CONTENTS
 /* =======================
 1. Color Palette
 
-
+#020304 - BLACK - Sequential black
+#541F14 - MAROON - Ruby Tuesday
+#938172 - TAUPE - Reclining Nude
+#CC9E61 - AMBER - Nylon Stockings
+#626266 - GRAY - Pit pony
+font-family: 'Airstream', arial;
+font-family: 'Roboto', sans-serif;
 
 ======================= */
 
@@ -41,21 +36,15 @@ TABLE OF CONTENTS
 2. Reset Styles
 ======================= */
 
-
-
-/* * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
-
-
-/* button,
+}
+button,
 input {
   -webkit-appearance: none;
   }
- */
-
 
 /* =======================
 3. Global Styles
@@ -101,16 +90,23 @@ input {
   background: none;
   box-sizing: border-box;
   color: #CC9E61;
-  padding: 1rem;
+  padding: .5rem;
   text-align: center;
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 60%;
   text-transform: uppercase;
   letter-spacing: .3rem;
   font-size: 1.25rem;
 }
-
+footer {
+    display: block;
+    font-size: .75rem;
+    padding: 1rem;
+    background-color: #626266;
+    margin-top: 2rem;
+    letter-spacing: .05em;
+}
 /* =======================
 4. App
 ======================= */
@@ -151,7 +147,132 @@ input {
 6. Movie Carousel
 ======================= */
 
-
+.carousel-container {
+  width: 100%;
+  margin: 3rem auto;
+  position: relative;
+}
+li {
+  width: 500px;
+  height: 281px;
+  background: #333;
+  display: inline-block;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+}
+li p {
+  color: white;
+  font-weight: bold;
+  font-size: 5em;
+}
+.carousel_header {
+  margin: 1rem;
+  font-weight: 300;
+  font-style: italic;
+}
+.previous-trailer_li,
+.next-trailer_li {
+  position: absolute;
+  opacity: 0.5;
+  width: 40%;
+}
+.previous-trailer_li {
+  left: 0;
+}
+.next-trailer_li {
+  right: 0;
+}
+.previous-trailer_container,
+.next-trailer_container {
+  background-color: #ccc;
+  background-size: cover;
+}
+.current-trailer_li {
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  z-index: 3000;
+}
+.trailer_container {
+  background-color: #fff;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.current-trailer_container iframe,
+.current-trailer_container object,
+.current-trailer_container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.current-trailer_title {
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 1rem;
+  text-align: center;
+}
+.current-trailer_li > button {
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 3rem;
+  position: absolute;
+  top: 40%;
+  opacity: .5;
+  line-height: 2rem;
+  width: 3rem;
+  height: 3rem;
+  outline: none;
+}
+button.prev {
+  left:  0;
+}
+button.next {
+  right: 0;
+}
+.current-trailer_li > button:hover {
+    opacity: .3;
+    background-color: #938172;
+    border-radius: 1.5rem;
+    color: #000;
+}
+.spacer {
+  position: relative;
+}
+.spacer-div {
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
+}
+.heart,
+.broken-heart {
+  background-size: 80%;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  height: 30px;
+  left: 50%;
+  position: absolute;
+  width: 30px;
+  background-position: 50%;
+  opacity: .7;
+}
+.heart {
+  top: 10px;
+  background-image: url(../images/heart.png);
+}
+.broken-heart {
+  bottom: 10px;
+  background-image: url(../images/broken-heart.png);
+}
+.heart:hover,
+.broken-heart:hover {
+  background-color: red;
+}
 
 
 /* =======================
@@ -160,14 +281,41 @@ input {
 
 
 form.search-form {
-    margin: 2rem auto;
+  margin: 2rem auto;
+}
+form h1 {
+  font-family: 'Airstream', arial;
 }
 
 a.signup-link {
-    margin: 0 auto;
-    width: 300px;
+  margin: 0 auto;
+}
+button.signup-button {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(../images/button-bkgd.png);
+  border: none;
+  padding: 2rem;
+  font-family: 'Airstream', arial;
+  font-size: 3rem;
+  color: #fff;
+  background-color: #02030D;
+}
+button.signup-button:focus {
+  outline: none;
+}
+button.signup-button:hover {
+  opacity: .8;
 }
 
+h4.current-trailer_title:before {
+    content: "Now playing:";
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 300;
+    font-style: italic;
+    padding-right: .5rem;
+}
 /* =======================
 8. User Profile
 ======================= */
