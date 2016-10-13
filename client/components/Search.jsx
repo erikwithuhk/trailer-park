@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
@@ -43,17 +44,26 @@ class Search extends Component {
   }
   render() {
     let welcomeText;
+    let signupButton;
     if (!this.props.token) {
       welcomeText = (<h1>Test</h1>);
+      signupButton = (<Link to="/signup"><button className="signup-button">Create a list</button></Link>);
     }
     return (
-      <div>
+      <div className="search-container">
         {welcomeText}
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" onChange={this.handleChange} placeholder="search for a movie or tv show" value={this.state.searchQuery} />
-          <input type="submit" value="search" />
+        <form className="search-form" onSubmit={this.handleSubmit}>
+          <input
+            className="search-form_searchbar"
+            type="text"
+            onChange={this.handleChange}
+            placeholder="search for a movie or tv show"
+            value={this.state.searchQuery}
+          />
+          <input className="search-form_submit-button" type="submit" value="search" />
         </form>
         <MovieCarousel trailers={this.state.trailers} />
+        {signupButton}
       </div>
     );
   }
