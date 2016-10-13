@@ -63,7 +63,7 @@ input {
 
 
 body {
-  background-color: black;
+  background-color: #020304;
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size:  1rem;
@@ -91,6 +91,9 @@ h1 em {
 h2 {
   font-weight:  300;
   margin: 1rem;
+}
+h4 {
+  color: #fff;
 }
 input {
   border: 2px solid #938172;
@@ -134,21 +137,15 @@ input {
   float: right;
   position:  relative;
 }
-
 .top-nav_links a {
   color: #fff;
   display: inline-block;
   padding: 1.5rem 1.5rem 1.5rem 0;
   text-decoration: none;
 }
-
 .top-nav_links a:hover {
   color: #541F14;
 }
-
-
-
-
 
 /* =======================
 6. Movie Carousel
@@ -166,51 +163,6 @@ form.search-form {
     margin: 2rem auto;
 }
 
-/* .search-form_searchbar,
-.search-form_submit-button,
-.signup-button {
-  border: 2px solid #989898;
-  display: inline-block;
-  font-size: 1.25rem;
-  padding: 0.5rem;
-} */
-
-/* .search-form_searchbar {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  border-right: none;
-  width: 67%;
-} */
-
-/* .search-form_submit-button,
-.signup-button {
-  background-color: #ddd;
-  color: #000;
-  cursor: pointer;
-  width: 33%;
-} */
-
-/* .search-form_submit-button:hover,
-.signup-button:hover {
-  background-color: #989898;
-  color: #fff;
-} */
-
-/* .search-form_submit-button {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-} */
-
-
-/* .signup-link {
-  display: block;
-  text-align: center;
-}
-
-.signup-button {
-  border-radius: 5px;
-  margin: 0 auto;
-} */
 
 
 /* =======================
