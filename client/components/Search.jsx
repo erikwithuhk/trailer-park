@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import request from 'superagent';
 import MovieCarousel from './MovieCarousel.jsx';
 
+const propTypes = {
+  token: React.PropTypes.string,
+}
+
 class Search extends Component {
   constructor() {
     super();
@@ -38,8 +42,13 @@ class Search extends Component {
     this.setState({ searchQuery: '' });
   }
   render() {
+    let welcomeText;
+    if (!this.props.token) {
+      welcomeText = (<h1>Test</h1>);
+    }
     return (
       <div>
+        {welcomeText}
         <form onSubmit={this.handleSubmit}>
           <input type="text" onChange={this.handleChange} placeholder="search for a movie or tv show" value={this.state.searchQuery} />
           <input type="submit" value="search" />
@@ -49,5 +58,7 @@ class Search extends Component {
     );
   }
 }
+
+Search.propTypes = propTypes;
 
 export default Search;
