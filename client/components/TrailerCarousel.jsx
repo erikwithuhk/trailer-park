@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 const propTypes = {
   currentUser: React.PropTypes.object,
   trailers: React.PropTypes.array,
+  header: React.PropTypes.string,
 };
 
-class MovieCarousel extends Component {
+class TrailerCarousel extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,6 +14,9 @@ class MovieCarousel extends Component {
       previousTrailerIndex: 0,
       nextTrailerIndex: 0,
       currentTrailer: '',
+      currentTrailerTitle: '',
+      carouselHeight: 0,
+      header: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
@@ -21,11 +25,14 @@ class MovieCarousel extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const currentTrailerIndex = this.state.currentTrailerIndex || 0;
+    const currentTrailer = nextProps.trailers[currentTrailerIndex];
     this.setState({
       previousTrailerIndex: (nextProps.trailers.length - 1) || 0,
       currentTrailerIndex,
-      currentTrailer: nextProps.trailers[currentTrailerIndex || 0],
+      currentTrailer: currentTrailer || 0,
+      currentTrailerTitle: currentTrailer.title || '',
       nextTrailerIndex: currentTrailerIndex + 1 || 1,
+      header: nextProps.header,
     });
   }
   getVideoEmbedCode(trailer = this.state.currentTrailer) {
@@ -37,8 +44,6 @@ class MovieCarousel extends Component {
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
         <iframe
-          width="560"
-          height="315"
           src={currentTrailerURL}
           frameBorder="0"
           allowFullScreen
@@ -54,9 +59,9 @@ class MovieCarousel extends Component {
     let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
     const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
     let nextIndices;
-    if (e.target.value === 'Next') {
+    if (e.target.getAttribute('class') === 'next') {
       nextIndices = this.advanceIndices(indices);
-    } else if (e.target.value === 'Prev') {
+    } else if (e.target.getAttribute('class') === 'prev') {
       nextIndices = this.reverseIndices(indices);
     }
     [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
@@ -111,57 +116,55 @@ class MovieCarousel extends Component {
     e.preventDefault();
     this.handleAddHateMovie();
   }
+  componentDidMount() {
+    const carouselHeight = document.querySelector('.current-trailer_li').offsetHeight;
+    this.setState({
+      carouselHeight,
+    });
+  }
   render() {
     // const movieStill = 'http://image.tmdb.org/t/p//w500/';
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
-
-      <section>
-        <ul className="carousel">
-          <li className="items main-pos" id="1">
-            {videoEmbedCode}
-            <div className="heart" onClick={this.handleAddLoveMovieClick} />
-            <div className="broken-heart" onClick={this.handleAddLoveMovieClick} />
-          </li>
-          <li className="items right-pos" id="2">
-            <img
-              width="560"
-              height="315"
-              src="http://image.tmdb.org/t/p//w500//mte63qJaVnoxkkXbHkdFujBnBgd.jpg"
-              alt=""
-            />
-          </li>
-          <li className="items back-pos" id="3">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items back-pos" id="4">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items back-pos" id="5">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items back-pos" id="6">
-            <iframe width="560" height="315" frameBorder="0" allowFullScreen />
-          </li>
-          <li className="items left-pos" id="7">
-            <img
-              src="http://image.tmdb.org/t/p//w500/zkBN7dRpNiK4aaWF6c4WfecyXof.jpg"
-              width="560"
-              height="315"
-              alt=""
-            />
-          </li>
-        </ul>
-        <span>
-          <input type="button" value="Prev" id="prev" onClick={this.handleCarouselButton} />
-          <input type="button" value="Next" id="next" onClick={this.handleCarouselButton} />
-        </span>
-      </section>
+      <div className="carousel-container">
+        <section
+          className="carousel"
+        >
+          <h3 className="carousel_header" >{this.state.header}</h3>
+          <ul className="carousel">
+            <li className="previous-trailer_li">
+              <div
+                className="trailer_container previous-trailer_container"
+                style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500//mte63qJaVnoxkkXbHkdFujBnBgd.jpg\')' }}
+              />
+            </li>
+            <li className="current-trailer_li">
+              <div className="trailer_container current-trailer_container">
+                {videoEmbedCode}
+                <button className="heart" onClick={this.handleAddLoveMovieClick} />
+                <button className="broken-heart" onClick={this.handleAddLoveMovieClick} />
+              </div>
+              <h4 className="current-trailer_title">{this.state.currentTrailerTitle}</h4>
+            </li>
+            <li className="next-trailer_li">
+              <div
+                className="trailer_container next-trailer_container"
+                style={{ backgroundImage: 'url(\'http://image.tmdb.org/t/p//w500/zkBN7dRpNiK4aaWF6c4WfecyXof.jpg\')' }}
+              />
+            </li>
+            <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
+          </ul>
+        </section>
+        <div className="carousel-buttons">
+          <button className="prev" onClick={this.handleCarouselButton} >Prev</button>
+          <button className="next" onClick={this.handleCarouselButton} >Next </button>
+        </div>
+      </div>
       );
   }
 }
 
-MovieCarousel.propTypes = propTypes;
+TrailerCarousel.propTypes = propTypes;
 
-export default MovieCarousel;
+export default TrailerCarousel;

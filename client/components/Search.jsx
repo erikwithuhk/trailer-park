@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import request from 'superagent';
-import MovieCarousel from './MovieCarousel.jsx';
+import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   token: React.PropTypes.string,
@@ -12,6 +12,7 @@ class Search extends Component {
     super();
     this.state = {
       searchQuery: 'hook',
+      querySearched: 'Popular Trailers',
       trailers: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -40,7 +41,10 @@ class Search extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.getVideos();
-    this.setState({ searchQuery: '' });
+    this.setState({
+      querySearched: this.state.searchQuery,
+      searchQuery: '',
+    });
   }
   render() {
     let welcomeText;
@@ -72,7 +76,10 @@ class Search extends Component {
           />
           <input className="search-form_submit-button" type="submit" value="Search" />
         </form>
-        <MovieCarousel trailers={this.state.trailers} />
+        <TrailerCarousel
+          header={`Search results for: ${this.state.querySearched}`}
+          trailers={this.state.trailers}
+        />
         {signupButton}
       </div>
     );
