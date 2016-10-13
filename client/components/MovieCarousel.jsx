@@ -12,20 +12,33 @@ class MovieCarousel extends Component {
       currentTrailerIndex: 0,
       previousTrailerIndex: -1,
       nextTrailerIndex: 2,
-      currentTrailer: {
-        videoKey: '',
-      },
-      currentTrailerURL: '',
-
+      currentTrailer: '',
     };
-    this.createVideoEmbedCode = this.createVideoEmbedCode.bind(this);
+    this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
     this.handleAddLoveMovie = this.handleAddLoveMovie.bind(this);
     this.handleAddHateMovie = this.handleAddHateMovie.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ currentTrailer: nextProps.trailers[this.state.currentTrailerIndex] });
-    this.createVideoEmbedCode(nextProps.trailers);
+  }
+  getVideoEmbedCode() {
+    if (this.state.currentTrailer) {
+      const videoHostDomain = 'https://www.youtube.com/embed/';
+      const currentTrailerKey = this.state.currentTrailer.videoKey;
+      const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=0';
+      const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
+      return (
+        <iframe
+          width="560"
+          height="315"
+          src={currentTrailerURL}
+          frameBorder="0"
+          allowFullScreen
+        />
+      );
+    }
+    return 'Loading';
   }
   handleCarouselButton(e) {
     let nextIndices;
@@ -43,14 +56,6 @@ class MovieCarousel extends Component {
       };
     }
     this.setState({ nextIndices });
-    this.createVideoEmbedCode();
-  }
-  createVideoEmbedCode(trailers = this.props.trailers) {
-    const videoHostDomain = 'https://www.youtube.com/embed/';
-    const currentTrailerKey = trailers[this.state.currentTrailerIndex].videoKey;
-    const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=30';
-    const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
-    this.setState({ currentTrailerURL });
   }
   handleAddLoveMovie() {
     console.log(this.props.currentUser.id)
@@ -82,21 +87,15 @@ class MovieCarousel extends Component {
   render() {
     // const movieStill = 'http://image.tmdb.org/t/p//w500/';
     // const movieStillBackdropPath = 'mte63qJaVnoxkkXbHkdFujBnBgd.jpg';
+    const videoEmbedCode = this.getVideoEmbedCode();
     return (
 
       <section>
         <ul className="carousel">
           <li className="items main-pos" id="1">
-            <iframe
-              width="560"
-              height="315"
-              src={this.state.currentTrailerURL}
-              frameBorder="0"
-              allowFullScreen
-            />
+            {videoEmbedCode}
             <div className="heart" onClick={this.handleAddLoveMovieClick} />
             <div className="broken-heart" onClick={this.handleAddLoveMovieClick} />
-
           </li>
           <li className="items right-pos" id="2">
             <img

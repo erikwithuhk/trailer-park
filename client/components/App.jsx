@@ -5,7 +5,6 @@ import cookie from 'react-cookie';
 
 const propTypes = {
   children: React.PropTypes.element,
-  currentUser: React.PropTypes.object,
 };
 
 class App extends Component {
@@ -13,7 +12,6 @@ class App extends Component {
     super(props);
     this.state = {
       token: null,
-      currentUser: {},
     };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -24,30 +22,29 @@ class App extends Component {
   }
   signOut() {
     request.post('/api/signout')
-           .then(() => this.updateAuth());
-           hashHistory.push('/');
+           .then(() => {
+             this.updateAuth();
+             hashHistory.push('/');
+           });
   }
-  updateAuth(currentUser) {
+  updateAuth() {
     this.setState({
       token: cookie.load('token'),
-      currentUser,
     });
   }
   logIn(userDetails) {
     request.post('/api/login')
            .send(userDetails)
-           .then((currentUserData) => {
-             const currentUser = currentUserData.body;
-             this.updateAuth(currentUser);
+           .then(() => {
+             this.updateAuth();
              hashHistory.push('/profile');
            });
   }
   signUp(userDetails) {
     request.post('/api/signup')
            .send(userDetails)
-           .then((currentUserData) => {
-             const currentUser = currentUserData.body;
-             this.updateAuth(currentUser);
+           .then(() => {
+             this.updateAuth();
              hashHistory.push('/profile');
            });
   }
@@ -69,7 +66,7 @@ class App extends Component {
       );
     }
     const childrenWithProps = React.cloneElement(this.props.children, {
-      currentUser: this.state.currentUser,
+      token: this.state.token,
       handleLogin: this.logIn,
       handleSignup: this.signUp,
       handleSignout: this.signOut,
