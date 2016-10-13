@@ -40,7 +40,7 @@ class MovieCarousel extends Component {
     if (this.state.currentTrailer) {
       const videoHostDomain = 'https://www.youtube.com/embed/';
       const currentTrailerKey = this.state.currentTrailer.videoKey;
-      const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=30';
+      const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1&start=0';
       const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
       return (
         <iframe
