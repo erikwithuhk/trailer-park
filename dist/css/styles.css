@@ -1,21 +1,72 @@
-/* >>>>>> TODO need to delete unused fonts linked in index.html file   */
+/* =======================
+
+TABLE OF CONTENTS
+
+1. Color Palette
+2. Reset Styles
+3. Global Styles
+4. App
+5. Top Nav
+6. Movie Carousel
+7. Search
+8. User Profile
+9. Community
+10. Media Queries
+
+======================= */
+
+
+
+/* =======================
+1. Color Palette
+
+
+
+======================= */
+
+
+
+/* =======================
+2. Reset Styles
+======================= */
+
 * {
   margin: 0;
   padding: 0;
 }
+
+
+
+/* =======================
+3. Global Styles
+======================= */
 
 body {
     background-color: black;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-#trailericon {
-    position: relative;
-    top:5%;
-    left:70%;
-    padding: 0px;
-    display: block;
-    margin: 0em auto;
+button{
+  background-color: black;
+  border-radius: 10px;
+  border: 3px solid #42eef4;
+  color: white;
+  display: block;
+  font-family: 'Norwester', arial;
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 40px;
+  margin: 10px auto;
+  padding:.1em;
+  text-align: center;
+  width: auto;
+}
+
+button:focus {
+  text-decoration: none;
+  outline:none;
+  border: none;
+  box-shadow: none;
 }
 
 h1 {
@@ -81,28 +132,51 @@ input {
 
 
 
-button{
-  background-color: black;
-  border-radius: 10px;
-  border: 3px solid #42eef4;
-  color: white;
-  display: block;
-  font-family: 'Norwester', arial;
-  font-size: 1.5rem;
-  font-weight: bold;
-  height: 40px;
-  margin: 10px auto;
-  padding:.1em;
-  text-align: center;
-  width: auto;
-}
+/* =======================
+4. App
+======================= */
 
-button:focus {
-  text-decoration: none;
-  outline:none;
-  border: none;
-  box-shadow: none;
+
+
+/* =======================
+5. Top Nav
+======================= */
+
+#trailericon {
+    position: relative;
+    top:5%;
+    left:70%;
+    padding: 0px;
+    display: block;
+    margin: 0em auto;
 }
 
 
 
+/* =======================
+6. Movie Carousel
+======================= */
+
+
+
+/* =======================
+7. Search
+======================= */
+
+
+
+/* =======================
+8. User Profile
+======================= */
+
+
+
+/* =======================
+9. Community
+======================= */
+
+
+
+/* =======================
+10. Media Queries
+======================= */
