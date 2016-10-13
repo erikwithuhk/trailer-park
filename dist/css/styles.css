@@ -140,12 +140,12 @@ h3 {
 ======================= */
 
 .search-container {
-  padding-bottom: 5rem;
+  padding: 5rem 0;
 }
 
 .welcome-text {
   color: #fff;
-  margin: 5rem auto 2rem;
+  margin: 2rem auto;
   text-align: center;
   width: 90%;
 }
