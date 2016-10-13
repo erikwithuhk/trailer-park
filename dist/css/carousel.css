@@ -1,5 +1,5 @@
 section {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   position: relative;
 }
@@ -66,10 +66,17 @@ section {
 }
 
 .carousel-buttons {
+  text-align: center;
+}
+
+.spacer {
   position: relative;
-  margin: 0 auto;
-  left: 17em;
-  top: 20em;
+}
+
+.spacer-div {
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%;
 }
 
 .heart,

@@ -94,7 +94,8 @@ class UserProfile extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="profile-container">
+        <TrailerCarousel header="Your Trailers" trailers={this.state.trailers} />
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>
           <input
@@ -143,7 +144,6 @@ class UserProfile extends Component {
             onClick={this.handleDelete}
           />
         </form>
-        <TrailerCarousel trailers={this.state.trailers} />
       </div>
     );
   }
