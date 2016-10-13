@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
 import jwtDecode from 'jwt-decode';
-import MovieCarousel from './MovieCarousel.jsx';
+import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   token: React.PropTypes.string,
@@ -94,7 +94,8 @@ class UserProfile extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="profile-container">
+        <TrailerCarousel header="Your Trailers" trailers={this.state.trailers} />
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>
           <input
@@ -143,7 +144,6 @@ class UserProfile extends Component {
             onClick={this.handleDelete}
           />
         </form>
-        <MovieCarousel trailers={this.state.trailers} />
       </div>
     );
   }
