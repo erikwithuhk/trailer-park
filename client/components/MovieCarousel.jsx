@@ -10,7 +10,7 @@ class MovieCarousel extends Component {
     this.state = {
       currentTrailerIndex: 0,
       previousTrailerIndex: -1,
-      nextTrailerIndex: 2,
+      nextTrailerIndex: 1,
       currentTrailer: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
@@ -37,26 +37,42 @@ class MovieCarousel extends Component {
     }
     return 'Loading';
   }
-  handleCarouselButton(e) {
-    let nextIndices;
-    if (e.target.value === 'Next') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex += 1,
-        previousTrailerIndex: this.state.previousTrailerIndex += 1,
-        nextTrailerIndex: this.state.nextTrailerIndex += 1,
-      };
-    } else if (e.target.value === 'Prev') {
-      nextIndices = {
-        currentTrailerIndex: this.state.currentTrailerIndex -= 1,
-        previousTrailerIndex: this.state.previousTrailerIndex -= 1,
-        nextTrailerIndex: this.state.nextTrailerIndex -= 1,
-      };
-    }
-    this.setState({ nextIndices });
-    this.setCurrentTrailer();
-  }
   setCurrentTrailer() {
     this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
+  }
+  handleCarouselButton(e) {
+    let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
+    const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
+    let nextIndices;
+    if (e.target.value === 'Next') {
+      nextIndices = this.advanceIndices(indices);
+    } else if (e.target.value === 'Prev') {
+      nextIndices = this.reverseIndices(indices);
+    }
+    [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
+    const nextState = {
+      previousTrailerIndex,
+      currentTrailerIndex,
+      currentTrailer: this.props.trailers[currentTrailerIndex],
+      nextTrailerIndex,
+    };
+    this.setState(nextState);
+  }
+  advanceIndices(indices) {
+    return indices.map((index) => {
+      if (index >= this.props.trailers.length - 1) {
+        return 0;
+      }
+      return index + 1;
+    });
+  }
+  reverseIndices(indices) {
+    return indices.map((index) => {
+      if (index <= 0) {
+        return this.props.trailers.length - 1;
+      }
+      return index - 1;
+    });
   }
   render() {
     // const youTubeUrl = 'https://www.youtube.com/embed/';
