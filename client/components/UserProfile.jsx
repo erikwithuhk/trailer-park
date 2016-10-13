@@ -26,15 +26,15 @@ class UserProfile extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
-  componentWillReceiveProps(nextProps) {
-    const { token } = nextProps;
+  componentDidMount() {
+    const { token } = this.props;
     if (token) {
       this.getCurrentUser(token);
       this.getTrailers(token.id);
     }
   }
-  componentDidMount() {
-    const { token } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { token } = nextProps;
     if (token) {
       this.getCurrentUser(token);
       this.getTrailers(token.id);
@@ -95,7 +95,11 @@ class UserProfile extends Component {
   render() {
     return (
       <div className="profile-container">
-        <TrailerCarousel header="Your Trailers" trailers={this.state.trailers} />
+        <TrailerCarousel
+          header="Your Trailers"
+          trailers={this.state.trailers}
+          userID={`${this.state.id}`}
+        />
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>
           <input

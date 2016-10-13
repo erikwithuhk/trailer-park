@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'superagent';
 
 const propTypes = {
-  currentUser: React.PropTypes.object,
+  userID: React.PropTypes.string,
   trailers: React.PropTypes.array,
   header: React.PropTypes.string,
 };
@@ -113,12 +113,17 @@ class TrailerCarousel extends Component {
   }
   handleAddTrailer(e) {
     e.preventDefault();
-    request.post(`/api/users/${this.props.currentUser.id}/trailers`)
-           .send(this.state)
-           .then((response) => {
-             const updated = response.body;
-             this.setState(updated);
-           });
+    const trailerData = {
+      tmdbID: this.state.trailers[this.state.currentTrailerIndex].tmdbID,
+      mediaType: this.state.trailers[this.state.currentTrailerIndex].mediaType,
+      title: this.state.trailers[this.state.currentTrailerIndex].title,
+      blocked: false,
+      users_id: this.props.userID,
+    };
+    request.post(`/api/users/${this.props.userID}/trailers`)
+           .send(trailerData)
+           .then(() => 'Trailer added!')
+           .catch(err => err);
   }
   handleBlockTrailer(e) {
     e.preventDefault();

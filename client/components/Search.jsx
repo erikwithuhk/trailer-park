@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import request from 'superagent';
+import jwtDecode from 'jwt-decode';
 import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
@@ -19,20 +20,37 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    this.getVideos();
+    const { token } = this.props;
+    if (token) {
+      this.getCurrentUser(token);
+    }
+    this.getTrailers();
   }
-  getVideos() {
+  componentWillReceiveProps(nextProps) {
+    const { token } = nextProps;
+    if (token) {
+      this.getCurrentUser(token);
+    }
+  }
+  getCurrentUser(token) {
+    if (token) {
+      const decoded = jwtDecode(token);
+      const id = decoded.id;
+      this.setState({
+        id,
+        email: decoded.email,
+        username: decoded.username,
+        firstName: decoded.firstName,
+        lastName: decoded.lastName,
+        bio: decoded.bio,
+      });
+    }
+  }
+  getTrailers() {
     request.get(`/api/trailers?q=${this.state.searchQuery}`)
     .then((response) => {
       this.setState({ trailers: response.body });
     });
-  }
-  videoComponents() {
-    return (
-      <div>
-        <h1>Videos</h1>
-      </div>
-    );
   }
   handleChange(e) {
     const searchQuery = e.target.value;
@@ -40,7 +58,7 @@ class Search extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.getVideos();
+    this.getTrailers();
     this.setState({
       querySearched: this.state.searchQuery,
       searchQuery: '',
@@ -81,6 +99,7 @@ class Search extends Component {
         <TrailerCarousel
           header={`Search results for: ${this.state.querySearched}`}
           trailers={this.state.trailers}
+          userID={`${this.state.id}`}
         />
         {signupButton}
       </div>
