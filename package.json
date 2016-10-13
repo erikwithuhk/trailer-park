@@ -31,6 +31,7 @@
     "express-session": "^1.14.1",
     "jasmine": "^2.5.2",
     "jsonwebtoken": "^7.1.9",
+    "jwt-decode": "^2.1.0",
     "morgan": "^1.7.0",
     "pg-promise": "^5.3.4",
     "react": "^15.3.2",

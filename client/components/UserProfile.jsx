@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
+import jwtDecode from 'jwt-decode';
 import MovieCarousel from './MovieCarousel.jsx';
 
 const propTypes = {
-  currentUser: React.PropTypes.object,
+  token: React.PropTypes.string,
   handleSignout: React.PropTypes.func,
 };
 
 class UserProfile extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
-      email: this.props.currentUser.email || '',
-      username: this.props.currentUser.username || '',
-      firstName: this.props.currentUser.firstName || '',
-      lastName: this.props.currentUser.lastName || '',
-      bio: this.props.currentUser.bio || '',
-      password: this.props.currentUser.password || '',
+      id: '',
+      email: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      bio: '',
+      password: '',
       trailers: [],
     };
+    this.getCurrentUser = this.getCurrentUser.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
@@ -27,18 +30,37 @@ class UserProfile extends Component {
     this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
     this.handleUpdateClick = this.handleUpdateClick.bind(this);
   }
-  componentDidMount() {
-    this.getTrailers();
+  componentWillReceiveProps(nextProps) {
+    const { token } = nextProps;
+    if (token) {
+      this.getCurrentUser(token);
+      this.getTrailers(token.id);
+    }
   }
-  getTrailers() {
-    const url = `/api/users/${this.props.currentUser.id}/trailers`;
-    console.log(url);
-    request.get(url)
-    .then((response) => {
-      const trailers = response.body;
-      this.setState({ trailers });
-    })
-    .catch(err => err);
+  getCurrentUser(token) {
+    const decoded = jwtDecode(token);
+    const id = decoded.id;
+    this.getTrailers(id);
+    this.setState({
+      id: decoded.id,
+      email: decoded.email,
+      username: decoded.username,
+      firstName: decoded.firstName,
+      lastName: decoded.lastName,
+      bio: decoded.bio,
+      password: decoded.password,
+    });
+  }
+  getTrailers(id) {
+    if (id) {
+      const url = `/api/users/${id}/trailers`;
+      request.get(url)
+      .then((response) => {
+        const trailers = response.body;
+        this.setState({ trailers });
+      })
+      .catch(err => err);
+    }
   }
   handleChange(e) {
     const target = e.target;
@@ -53,7 +75,7 @@ class UserProfile extends Component {
     // >>>> TODO need to submit to the users profile
   }
   handleUpdateProfile() {
-    request.patch(`/api/users/${this.props.currentUser.id}`)
+    request.patch(`/api/users/${this.state.id}`)
            .send(this.state)
            .then((response) => {
              const updated = response.body;
@@ -65,7 +87,7 @@ class UserProfile extends Component {
     this.handleUpdateProfile();
   }
   handleDeleteUser() {
-    request.del(`/api/users/${this.props.currentUser.id}`)
+    request.del(`/api/users/${this.state.id}`)
            .then(() => {
              this.props.handleSignout();
              // TODO handle signout
