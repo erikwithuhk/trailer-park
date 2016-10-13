@@ -67,8 +67,8 @@ body {
   font-family: 'Roboto', sans-serif;
   text-align: center;
   font-size:  1rem;
+  color:  #fff;
 }
-
 .clearfix:after {
    visibility: hidden;
    display: block;
@@ -77,40 +77,36 @@ body {
    clear: both;
    height: 0;
 }
-
 h1 {
-  font-size:  2.5rem;
+  font-size: 3rem;
+  margin: 1rem;
+  font-weight: 300;
 }
-
+h1 em {
+  font-family: 'airstream', arial;
+  font-size: 1.3em;
+  letter-spacing: .05em;
+  padding-right: .05em;
+}
 h2 {
-  background-color: lightgrey;
-  color: black;
-  font-size: 2rem;
-  height: 15%;
-  left: 0;
-  margin-bottom: 0rem;
-  padding: 1%;
-  text-align: center;
-  top: 0;
-  vertical-align: middle;
-  width: 100%;
+  font-weight:  300;
+  margin: 1rem;
 }
-
-h3 {
-  background-color: black;
-  color: white;
-  font-size: 1.5rem;
-  height: 15%;
-  left: 0;
-  margin-bottom: 0rem;
-  padding: 1%;
+input {
+  border: 2px solid #938172;
+  border-radius: 6px;
+  background: none;
+  box-sizing: border-box;
+  color: #CC9E61;
+  padding: 1rem;
   text-align: center;
-  top: 0;
-  vertical-align: middle;
-  width: 100%;
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  text-transform: uppercase;
+  letter-spacing: .3rem;
+  font-size: 1.25rem;
 }
-
-
 
 /* =======================
 4. App
@@ -125,6 +121,7 @@ h3 {
 .top-nav {
   background-color: #938172;
   box-sizing: border-box;
+  margin-bottom: 100px;
 }
 .trailericon {
   display: block;
@@ -136,18 +133,7 @@ h3 {
 .top-nav_links {
   float: right;
   position:  relative;
-  padding: 1rem;
 }
-
-
-
-
-
-/* .top-nav .trailericon,
-.top-nav .top-nav_links {
-  display: inline-block;
-} */
-
 
 .top-nav_links a {
   color: #fff;
@@ -175,64 +161,48 @@ h3 {
 7. Search
 ======================= */
 
-.search-container {
-  padding: 5rem 0;
+
+form.search-form {
+    margin: 2rem auto;
 }
 
-h1.welcome-text {
-  color: #fff;
-  font-weight: 300;
-  margin: .5em 1em;
-}
-h1 em {
-  font-family: 'airstream', arial;
-  font-size: 1.3em;
-  letter-spacing: .05em;
-  padding-right: .05em;
-}
-
-.search-form {
-  margin: 0 auto 2rem;
-  width: 80%;
-}
-
-.search-form_searchbar,
+/* .search-form_searchbar,
 .search-form_submit-button,
 .signup-button {
   border: 2px solid #989898;
   display: inline-block;
   font-size: 1.25rem;
   padding: 0.5rem;
-}
+} */
 
-.search-form_searchbar {
+/* .search-form_searchbar {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   border-right: none;
   width: 67%;
-}
+} */
 
-.search-form_submit-button,
+/* .search-form_submit-button,
 .signup-button {
   background-color: #ddd;
   color: #000;
   cursor: pointer;
   width: 33%;
-}
+} */
 
-.search-form_submit-button:hover,
+/* .search-form_submit-button:hover,
 .signup-button:hover {
   background-color: #989898;
   color: #fff;
-}
+} */
 
-.search-form_submit-button {
+/* .search-form_submit-button {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-}
+} */
 
 
-.signup-link {
+/* .signup-link {
   display: block;
   text-align: center;
 }
@@ -240,7 +210,7 @@ h1 em {
 .signup-button {
   border-radius: 5px;
   margin: 0 auto;
-}
+} */
 
 
 /* =======================

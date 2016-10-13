@@ -1,6 +1,6 @@
-section {
+.carousel-container {
   width: 100%;
-  margin: 0 auto;
+  margin: 3rem auto;
   position: relative;
 }
 
@@ -17,12 +17,11 @@ li p {
   color: white;
   font-weight: bold;
   font-size: 5em;
-
+}
 .carousel_header {
-  color: #fff;
-  font-size: 2rem;
   margin: 1rem;
-  text-align: center;
+  font-weight: 300;
+  font-style: italic;
 }
 
 .previous-trailer_li,
@@ -53,26 +52,7 @@ li p {
   z-index: 3000;
 }
 
-/* <<<<<<< HEAD
-.left-pos {
-  opacity: .8;
-  margin-left: -17em !important;
-  z-index: 1000;
-  transform: scale(.75);
-}
 
-.back-pos {
-  margin-left: 2em !important;
-  opacity: .05;
-  transform: scale(.5);
-}
-
-.right-pos {
-  opacity: .8;
-  margin-left:  21em !important;
-  z-index: 1000;
-  transform: scale(.75);
-======= */
 .trailer_container {
   background-color: #fff;
   position: relative;
