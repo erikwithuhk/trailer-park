@@ -53,8 +53,8 @@ class App extends Component {
     if (this.state.token) {
       userDisplayElement = (
         <div className="top-nav_links">
-          <Link to="/search" onClick={this.signOut} >Search</Link>
-          <Link to="/community" onClick={this.signOut} >Community</Link>
+          <Link to="/search" >Search</Link>
+          <Link to="/community" >Community</Link>
           <Link to="/profile" className="profile" >Profile</Link>
           <Link to="#" onClick={this.signOut} >Sign out</Link>
         </div>
