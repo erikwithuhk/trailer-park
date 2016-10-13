@@ -127,12 +127,6 @@ class TrailerCarousel extends Component {
   }
   handleBlockTrailer(e) {
     e.preventDefault();
-    request.post(`/api/users/${this.props.currentUser.id}/trailers`)
-           .send(this.state)
-           .then((response) => {
-             const updated = response.body;
-             this.setState(updated);
-           });
   }
   render() {
     const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
