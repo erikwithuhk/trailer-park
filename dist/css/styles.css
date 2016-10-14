@@ -206,6 +206,11 @@ li p {
   height: 0;
   overflow: hidden;
 }
+.current-trailer_container {
+  font-size: 2rem;
+  line-height: 0;
+  text-align: center;
+}
 .current-trailer_container iframe,
 .current-trailer_container object,
 .current-trailer_container embed {
@@ -249,16 +254,18 @@ button.next {
 }
 button.heart,
 button.broken-heart {
-  background-position: 50%;
+  background-position: 49%;
   background-repeat: no-repeat;
   background-size: 60%;
   border-radius: 20px;
   border: none;
   cursor: pointer;
-  height: 30px;
-  margin: -20px 10px;
+  height: 0;
+  padding-bottom: 6.5%;
+  position: absolute;
+  left: 46.75%;
   opacity: .7;
-  width: 30px;
+  width: 6.5%;
 }
 button.heart {
   top: 10px;
