@@ -6,9 +6,9 @@ class Community extends Component {
   constructor() {
     super();
     this.state = {
-      user3: [],
-      user4: [],
-      user16: [],
+      user26: [],
+      user27: [],
+      user29: [],
     };
     this.getTrailers = this.getTrailers.bind(this);
   }
@@ -45,9 +45,9 @@ class Community extends Component {
   //          .catch(err => err);
   // }
   componentDidMount() {
-    this.getTrailers(3);
-    this.getTrailers(4);
-    this.getTrailers(16);
+    this.getTrailers(26);
+    this.getTrailers(27);
+    this.getTrailers(29);
   }
   getTrailers(id) {
     if (id) {
@@ -65,33 +65,33 @@ class Community extends Component {
   }
   render() {
     const carousels = [];
-    if (this.state.user3) {
+    if (this.state.user26) {
       carousels.push((
         <TrailerCarousel
-          key="3"
-          header="Username's Trailers"
-          trailers={this.state.user3}
-          userID={'3'}
+          key="26"
+          header="iambob's Trailers"
+          trailers={this.state.user26}
+          userID={'26'}
         />
       ));
     }
-    if (this.state.user4) {
+    if (this.state.user27) {
       carousels.push((
         <TrailerCarousel
-          key="4"
-          header="Username's Trailers"
-          trailers={this.state.user4}
-          userID={'4'}
+          key="27"
+          header="kathere's Trailers"
+          trailers={this.state.user27}
+          userID={'27'}
         />
       ));
     }
-    if (this.state.user16) {
+    if (this.state.user29) {
       carousels.push((
         <TrailerCarousel
-          key="16"
-          header="Username's Trailers"
-          trailers={this.state.user16}
-          userID={'16'}
+          key="29"
+          header="imjoy's Trailers"
+          trailers={this.state.user29}
+          userID={'29'}
         />
       ));
     }
