@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (!process.env) {
+  require('dotenv').config();
+}
 
 process.env.ENV = process.env.ENV || 'dev';
 
