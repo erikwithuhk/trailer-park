@@ -2,6 +2,16 @@
 
 ![trailerparklogo_rm](https://cloud.githubusercontent.com/assets/11340887/19370711/69b1d40c-917b-11e6-848f-bb4357935c2b.png)
 
+ Copyright [10/14/2016] [Erik Jönsson, Annie Burns, Lynn Fleck]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.txt.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+       
+
 ## Problem Statement:
 
 Movie and TV platforms’ recommender systems are a hit or miss (Partly caused by all of the anime films watched by one of the nine friends who share your account.)  
