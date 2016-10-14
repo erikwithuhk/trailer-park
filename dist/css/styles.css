@@ -162,12 +162,9 @@ footer {
   position: relative;
 }
 li {
-  width: 500px;
-  height: 281px;
   background: #333;
   display: inline-block;
   transition: all .3s ease-in-out;
-  overflow: hidden;
 }
 li p {
   color: white;
@@ -181,20 +178,26 @@ li p {
 }
 .previous-trailer_li,
 .next-trailer_li {
-  position: absolute;
+  margin-top: 5%;
   opacity: 0.5;
   width: 40%;
 }
 .previous-trailer_li {
-  left: 0;
+  /*left: 0;*/
 }
 .next-trailer_li {
-  right: 0;
+  /*right: 0;*/
 }
 .previous-trailer_container,
 .next-trailer_container {
   background-color: #ccc;
   background-size: cover;
+}
+.previous-trailer_container{
+  margin-left: -25%;
+}
+.next-trailer_container {
+  margin-right: -25%;
 }
 .current-trailer_li {
   position: absolute;

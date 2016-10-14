@@ -14,17 +14,27 @@ class TrailerCarousel extends Component {
       currentTrailerIndex: 0,
       header: '',
       trailers: [],
+      currentTrailerHeight: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
     this.handleAddTrailer = this.handleAddTrailer.bind(this);
     this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
       header: nextProps.header,
       trailers: nextProps.trailers,
     });
+    this.handleResize();
+  }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
   getVideoEmbedCode() {
     if (this.state.trailers.length) {
@@ -46,11 +56,26 @@ class TrailerCarousel extends Component {
   setCurrentTrailer() {
     this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
   }
-  generatePoster() {
+  handleResize(e) {
+    const currentTrailerNode = document.querySelector('.current-trailer_li');
+    this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
+  }
+  generatePreviousPoster() {
     if (this.state.trailers.length) {
       return (
         <div
           className="trailer_container previous-trailer_container"
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+        />
+      );
+    }
+    return (<div />);
+  }
+  generateNextPoster() {
+    if (this.state.trailers.length) {
+      return (
+        <div
+          className="trailer_container next-trailer_container"
           style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
@@ -106,9 +131,9 @@ class TrailerCarousel extends Component {
       <div className="carousel-container">
         <section className="carousel">
           <h3 className="carousel_header" >{this.state.header}</h3>
-          <ul className="carousel">
+          <ul className="carousel" style={{ height: `${this.state.currentTrailerHeight}px` }}>
             <li className="previous-trailer_li">
-              {this.generatePoster()}
+              {this.generatePreviousPoster()}
             </li>
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
@@ -120,7 +145,7 @@ class TrailerCarousel extends Component {
               <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
             </li>
             <li className="next-trailer_li">
-              {this.generatePoster()}
+              {this.generateNextPoster()}
             </li>
             <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
           </ul>
