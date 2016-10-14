@@ -259,9 +259,8 @@ button.broken-heart {
   border-radius: 20px;
   border: none;
   height: 30px;
-  left: 50%;
+  margin: -20px 10px;
   opacity: .7;
-  position: absolute;
   width: 30px;
 }
 button.heart {

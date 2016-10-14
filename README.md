@@ -1,5 +1,7 @@
 # Trailer Park
 
+![trailerparklogo_rm](https://cloud.githubusercontent.com/assets/11340887/19370711/69b1d40c-917b-11e6-848f-bb4357935c2b.png)
+
 ## Problem Statement:
 
 Movie and TV platforms’ recommender systems are a hit or miss (Partly caused by all of the anime films watched by one of the nine friends who share your account.)  
@@ -13,12 +15,15 @@ All of Mike’s coworkers are talking about how they are watching Stranger Thing
 
 As a new user, you want to sign into the site, search movies or shows you’re interested in, and add Trailers (content) to your every-changing and updating profile.
 
+Wireframe
+http://adobe.ly/2dBHCyd
+
 ### Problems:
-* **Always looking for stuff to watch
-* **Don't want to sift through reviews
-* **Want credibility from your choice of credible sources
-* **And don't want to be the last one in your group to watch something
-* **Love watching trailers in theatres but always forget to write down which movies you want to see
+- Always looking for stuff to watch
+- Don't want to sift through reviews
+- Want credibility from your choice of credible sources
+- And don't want to be the last one in your group to watch something
+- Love watching trailers in theatres but always forget to write down which movies you want to see
 
 ## Coming Soon!
 - Influencers / Spotlight Curators - Highlighted in the Trailer Park Community
@@ -45,10 +50,11 @@ To get a development env running, please follow the below steps in the command l
 ## Built With:
 * tmdb - The Movie Database - [tmdb](https://www.themoviedb.org)
 * allfonts.net
-* google fonts
-* allfonts.net
-* atom
-* sublime
-* PostgreSQL
+* Google Web Fonts
+* Atom
+* Sublime
+* Javascript
 * React JS
+* PostgreSQL
 * Node JS
+* CSS3
