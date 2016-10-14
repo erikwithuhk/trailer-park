@@ -57,7 +57,6 @@ class Community extends Component {
         const trailers = response.body;
         const stateObject = {};
         stateObject[`user${id}`] = trailers;
-        console.log(stateObject);
         this.setState(stateObject);
       })
       .catch(err => err);
