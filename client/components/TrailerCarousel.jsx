@@ -12,8 +12,6 @@ class TrailerCarousel extends Component {
     super();
     this.state = {
       currentTrailerIndex: 0,
-      previousTrailerIndex: 0,
-      nextTrailerIndex: 0,
       header: '',
       trailers: [],
     };
@@ -48,23 +46,12 @@ class TrailerCarousel extends Component {
   setCurrentTrailer() {
     this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
   }
-  generatePreviousPoster() {
+  generatePoster() {
     if (this.state.trailers.length) {
       return (
         <div
           className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.previousTrailerIndex].backdrop_path}\')` }}
-        />
-      );
-    }
-    return (<div />);
-  }
-  generateNextPoster() {
-    if (this.state.trailers.length) {
-      return (
-        <div
-          className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.nextTrailerIndex].backdrop_path}\')` }}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
@@ -128,18 +115,17 @@ class TrailerCarousel extends Component {
     e.preventDefault();
   }
   render() {
-    const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
       <div className="carousel-container">
         <section className="carousel">
           <h3 className="carousel_header" >{this.state.header}</h3>
           <ul className="carousel">
             <li className="previous-trailer_li">
-              {this.generatePreviousPoster()}
+              {this.generatePoster()}
             </li>
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
-                {videoEmbedCode}
+                {this.getVideoEmbedCode(this.state.currentTrailer)}
                 <button className="heart" onClick={this.handleAddTrailer} />
                 <button className="broken-heart" onClick={this.handleBlockTrailer} />
               </div>
@@ -147,7 +133,7 @@ class TrailerCarousel extends Component {
               <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
             </li>
             <li className="next-trailer_li">
-              {this.generateNextPoster()}
+              {this.generatePoster()}
             </li>
             <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
           </ul>
