@@ -89,6 +89,8 @@ class TrailerCarousel extends Component {
     return '';
   }
   handleCarouselButton(e) {
+    document.querySelector('.heart').setAttribute('class', 'heart');
+    document.querySelector('.broken-heart').setAttribute('class', 'broken-heart');
     let { currentTrailerIndex } = this.state;
     if (e.target.getAttribute('class') === 'next') {
       currentTrailerIndex = this.advanceIndex(currentTrailerIndex);
