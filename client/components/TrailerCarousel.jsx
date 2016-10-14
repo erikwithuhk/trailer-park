@@ -64,38 +64,25 @@ class TrailerCarousel extends Component {
     return '';
   }
   handleCarouselButton(e) {
-    let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
-    const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
-    let nextIndices;
+    let { currentTrailerIndex } = this.state;
     if (e.target.getAttribute('class') === 'next') {
-      nextIndices = this.advanceIndices(indices);
+      currentTrailerIndex = this.advanceIndices(currentTrailerIndex);
     } else if (e.target.getAttribute('class') === 'prev') {
-      nextIndices = this.reverseIndices(indices);
+      currentTrailerIndex = this.reverseIndices(currentTrailerIndex);
     }
-    [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
-    const nextState = {
-      previousTrailerIndex,
-      currentTrailerIndex,
-      currentTrailer: this.props.trailers[currentTrailerIndex],
-      nextTrailerIndex,
-    };
-    this.setState(nextState);
+    this.setState({ currentTrailerIndex });
   }
-  advanceIndices(indices) {
-    return indices.map((index) => {
-      if (index >= this.props.trailers.length - 1) {
-        return 0;
-      }
-      return index + 1;
-    });
+  advanceIndices(index) {
+    if (index >= this.props.trailers.length - 1) {
+      return 0;
+    }
+    return index + 1;
   }
-  reverseIndices(indices) {
-    return indices.map((index) => {
-      if (index <= 0) {
-        return this.props.trailers.length - 1;
-      }
-      return index - 1;
-    });
+  reverseIndices(index) {
+    if (index <= 0) {
+      return this.props.trailers.length - 1;
+    }
+    return index - 1;
   }
   handleAddTrailer(e) {
     e.preventDefault();
