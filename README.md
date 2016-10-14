@@ -15,6 +15,9 @@ All of Mike’s coworkers are talking about how they are watching Stranger Thing
 
 As a new user, you want to sign into the site, search movies or shows you’re interested in, and add Trailers (content) to your every-changing and updating profile.
 
+Wireframe
+http://adobe.ly/2dBHCyd
+
 ### Problems:
 - Always looking for stuff to watch
 - Don't want to sift through reviews
