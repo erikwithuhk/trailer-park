@@ -280,7 +280,9 @@ button.broken-heart {
   background-image: url(../images/broken-heart.png);
 }
 button.heart:hover,
-button.broken-heart:hover {
+button.broken-heart:hover,
+.liked,
+.blocked {
   background-color: red;
 }
 

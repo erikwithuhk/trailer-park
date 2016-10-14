@@ -111,6 +111,7 @@ class TrailerCarousel extends Component {
   }
   handleAddTrailer(e) {
     e.preventDefault();
+    e.target.setAttribute('class', 'heart liked');
     const trailerData = {
       tmdbID: this.state.trailers[this.state.currentTrailerIndex].tmdbID,
       mediaType: this.state.trailers[this.state.currentTrailerIndex].mediaType,
@@ -125,6 +126,7 @@ class TrailerCarousel extends Component {
   }
   handleBlockTrailer(e) {
     e.preventDefault();
+    e.target.setAttribute('class', 'broken-heart blocked');
   }
   render() {
     return (
