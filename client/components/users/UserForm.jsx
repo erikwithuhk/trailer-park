@@ -4,6 +4,7 @@ const propTypes = {
   handleLogin: React.PropTypes.func,
   handleSignup: React.PropTypes.func,
   buttonText: React.PropTypes.string,
+  route: React.PropTypes.element,
 };
 
 class UserForm extends React.Component {
@@ -31,9 +32,16 @@ class UserForm extends React.Component {
     }
   }
   render() {
+    let headerText;
+    if (this.props.route.path === 'signup') {
+      headerText = 'Sign Up';
+    } else if (this.props.route.path === 'login') {
+      headerText = 'Log In';
+    }
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <h2 className="user-form_header">{headerText}</h2>
           <input
             type="text"
             name="email"

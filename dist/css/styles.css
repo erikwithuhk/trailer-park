@@ -7,7 +7,7 @@ TABLE OF CONTENTS
 3. Global Styles
 4. App
 5. Top Nav
-6. Movie Carousel
+6. Trailer Carousel
 7. Search
 8. User Profile
 9. Community
@@ -98,6 +98,13 @@ input {
   letter-spacing: .3rem;
   font-size: 1.25rem;
 }
+input[type=submit] {
+  cursor: pointer;
+}
+input[type=submit]:hover {
+  background-color: #938172;
+  color: #000;
+}
 
 /* =======================
 4. App
@@ -146,7 +153,7 @@ footer {
 }
 
 /* =======================
-6. Movie Carousel
+6. Trailer Carousel
 ======================= */
 
 .carousel-container {
@@ -221,6 +228,7 @@ li p {
 .current-trailer_li > button {
   background: none;
   color: #fff;
+  cursor: pointer;
   border: none;
   font-size: 3rem;
   position: absolute;
@@ -258,6 +266,7 @@ button.broken-heart {
   background-size: 60%;
   border-radius: 20px;
   border: none;
+  cursor: pointer;
   height: 30px;
   margin: -20px 10px;
   opacity: .7;
@@ -295,6 +304,7 @@ button.signup-button {
   background-size: contain;
   background-image: url(../images/button-bkgd.png);
   border: none;
+  cursor: pointer;
   padding: 2rem;
   font-family: 'Airstream', arial;
   font-size: 3rem;
@@ -331,4 +341,3 @@ h4.current-trailer_title:before {
 /* =======================
 10. Media Queries
 ======================= */
-
