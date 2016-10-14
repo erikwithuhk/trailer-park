@@ -4,12 +4,13 @@ const propTypes = {
   handleLogin: React.PropTypes.func,
   handleSignup: React.PropTypes.func,
   buttonText: React.PropTypes.string,
+  route: React.PropTypes.object,
 };
 
 class UserForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = { email: '', password: '', username: '' };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,9 +32,26 @@ class UserForm extends React.Component {
     }
   }
   render() {
+    let headerText;
+    let usernameInput;
+    if (this.props.route.path === 'signup') {
+      headerText = 'Sign Up';
+      usernameInput = (
+        <input
+          type="text"
+          name="username"
+          value={this.state.username}
+          placeholder="username..."
+          onChange={this.handleInputChange}
+        />
+      );
+    } else if (this.props.route.path === 'login') {
+      headerText = 'Log In';
+    }
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <h2 className="user-form_header">{headerText}</h2>
           <input
             type="text"
             name="email"
@@ -48,6 +66,7 @@ class UserForm extends React.Component {
             placeholder="password..."
             onChange={this.handleInputChange}
           />
+          {usernameInput}
           <input type="submit" value={this.props.buttonText} />
         </form>
       </div>

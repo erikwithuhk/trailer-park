@@ -79,7 +79,7 @@ class Search extends Component {
           <h1 className="welcome-text">
             Welcome to the <em>Trailer Park</em>!
           </h1>
-          <h2>Add movies to your list...etc...</h2>
+          <h2>Go ahead, binge-watch those trailers.</h2>
         </div>
       );
       signupButton = (

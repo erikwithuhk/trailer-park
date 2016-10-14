@@ -23,7 +23,7 @@ http://adobe.ly/2dBHCyd
 - Don't want to sift through reviews
 - Want credibility from your choice of credible sources
 - And don't want to be the last one in your group to watch something
-- Love watching trailers in theatres but always forget to write down which movies you want to see
+- Love watching trailers in theaters but always forget to write down which movies you want to see
 
 ## Coming Soon!
 - Influencers / Spotlight Curators - Highlighted in the Trailer Park Community
@@ -34,27 +34,28 @@ To get a development env running, please follow the below steps in the command l
 ```
 - npm install
 - npm start
-
 ```
 
 ## Authors
-* **Erik Jönsson** 
-* **Lynn Fleck** 
-* **Annie Burns** 
+* **Erik Jönsson**
+* **Lynn Fleck**
+* **Annie Burns**
 
 * **Initial Version ** * - *10/13/2016* - Version 1.0
 
 ## Special Thanks:
-* General Assembly UX Class for initial consultation
+* Lindsay Kovnat, Mike Salmon, and Nicholas Tejada for UX consultation
 
 ## Built With:
+* React
+* Node
+* Express
+* PostgreSQL
+* Javascript
+* CSS3
+* HTML5
 * tmdb - The Movie Database - [tmdb](https://www.themoviedb.org)
 * allfonts.net
 * Google Web Fonts
 * Atom
 * Sublime
-* Javascript
-* React JS
-* PostgreSQL
-* Node JS
-* CSS3

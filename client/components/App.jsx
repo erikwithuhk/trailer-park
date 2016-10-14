@@ -76,11 +76,17 @@ class App extends Component {
     return (
       <div>
         <div className="top-nav clearfix">
-          <Link to="/"><img className="trailericon" src="./images/TrailerParkLogo_main.png" alt="trailerparklogo" /></Link>
+          <Link to="/">
+            <img
+              className="trailericon"
+              src="./images/TrailerParkLogo_main.png"
+              alt="trailerparklogo"
+            />
+          </Link>
           {userDisplayElement}
         </div>
         {childrenWithProps}
-        <footer>&copy;2016 Erik Jonsson, Annie Burns, and Lynn Fleck</footer>
+        <footer>&copy;2016 Erik J&ouml;nsson, Annie Burns, and Lynn Fleck</footer>
       </div>
     );
   }

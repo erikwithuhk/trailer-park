@@ -12,21 +12,29 @@ class TrailerCarousel extends Component {
     super();
     this.state = {
       currentTrailerIndex: 0,
-      previousTrailerIndex: 0,
-      nextTrailerIndex: 0,
       header: '',
       trailers: [],
+      currentTrailerHeight: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
     this.handleAddTrailer = this.handleAddTrailer.bind(this);
     this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
+    this.handleResize = this.handleResize.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({
       header: nextProps.header,
       trailers: nextProps.trailers,
     });
+    this.handleResize();
+  }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+    this.handleResize();
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
   }
   getVideoEmbedCode() {
     if (this.state.trailers.length) {
@@ -48,12 +56,16 @@ class TrailerCarousel extends Component {
   setCurrentTrailer() {
     this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
   }
+  handleResize(e) {
+    const currentTrailerNode = document.querySelector('.current-trailer_li');
+    this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
+  }
   generatePreviousPoster() {
     if (this.state.trailers.length) {
       return (
         <div
           className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.previousTrailerIndex].backdrop_path}\')` }}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
@@ -63,8 +75,8 @@ class TrailerCarousel extends Component {
     if (this.state.trailers.length) {
       return (
         <div
-          className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.nextTrailerIndex].backdrop_path}\')` }}
+          className="trailer_container next-trailer_container"
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
@@ -77,41 +89,31 @@ class TrailerCarousel extends Component {
     return '';
   }
   handleCarouselButton(e) {
-    let { previousTrailerIndex, currentTrailerIndex, nextTrailerIndex } = this.state;
-    const indices = [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex];
-    let nextIndices;
+    document.querySelector('.heart').setAttribute('class', 'heart');
+    document.querySelector('.broken-heart').setAttribute('class', 'broken-heart');
+    let { currentTrailerIndex } = this.state;
     if (e.target.getAttribute('class') === 'next') {
-      nextIndices = this.advanceIndices(indices);
+      currentTrailerIndex = this.advanceIndex(currentTrailerIndex);
     } else if (e.target.getAttribute('class') === 'prev') {
-      nextIndices = this.reverseIndices(indices);
+      currentTrailerIndex = this.reverseIndex(currentTrailerIndex);
     }
-    [previousTrailerIndex, currentTrailerIndex, nextTrailerIndex] = nextIndices;
-    const nextState = {
-      previousTrailerIndex,
-      currentTrailerIndex,
-      currentTrailer: this.props.trailers[currentTrailerIndex],
-      nextTrailerIndex,
-    };
-    this.setState(nextState);
+    this.setState({ currentTrailerIndex });
   }
-  advanceIndices(indices) {
-    return indices.map((index) => {
-      if (index >= this.props.trailers.length - 1) {
-        return 0;
-      }
-      return index + 1;
-    });
+  advanceIndex(index) {
+    if (index >= this.props.trailers.length - 1) {
+      return 0;
+    }
+    return index + 1;
   }
-  reverseIndices(indices) {
-    return indices.map((index) => {
-      if (index <= 0) {
-        return this.props.trailers.length - 1;
-      }
-      return index - 1;
-    });
+  reverseIndex(index) {
+    if (index <= 0) {
+      return this.props.trailers.length - 1;
+    }
+    return index - 1;
   }
   handleAddTrailer(e) {
     e.preventDefault();
+    e.target.setAttribute('class', 'heart liked');
     const trailerData = {
       tmdbID: this.state.trailers[this.state.currentTrailerIndex].tmdbID,
       mediaType: this.state.trailers[this.state.currentTrailerIndex].mediaType,
@@ -126,20 +128,20 @@ class TrailerCarousel extends Component {
   }
   handleBlockTrailer(e) {
     e.preventDefault();
+    e.target.setAttribute('class', 'broken-heart blocked');
   }
   render() {
-    const videoEmbedCode = this.getVideoEmbedCode(this.state.currentTrailer);
     return (
       <div className="carousel-container">
         <section className="carousel">
           <h3 className="carousel_header" >{this.state.header}</h3>
-          <ul className="carousel">
+          <ul className="carousel" style={{ height: `${this.state.currentTrailerHeight}px` }}>
             <li className="previous-trailer_li">
               {this.generatePreviousPoster()}
             </li>
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
-                {videoEmbedCode}
+                {this.getVideoEmbedCode(this.state.currentTrailer)}
                 <button className="heart" onClick={this.handleAddTrailer} />
                 <button className="broken-heart" onClick={this.handleBlockTrailer} />
               </div>
@@ -149,7 +151,6 @@ class TrailerCarousel extends Component {
             <li className="next-trailer_li">
               {this.generateNextPoster()}
             </li>
-            <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
           </ul>
         </section>
         <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>

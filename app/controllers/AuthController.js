@@ -23,10 +23,11 @@ class AuthController {
   }
   static signUp(req, res) {
     const email = req.body.email;
+    const username = req.body.username;
     let password = req.body.password;
     if (email.length > 0 && password.length > 0) {
       password = bcrypt.hashSync(password, 10);
-      UserDAO.create({ email, password })
+      UserDAO.create({ email, password, username })
           .then((user) => {
             req.session.currentUser = user;
             const token = createToken(user);
