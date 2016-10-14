@@ -23,23 +23,17 @@ class TrailerDAO {
               .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);
   }
-  static search(searchTerm) {
-    return superagent.get(`https://api.themoviedb.org/3/search/multi?query=${searchTerm}&api_key=${process.env.API_KEY}`)
+  static popular() {
+    return superagent.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
               .then((response) => {
-                const searchResultsData = response.body.results;
-                const searchResults = [];
-                searchResultsData.forEach((searchResultData) => {
-                  const { media_type } = searchResultData;
-                  if (media_type === 'tv' || media_type === 'movie') {
-                    const trailerData = {
-                      tmdb_id: searchResultData.id,
-                      media_type,
-                      title: searchResultData.name || searchResultData.title,
-                    };
-                    searchResults.push(trailerData);
-                  }
+                const popularResultsData = response.body.results;
+                return popularResultsData.map((popularResultData) => {
+                  return {
+                    tmdb_id: popularResultData.id,
+                    media_type: 'movie',
+                    title: popularResultData.title,
+                  };
                 });
-                return searchResults;
               })
               .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);

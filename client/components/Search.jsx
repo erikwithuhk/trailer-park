@@ -12,7 +12,7 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      searchQuery: 'hook',
+      searchQuery: '',
       querySearched: 'Popular Trailers',
       trailers: [],
     };
@@ -47,7 +47,13 @@ class Search extends Component {
     }
   }
   getTrailers() {
-    request.get(`/api/trailers?q=${this.state.searchQuery}`)
+    if (this.state.searchQuery === '') {
+      request.get('/api/trailers/popular')
+      .then((response) => {
+        this.setState({ trailers: response.body });
+      });
+    }
+    request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
     .then((response) => {
       this.setState({ trailers: response.body });
     });

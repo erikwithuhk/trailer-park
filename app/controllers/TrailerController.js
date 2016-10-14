@@ -14,8 +14,8 @@ class TrailerController {
 
               .catch(err => response.status(500).send(err));
   }
-  static searchTrailers(request, response) {
-    TrailerDAO.popular
+  static popularTrailers(request, response) {
+    TrailerDAO.popular()
               .then((trailerListItems) => {
                 const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
                 return Promise.all(trailersWithVideo).then((videosData) => {
