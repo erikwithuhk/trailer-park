@@ -66,19 +66,19 @@ class TrailerCarousel extends Component {
   handleCarouselButton(e) {
     let { currentTrailerIndex } = this.state;
     if (e.target.getAttribute('class') === 'next') {
-      currentTrailerIndex = this.advanceIndices(currentTrailerIndex);
+      currentTrailerIndex = this.advanceIndex(currentTrailerIndex);
     } else if (e.target.getAttribute('class') === 'prev') {
-      currentTrailerIndex = this.reverseIndices(currentTrailerIndex);
+      currentTrailerIndex = this.reverseIndex(currentTrailerIndex);
     }
     this.setState({ currentTrailerIndex });
   }
-  advanceIndices(index) {
+  advanceIndex(index) {
     if (index >= this.props.trailers.length - 1) {
       return 0;
     }
     return index + 1;
   }
-  reverseIndices(index) {
+  reverseIndex(index) {
     if (index <= 0) {
       return this.props.trailers.length - 1;
     }
