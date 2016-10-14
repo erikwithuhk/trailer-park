@@ -88,7 +88,6 @@ class UserProfile extends Component {
     request.del(`/api/users/${this.state.id}`)
            .then(() => {
              this.props.handleSignout();
-             // TODO handle signout
              hashHistory.push('/');
            });
   }
