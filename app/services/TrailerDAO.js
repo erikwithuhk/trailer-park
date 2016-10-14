@@ -23,6 +23,21 @@ class TrailerDAO {
               .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
               .catch(err => err);
   }
+  static popular() {
+    return superagent.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
+              .then((response) => {
+                const popularResultsData = response.body.results;
+                return popularResultsData.map((popularResultData) => {
+                  return {
+                    tmdb_id: popularResultData.id,
+                    media_type: 'movie',
+                    title: popularResultData.title,
+                  };
+                });
+              })
+              .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
+              .catch(err => err);
+  }
   static getTrailerInfo(trailerID) {
     return superagent
       .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)
