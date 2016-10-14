@@ -182,12 +182,6 @@ li p {
   opacity: 0.5;
   width: 40%;
 }
-.previous-trailer_li {
-  /*left: 0;*/
-}
-.next-trailer_li {
-  /*right: 0;*/
-}
 .previous-trailer_container,
 .next-trailer_container {
   background-color: #ccc;
@@ -206,7 +200,6 @@ li p {
   z-index: 3000;
 }
 .trailer_container {
-  background-color: #fff;
   position: relative;
   padding-bottom: 56.25%;
   padding-top: 30px;
@@ -253,14 +246,6 @@ button.next {
   background-color: #938172;
   border-radius: 1.5rem;
   color: #000;
-}
-.spacer {
-  position: relative;
-}
-.spacer-div {
-  height: 0;
-  position: relative;
-  padding-bottom: 56.25%;
 }
 button.heart,
 button.broken-heart {

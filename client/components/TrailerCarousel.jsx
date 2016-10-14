@@ -147,7 +147,6 @@ class TrailerCarousel extends Component {
             <li className="next-trailer_li">
               {this.generateNextPoster()}
             </li>
-            <li className="spacer"><div className="spacer-div" >&nbsp;</div></li>
           </ul>
         </section>
         <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
