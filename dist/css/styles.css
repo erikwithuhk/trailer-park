@@ -180,7 +180,7 @@ li p {
 .previous-trailer_li,
 .next-trailer_li {
   margin-top: 5%;
-  opacity: 0.5;
+  opacity: 0.4;
   width: 30%;
 }
 .previous-trailer_container,
@@ -199,6 +199,9 @@ li p {
   left: 25%;
   width: 50%;
   z-index: 3000;
+  -webkit-box-shadow: 0px 0px 38px 10px rgba(20,20,20,1);
+  -moz-box-shadow: 0px 0px 38px 10px rgba(20,20,20,1);
+  box-shadow: 0px 0px 38px 10px rgba(20,20,20,1);
 }
 .trailer_container {
   position: relative;
