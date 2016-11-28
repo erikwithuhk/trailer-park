@@ -26,12 +26,6 @@ class Search extends Component {
     }
     this.getTrailers();
   }
-  // componentWillReceiveProps(nextProps) {
-  //   const { token } = nextProps;
-  //   if (token) {
-  //     this.getCurrentUser(token);
-  //   }
-  // }
   getCurrentUser(token) {
     if (token) {
       const decoded = jwtDecode(token);
