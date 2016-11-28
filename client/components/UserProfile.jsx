@@ -10,8 +10,8 @@ const propTypes = {
 };
 
 class UserProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       id: '',
       email: '',
@@ -27,26 +27,18 @@ class UserProfile extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
-    const { token } = this.props;
-    if (token) {
-      this.getCurrentUser(token);
-      this.getTrailers(token.id);
-    }
+    this.getCurrentUser(this.props.token);
   }
   componentWillReceiveProps(nextProps) {
-    const { token } = nextProps;
-    if (token) {
-      this.getCurrentUser(token);
-      this.getTrailers(token.id);
-    }
+    this.getCurrentUser(nextProps.token);
   }
   getCurrentUser(token) {
     if (token) {
       const decoded = jwtDecode(token);
-      const id = decoded.id;
+      const { id } = decoded;
       this.getTrailers(id);
       this.setState({
-        id: decoded.id,
+        id,
         email: decoded.email,
         username: decoded.username,
         firstName: decoded.firstName,
