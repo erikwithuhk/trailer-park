@@ -9,8 +9,8 @@ const propTypes = {
 }
 
 class Search extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       searchQuery: '',
       querySearched: 'Popular Trailers',
@@ -26,12 +26,12 @@ class Search extends Component {
     }
     this.getTrailers();
   }
-  componentWillReceiveProps(nextProps) {
-    const { token } = nextProps;
-    if (token) {
-      this.getCurrentUser(token);
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   const { token } = nextProps;
+  //   if (token) {
+  //     this.getCurrentUser(token);
+  //   }
+  // }
   getCurrentUser(token) {
     if (token) {
       const decoded = jwtDecode(token);
@@ -52,11 +52,12 @@ class Search extends Component {
       .then((response) => {
         this.setState({ trailers: response.body });
       });
+    } else {
+      request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
+      .then((response) => {
+        this.setState({ trailers: response.body });
+      });
     }
-    request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
-    .then((response) => {
-      this.setState({ trailers: response.body });
-    });
   }
   handleChange(e) {
     const searchQuery = e.target.value;
