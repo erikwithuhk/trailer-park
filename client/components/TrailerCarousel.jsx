@@ -8,12 +8,10 @@ const propTypes = {
 };
 
 class TrailerCarousel extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       currentTrailerIndex: 0,
-      header: '',
-      trailers: [],
       currentTrailerHeight: '',
     };
     this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
@@ -21,13 +19,6 @@ class TrailerCarousel extends Component {
     this.handleAddTrailer = this.handleAddTrailer.bind(this);
     this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
     this.handleResize = this.handleResize.bind(this);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      header: nextProps.header,
-      trailers: nextProps.trailers,
-    });
-    this.handleResize();
   }
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
@@ -37,8 +28,8 @@ class TrailerCarousel extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
   getVideoEmbedCode() {
-    if (this.state.trailers.length) {
-      const currentTrailer = this.state.trailers[this.state.currentTrailerIndex];
+    if (this.props.trailers.length) {
+      const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
       const videoHostDomain = 'https://www.youtube.com/embed/';
       const currentTrailerKey = currentTrailer.videoKey;
       const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1';
@@ -61,30 +52,30 @@ class TrailerCarousel extends Component {
     this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
   }
   generatePreviousPoster() {
-    if (this.state.trailers.length) {
+    if (this.props.trailers.length) {
       return (
         <div
           className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
     return (<div />);
   }
   generateNextPoster() {
-    if (this.state.trailers.length) {
+    if (this.props.trailers.length) {
       return (
         <div
           className="trailer_container next-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.state.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
     return (<div />);
   }
   generateTrailerTitle() {
-    if (this.state.trailers.length) {
-      return `${this.state.trailers[this.state.currentTrailerIndex].title}`;
+    if (this.props.trailers.length) {
+      return `${this.props.trailers[this.state.currentTrailerIndex].title}`;
     }
     return '';
   }
@@ -115,9 +106,9 @@ class TrailerCarousel extends Component {
     e.preventDefault();
     e.target.setAttribute('class', 'heart liked');
     const trailerData = {
-      tmdbID: this.state.trailers[this.state.currentTrailerIndex].tmdbID,
-      mediaType: this.state.trailers[this.state.currentTrailerIndex].mediaType,
-      title: this.state.trailers[this.state.currentTrailerIndex].title,
+      tmdbID: this.props.trailers[this.state.currentTrailerIndex].tmdbID,
+      mediaType: this.props.trailers[this.state.currentTrailerIndex].mediaType,
+      title: this.props.trailers[this.state.currentTrailerIndex].title,
       blocked: false,
       users_id: this.props.userID,
     };
@@ -134,7 +125,7 @@ class TrailerCarousel extends Component {
     return (
       <div className="carousel-container">
         <section className="carousel">
-          <h3 className="carousel_header" >{this.state.header}</h3>
+          <h3 className="carousel_header" >{this.props.header}</h3>
           <ul className="carousel" style={{ height: `${this.state.currentTrailerHeight}px` }}>
             <li className="previous-trailer_li">
               {this.generatePreviousPoster()}
