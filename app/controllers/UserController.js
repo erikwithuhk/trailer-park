@@ -1,19 +1,19 @@
 const UserDAO = require('../services/UserDAO');
 
 class UserController {
-  static getAll(request, response) {
+  static index(request, response) {
     UserDAO.all()
            .then(users => response.status(200).json(users))
            .catch(err => response.status(500).json(err));
   }
-  static getOne(request, response) {
-    UserDAO.findBy({ 'users.id': request.params.user_id })
+  static show(request, response) {
+    UserDAO.find(request.params.user_id)
            .then(user => response.status(200).json(user))
            .catch(err => response.status(500).json(err));
   }
   static update(request, response) {
     const { email, username, firstName, lastName, bio } = request.body;
-    UserDAO.findBy({ 'users.id': request.params.user_id })
+    UserDAO.findBy({ id: request.params.user_id })
       .then((user) => {
         const dataToUpdate = {
           id: user.id,

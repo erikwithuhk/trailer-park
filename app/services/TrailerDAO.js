@@ -1,7 +1,10 @@
-const superagent = require('superagent');
-const TrailerListItem = require('../models/TrailerListItem');
+const db = require('../db/db');
+const sql = require('../db/sqlProvider').trailers;
 
 class TrailerDAO {
+  static all() {
+    
+  }
 }
 
 module.exports = TrailerDAO;
