@@ -18,6 +18,7 @@ class App extends Component {
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
   componentDidMount() {
     this.updateAuth();
@@ -28,19 +29,22 @@ class App extends Component {
     const currentUser = { id, email, username, firstName, lastName, bio, trailers };
     this.setState({ currentUser });
   }
-  signOut() {
-    request.post('/api/signout')
-           .then(() => {
-             this.updateAuth();
-             hashHistory.push('/');
-           });
-  }
   updateAuth() {
     const token = cookie.load('token');
     if (token) {
       this.getCurrentUser(token);
     }
     this.setState({ token });
+  }
+  signUp(userDetails) {
+    request.post('/api/signup')
+           .send(userDetails)
+           .then(() => {
+             this.updateAuth();
+             hashHistory.push('/profile');
+           })
+           .catch(err => console.error(err));
+          //  TODO handle signup error
   }
   logIn(userDetails) {
     request.post('/api/login')
@@ -52,15 +56,23 @@ class App extends Component {
            .catch(err => console.error(err));
           //  TODO handle login error
   }
-  signUp(userDetails) {
-    request.post('/api/signup')
+  updateUser({ id, email, username, firstName, lastName, bio }) {
+    const userDetails = { email, username, firstName, lastName, bio };
+    request.patch(`/api/users/${id}`)
            .send(userDetails)
-           .then(() => {
-             this.updateAuth();
-             hashHistory.push('/profile');
+           .then((response) => {
+             const currentUser = response.body;
+             this.setState({ currentUser });
            })
            .catch(err => console.error(err));
-          //  TODO handle signup error
+  }
+  signOut() {
+    request.post('/api/signout')
+           .then(() => {
+             this.updateAuth();
+             hashHistory.push('/');
+           })
+           .catch(err => console.error(err));
   }
   render() {
     let userDisplayElement;
@@ -87,6 +99,7 @@ class App extends Component {
       handleLogin: this.logIn,
       handleSignup: this.signUp,
       handleSignout: this.signOut,
+      updateUser: this.updateUser,
     });
     return (
       <div>

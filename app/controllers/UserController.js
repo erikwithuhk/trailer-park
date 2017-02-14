@@ -13,7 +13,7 @@ class UserController {
   }
   static update(request, response) {
     const { email, username, firstName, lastName, bio } = request.body;
-    UserDAO.findBy({ id: request.params.user_id })
+    UserDAO.findBy({ 'users.id': request.params.user_id })
       .then((user) => {
         const dataToUpdate = {
           id: user.id,

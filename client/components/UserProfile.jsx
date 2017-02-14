@@ -8,6 +8,7 @@ const propTypes = {
   currentUser: React.PropTypes.object,
   token: React.PropTypes.string,
   handleSignout: React.PropTypes.func,
+  updateUser: React.PropTypes.func,
 };
 
 class UserProfile extends Component {
@@ -40,12 +41,8 @@ class UserProfile extends Component {
   }
   handleUpdate(e) {
     e.preventDefault();
-    request.patch(`/api/users/${this.state.id}`)
-           .send(this.state)
-           .then((response) => {
-             const updated = response.body;
-             this.setState(updated);
-           });
+    const { id, email, username, firstName, lastName, bio } = this.state;
+    this.props.updateUser({ id, email, username, firstName, lastName, bio });
   }
   handleDelete(e) {
     e.preventDefault();
