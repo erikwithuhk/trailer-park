@@ -1,1 +1,1 @@
-DELETE FROM trailers WHERE id = $1;
+DELETE FROM trailers WHERE tmdb_id = $1;

@@ -1,8 +1,8 @@
 class Trailer {
-  constructor({ tmdbID, title, mediaType }) {
-    this.tmdbID = tmdbID;
+  constructor({ tmdb_id, title, media_type }) {
+    this.tmdbID = tmdb_id;
     this.title = title;
-    this.mediaType = mediaType;
+    this.mediaType = media_type;
   }
 }
 

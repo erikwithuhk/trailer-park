@@ -7,6 +7,14 @@ function sql(file) {
 }
 
 const sqlProvider = {
+  trailers: {
+    all: sql('./sql/trailer/all.sql'),
+    where: sql('./sql/trailer/where.sql'),
+    find: sql('./sql/trailer/find.sql'),
+    save: sql('./sql/trailer/save.sql'),
+    update: sql('./sql/trailer/update.sql'),
+    delete: sql('./sql/trailer/delete.sql'),
+  },
   users: {
     all: sql('./sql/user/all.sql'),
     where: sql('./sql/user/where.sql'),
@@ -14,13 +22,6 @@ const sqlProvider = {
     save: sql('./sql/user/save.sql'),
     update: sql('./sql/user/update.sql'),
     delete: sql('./sql/user/delete.sql'),
-  },
-  trailers: {
-    all: sql('./sql/trailer/all.sql'),
-    find: sql('./sql/trailer/find.sql'),
-    create: sql('./sql/trailer/create.sql'),
-    save: sql('./sql/trailer/save.sql'),
-    delete: sql('./sql/trailer/delete.sql'),
   },
 };
 

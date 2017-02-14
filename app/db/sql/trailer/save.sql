@@ -1,7 +1,1 @@
-UPDATE trailers
-SET
-  tmdb_id = $2,
-  title = $3,
-  media_type = $4,
-WHERE id = $1
-RETURNING *;
+INSERT INTO trailers (tmdb_id, title, media_type) VALUES ($1, $2, $3) RETURNING *;

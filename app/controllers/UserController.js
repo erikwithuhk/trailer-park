@@ -19,9 +19,6 @@ class UserController {
            .then(user => res.status(200).json(user))
            .catch(err => res.status(500).json(err));
   }
-  static updateUnique(req, res) {
-
-  }
   static update(req, res) {
     const { email, username, firstName, lastName, bio } = req.body;
     UserDAO.findBy({ id: req.params.user_id })
