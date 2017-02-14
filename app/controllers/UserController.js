@@ -2,12 +2,17 @@ const UserDAO = require('../services/UserDAO');
 
 class UserController {
   static index(req, res) {
-    if() {
-
+    const query = req.query;
+    if (Object.keys(query).length > 0) {
+      UserDAO.findBy(query)
+      // TODO support multiple queries
+             .then(users => !users.error ? res.status(200).json(users) : res.status(500).json(users))
+             .catch(err => res.status(500).json(err));
+    } else {
+      UserDAO.all()
+             .then(users => res.status(200).json(users))
+             .catch(err => res.status(500).json(err));
     }
-    UserDAO.all()
-           .then(users => res.status(200).json(users))
-           .catch(err => res.status(500).json(err));
   }
   static show(req, res) {
     UserDAO.find(req.params.user_id)

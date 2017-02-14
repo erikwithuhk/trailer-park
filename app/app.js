@@ -1,4 +1,3 @@
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -25,8 +24,16 @@ app.use(session({
 
 app.use(logger('dev'));
 
-app.use('/api', authentication);
-app.use('/api', authRouter);
+if (!process.env) {
+  require('dotenv').config();
+}
+
+// TODO add auth back
+if (process.env.ENV !== 'DEV') {
+  app.use('/api', authentication);
+  app.use('/api', authRouter);
+}
+
 app.use('/api/users', userRouter);
 app.use('/api/trailers', trailerRouter);
 
