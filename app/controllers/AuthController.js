@@ -1,6 +1,7 @@
-const UserDAO = require('../services/UserDAO');
-const createToken = require('../utilis/createToken');
 const bcrypt = require('bcrypt');
+
+const UserDAO = require('../services/UserDAO');
+const createToken = require('../utils/createToken');
 
 class AuthController {
   static login(req, res) {

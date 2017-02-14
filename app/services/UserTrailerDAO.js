@@ -1,5 +1,5 @@
-const db = require('../config/db');
-const sql = require('../config/sqlProvider').usersTrailers;
+const db = require('../db/db');
+const sql = require('../db/sqlProvider').usersTrailers;
 const TrailerListItem = require('../models/TrailerListItem');
 
 class UserTrailerDAO {
