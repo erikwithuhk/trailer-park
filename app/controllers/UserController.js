@@ -1,19 +1,22 @@
 const UserDAO = require('../services/UserDAO');
 
 class UserController {
-  static index(request, response) {
+  static index(req, res) {
+    if() {
+
+    }
     UserDAO.all()
-           .then(users => response.status(200).json(users))
-           .catch(err => response.status(500).json(err));
+           .then(users => res.status(200).json(users))
+           .catch(err => res.status(500).json(err));
   }
-  static show(request, response) {
-    UserDAO.find(request.params.user_id)
-           .then(user => response.status(200).json(user))
-           .catch(err => response.status(500).json(err));
+  static show(req, res) {
+    UserDAO.find(req.params.user_id)
+           .then(user => res.status(200).json(user))
+           .catch(err => res.status(500).json(err));
   }
-  static update(request, response) {
-    const { email, username, firstName, lastName, bio } = request.body;
-    UserDAO.findBy({ id: request.params.user_id })
+  static update(req, res) {
+    const { email, username, firstName, lastName, bio } = req.body;
+    UserDAO.findBy({ id: req.params.user_id })
       .then((user) => {
         const dataToUpdate = {
           id: user.id,
@@ -26,18 +29,18 @@ class UserController {
         };
         UserDAO.save(dataToUpdate)
           .then((updatedUser) => {
-            response.status(200).send(updatedUser);
+            res.status(200).send(updatedUser);
           })
           .catch((err) => {
-            response.send(err);
+            res.send(err);
           });
       })
-      .catch(err => response.send(err));
+      .catch(err => res.send(err));
   }
-  static delete(request, response) {
-    UserDAO.delete(request.params.user_id)
-           .then(() => response.status(204).end())
-           .catch(err => response.status(500).json(err));
+  static delete(req, res) {
+    UserDAO.delete(req.params.user_id)
+           .then(() => res.status(204).end())
+           .catch(err => res.status(500).json(err));
   }
 }
 
