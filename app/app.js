@@ -3,15 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
+
 const trailerRouter = require('./routes/trailerRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const authRouter = require('./routes/authRouter');
 const authentication = require('./middleware/authentication');
-const session = require('express-session');
 
 const app = express();
-
-process.env.ENV = process.env.ENV || 'dev';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
