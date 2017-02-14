@@ -82,6 +82,7 @@ class App extends Component {
       );
     }
     const childrenWithProps = React.cloneElement(this.props.children, {
+      currentUser: this.state.currentUser,
       token: this.state.token,
       handleLogin: this.logIn,
       handleSignup: this.signUp,

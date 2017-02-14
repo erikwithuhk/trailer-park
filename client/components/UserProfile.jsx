@@ -5,6 +5,7 @@ import jwtDecode from 'jwt-decode';
 import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
+  currentUser: React.PropTypes.object,
   token: React.PropTypes.string,
   handleSignout: React.PropTypes.func,
 };
@@ -21,50 +22,21 @@ class UserProfile extends Component {
       bio: '',
       trailers: [],
     };
-    this.getCurrentUser = this.getCurrentUser.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
-  // componentDidMount() {
-  //   this.getCurrentUser(this.props.token);
-  // }
-  // componentWillReceiveProps(nextProps) {
-    // this.getCurrentUser(nextProps.token);
-  // }
-  // getCurrentUser(token) {
-  //   if (token) {
-  //     const decoded = jwtDecode(token);
-  //     const { id } = decoded;
-  //     this.getTrailers(id);
-  //     this.setState({
-  //       id,
-  //       email: decoded.email,
-  //       username: decoded.username,
-  //       firstName: decoded.firstName,
-  //       lastName: decoded.lastName,
-  //       bio: decoded.bio,
-  //     });
-  //   }
-  // }
-  getTrailers(id) {
-    if (id) {
-      const url = `/api/users/${id}/trailers`;
-      request.get(url)
-      .then((response) => {
-        const trailers = response.body;
-        this.setState({ trailers });
-      })
-      .catch(err => err);
-    }
+  componentWillReceiveProps(nextProps) {
+    const { id, email, username, firstName, lastName, bio, trailers } = nextProps.currentUser;
+    this.setState({ id, email, username, firstName, lastName, bio, trailers });
   }
   handleChange(e) {
     const target = e.target;
-    const name = target.getAttribute('name');
-    const value = target.value;
-    const updated = {};
-    updated[name] = value;
-    this.setState(updated);
+    const stateObject = {};
+    const stateKey = target.getAttribute('name');
+    const stateValue = target.value;
+    stateObject[stateKey] = stateValue;
+    this.setState(stateObject);
   }
   handleUpdate(e) {
     e.preventDefault();
@@ -86,11 +58,11 @@ class UserProfile extends Component {
   render() {
     return (
       <div className="profile-container">
-        <TrailerCarousel
+        {/* <TrailerCarousel
           header="Your Trailers"
-          trailers={this.state.trailers}
+          trailers={trailers}
           userID={`${this.state.id}`}
-        />
+        /> */}
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>
           <input
