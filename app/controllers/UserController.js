@@ -7,7 +7,7 @@ class UserController {
            .catch(err => response.status(500).json(err));
   }
   static getOne(request, response) {
-    UserDAO.findBy({ id: request.params.user_id })
+    UserDAO.findBy({ 'users.id': request.params.user_id })
            .then(user => response.status(200).json(user))
            .catch(err => response.status(500).json(err));
   }
