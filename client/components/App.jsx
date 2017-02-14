@@ -46,7 +46,8 @@ class App extends Component {
            .then(() => {
              this.updateAuth();
              hashHistory.push('/profile');
-           });
+           })
+           .catch(err => console.error(err));
   }
   render() {
     let userDisplayElement;

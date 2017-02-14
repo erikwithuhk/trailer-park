@@ -3,11 +3,10 @@ const Trailer = require('./Trailer');
 class User {
   static parseTrailerData(string) {
     const dataItems = string.split('*@*');
-    const mediaType = dataItems[0];
-    const tmdbID = parseInt(dataItems[1], 10);
-    const title = dataItems[2];
-    const blocked = dataItems[3] === 't' ? true : false;
-    const data = { tmdbID, title, mediaType, blocked };
+    const tmdbID = parseInt(dataItems[0], 10);
+    const title = dataItems[1];
+    const mediaType = dataItems[2];
+    const data = { tmdbID, title, mediaType };
     return data;
   }
   static createTrailers(string) {
