@@ -28,11 +28,10 @@ if (!process.env) {
   require('dotenv').config();
 }
 
-// TODO add auth back
-if (process.env.ENV !== 'DEV') {
+// if(process.env.ENV !== 'DEV') {
   app.use('/api', authentication);
   app.use('/api', authRouter);
-}
+// }
 
 app.use('/api/users', userRouter);
 app.use('/api/trailers', trailerRouter);

@@ -11,8 +11,8 @@ const sqlProvider = {
     all: sql('./sql/user/all.sql'),
     where: sql('./sql/user/where.sql'),
     find: sql('./sql/user/find.sql'),
-    create: sql('./sql/user/create.sql'),
     save: sql('./sql/user/save.sql'),
+    update: sql('./sql/user/update.sql'),
     delete: sql('./sql/user/delete.sql'),
   },
   trailers: {

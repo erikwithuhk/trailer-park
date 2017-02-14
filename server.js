@@ -2,7 +2,7 @@
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackDevMiddleware = require('webpack-DEV-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const config = require('./webpack.config');
@@ -12,11 +12,9 @@ if (!process.env) {
   require('dotenv').config();
 }
 
-process.env.ENV = process.env.ENV || 'dev';
-
 const port = process.env.PORT;
 
-if (process.env.ENV === 'dev') {
+if (process.env.ENV === 'DEV') {
   const compiler = webpack(config);
   const middleware = webpackDevMiddleware(compiler, {
     stats: {
@@ -32,7 +30,7 @@ if (process.env.ENV === 'dev') {
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, '/dist/index.html'));
+  response.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 app.listen(port, () => {

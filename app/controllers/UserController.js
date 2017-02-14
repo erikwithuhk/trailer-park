@@ -6,7 +6,7 @@ class UserController {
     if (Object.keys(query).length > 0) {
       UserDAO.findBy(query)
       // TODO support multiple queries
-             .then(users => !users.error ? res.status(200).json(users) : res.status(500).json(users))
+             .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
              .catch(err => res.status(500).json(err));
     } else {
       UserDAO.all()
@@ -18,6 +18,9 @@ class UserController {
     UserDAO.find(req.params.user_id)
            .then(user => res.status(200).json(user))
            .catch(err => res.status(500).json(err));
+  }
+  static updateUnique(req, res) {
+
   }
   static update(req, res) {
     const { email, username, firstName, lastName, bio } = req.body;
@@ -32,10 +35,8 @@ class UserController {
           bio: bio || user.bio,
           password: user.password,
         };
-        UserDAO.save(dataToUpdate)
-          .then((updatedUser) => {
-            res.status(200).send(updatedUser);
-          })
+        UserDAO.update(dataToUpdate)
+          .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
           .catch((err) => {
             res.send(err);
           });

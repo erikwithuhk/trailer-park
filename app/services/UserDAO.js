@@ -6,9 +6,6 @@ class UserDAO {
   static all() {
     return db.map(sql.all, [], row => new User(row));
   }
-  static where(queries) {
-    // TODO support multiple queries
-  }
   static find(id) {
     return db.one(sql.find, ['id', id])
              .then(row => new User(row))
@@ -27,12 +24,12 @@ class UserDAO {
              .catch(err => err);
   }
   static save({ email, password, username }) {
-    return db.one(sql.create, [email, password, username])
+    return db.one(sql.save, [email, password, username])
              .then(row => new User(row))
              .catch(err => err);
   }
   static update({ id, email, username, firstName, lastName, bio, password }) {
-    return db.one(sql.save, [id, email, username, firstName, lastName, bio, password])
+    return db.one(sql.update, [id, email, username, firstName, lastName, bio, password])
              .then(row => new User(row))
              .catch(err => err);
   }

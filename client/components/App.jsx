@@ -25,8 +25,8 @@ class App extends Component {
   }
   getCurrentUser(token) {
     const decoded = jwtDecode(token);
-    const { id, email, username, firstName, lastName, bio, trailers } = decoded;
-    const currentUser = { id, email, username, firstName, lastName, bio, trailers };
+    const { id, email, username, firstName, lastName, bio } = decoded;
+    const currentUser = { id, email, username, firstName, lastName, bio };
     this.setState({ currentUser });
   }
   updateAuth() {

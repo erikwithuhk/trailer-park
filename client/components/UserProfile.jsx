@@ -6,7 +6,6 @@ import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
-  token: React.PropTypes.string,
   handleSignout: React.PropTypes.func,
   updateUser: React.PropTypes.func,
 };
@@ -27,9 +26,19 @@ class UserProfile extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
+  componentDidMount() {
+    if (this.props.currentUser) {
+      this.setCurrentUser(this.props.currentUser);
+    }
+  }
   componentWillReceiveProps(nextProps) {
-    const { id, email, username, firstName, lastName, bio, trailers } = nextProps.currentUser;
-    this.setState({ id, email, username, firstName, lastName, bio, trailers });
+    this.setCurrentUser(nextProps.currentUser);
+  }
+  setCurrentUser(currentUser) {
+    if (currentUser) {
+      const { id, email, username, firstName, lastName, bio } = currentUser;
+      this.setState({ id, email, username, firstName, lastName, bio });
+    }
   }
   handleChange(e) {
     const target = e.target;
