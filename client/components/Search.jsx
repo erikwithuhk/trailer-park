@@ -6,51 +6,44 @@ import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {
   token: React.PropTypes.string,
-}
+};
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: '',
-      querySearched: 'Popular Trailers',
+      querySearched: null,
       trailers: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    const { token } = this.props;
-    if (token) {
-      this.getCurrentUser(token);
-    }
     this.getTrailers();
   }
-  getCurrentUser(token) {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const id = decoded.id;
-      this.setState({
-        id,
-        email: decoded.email,
-        username: decoded.username,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        bio: decoded.bio,
-      });
-    }
+  getPopularTrailers() {
+    request.get('/api/trailers/popular')
+           .then((response) => {
+             this.setState({
+               trailers: response.body,
+               querySearched: 'Popular Trailers',
+             });
+           })
+           .catch(err => console.error(err));
+  }
+  getSearchQuery() {
+    request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
+           .then((response) => {
+             this.setState({ trailers: response.body });
+           })
+           .catch(err => console.error(err));
   }
   getTrailers() {
-    if (this.state.searchQuery === '') {
-      request.get('/api/trailers/popular')
-      .then((response) => {
-        this.setState({ trailers: response.body });
-      });
+    if (!this.state.searchQuery) {
+      this.getPopularTrailers();
     } else {
-      request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
-      .then((response) => {
-        this.setState({ trailers: response.body });
-      });
+      this.getSearchQuery();
     }
   }
   handleChange(e) {

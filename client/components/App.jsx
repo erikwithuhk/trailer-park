@@ -38,7 +38,9 @@ class App extends Component {
            .then(() => {
              this.updateAuth();
              hashHistory.push('/profile');
-           });
+           })
+           .catch(err => console.error(err));
+          //  TODO handle login error
   }
   signUp(userDetails) {
     request.post('/api/signup')
@@ -48,6 +50,7 @@ class App extends Component {
              hashHistory.push('/profile');
            })
            .catch(err => console.error(err));
+          //  TODO handle signup error
   }
   render() {
     let userDisplayElement;
