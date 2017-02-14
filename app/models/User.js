@@ -1,4 +1,3 @@
-const UserDAO = require('../services/UserDAO');
 const Trailer = require('./Trailer');
 
 class User {
