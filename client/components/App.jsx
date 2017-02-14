@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { hashHistory, withRouter, Link } from 'react-router';
-import request from 'superagent';
 import cookie from 'react-cookie';
+import jwtDecode from 'jwt-decode';
+import request from 'superagent';
 
 const propTypes = {
   children: React.PropTypes.element,
@@ -11,6 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: null,
       token: null,
     };
     this.logIn = this.logIn.bind(this);
@@ -20,6 +22,12 @@ class App extends Component {
   componentDidMount() {
     this.updateAuth();
   }
+  getCurrentUser(token) {
+    const decoded = jwtDecode(token);
+    const { id, email, username, firstName, lastName, bio, trailers } = decoded;
+    const currentUser = { id, email, username, firstName, lastName, bio, trailers };
+    this.setState({ currentUser });
+  }
   signOut() {
     request.post('/api/signout')
            .then(() => {
@@ -28,9 +36,11 @@ class App extends Component {
            });
   }
   updateAuth() {
-    this.setState({
-      token: cookie.load('token'),
-    });
+    const token = cookie.load('token');
+    if (token) {
+      this.getCurrentUser(token);
+    }
+    this.setState({ token });
   }
   logIn(userDetails) {
     request.post('/api/login')

@@ -26,27 +26,27 @@ class UserProfile extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
-  componentDidMount() {
-    this.getCurrentUser(this.props.token);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.getCurrentUser(nextProps.token);
-  }
-  getCurrentUser(token) {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const { id } = decoded;
-      this.getTrailers(id);
-      this.setState({
-        id,
-        email: decoded.email,
-        username: decoded.username,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        bio: decoded.bio,
-      });
-    }
-  }
+  // componentDidMount() {
+  //   this.getCurrentUser(this.props.token);
+  // }
+  // componentWillReceiveProps(nextProps) {
+    // this.getCurrentUser(nextProps.token);
+  // }
+  // getCurrentUser(token) {
+  //   if (token) {
+  //     const decoded = jwtDecode(token);
+  //     const { id } = decoded;
+  //     this.getTrailers(id);
+  //     this.setState({
+  //       id,
+  //       email: decoded.email,
+  //       username: decoded.username,
+  //       firstName: decoded.firstName,
+  //       lastName: decoded.lastName,
+  //       bio: decoded.bio,
+  //     });
+  //   }
+  // }
   getTrailers(id) {
     if (id) {
       const url = `/api/users/${id}/trailers`;

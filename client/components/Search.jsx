@@ -13,7 +13,7 @@ class Search extends Component {
     super(props);
     this.state = {
       searchQuery: '',
-      querySearched: null,
+      querySearched: '',
       trailers: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -21,6 +21,13 @@ class Search extends Component {
   }
   componentDidMount() {
     this.getTrailers();
+  }
+  getTrailers() {
+    if (!this.state.searchQuery) {
+      this.getPopularTrailers();
+    } else {
+      this.getSearchQuery();
+    }
   }
   getPopularTrailers() {
     request.get('/api/trailers/popular')
@@ -38,13 +45,6 @@ class Search extends Component {
              this.setState({ trailers: response.body });
            })
            .catch(err => console.error(err));
-  }
-  getTrailers() {
-    if (!this.state.searchQuery) {
-      this.getPopularTrailers();
-    } else {
-      this.getSearchQuery();
-    }
   }
   handleChange(e) {
     const searchQuery = e.target.value;
