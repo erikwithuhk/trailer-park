@@ -55,9 +55,9 @@ class UserController {
         };
         UserDAO.update(dataToUpdate)
                .then((updatedUser) => {
-                 updatedUser.fetchTrailers()
-                            .then(userWithTrailers => res.status(200).json(userWithTrailers))
-                            .catch(err => res.status(500).json(err));
+                 UserController.fetchUserTrailers(updatedUser)
+                               .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                               .catch(err => res.status(500).json(err));
                })
                .catch(err => res.status(500).json(err));
       })

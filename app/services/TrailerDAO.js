@@ -14,12 +14,6 @@ class TrailerDAO {
   static findBy(keyValue) {
     const key = Object.keys(keyValue)[0];
     const value = keyValue[key];
-    const uniqueKeys = ['tmdb_id'];
-    if (uniqueKeys.includes(key)) {
-      return db.one(sql.find, [key, value])
-               .then(row => new Trailer(row))
-               .catch(err => err);
-    }
     return db.map(sql.where, [key, value], row => new Trailer(row))
              .catch(err => err);
   }

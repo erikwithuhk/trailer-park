@@ -4,28 +4,33 @@ const UserTrailerDAO = require('../services/UserTrailerDAO');
 class TrailerController {
   static index(req, res) {
     const query = req.query;
+    let trailerPromise;
     if (Object.keys(query).length > 0) {
-      TrailerDAO.findBy(query)
+      trailerPromise = TrailerDAO.findBy(query);
       // TODO make case insensitive
       // TODO support multiple queries
-             .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
-             .catch(err => res.status(500).json(err));
     } else {
-      TrailerDAO.all()
-             .then(trailers => res.status(200).json(trailers))
-             .catch(err => res.status(500).json(err));
+      trailerPromise = TrailerDAO.all();
     }
+    trailerPromise.then((trailers) => {
+      const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
+      return Promise.all(trailersWithVideo);
+    })
+    .then((trailersWithVideo) => {
+      res.status(200).json(trailersWithVideo);
+    })
+    .catch(err => res.status(500).json(err));
   }
   static show(req, res) {
     TrailerDAO.find(req.params.tmdb_id)
-           .then((trailer) => {
-             trailer.fetchVideo()
-                    .then((trailerWithVideo) => {
-                      res.status(200).json(trailerWithVideo)
-                    })
-                    .catch(err => err);
-           })
-           .catch(err => res.status(500).json(err));
+              .then((trailer) => {
+                trailer.fetchVideo()
+                       .then((trailerWithVideo) => {
+                         res.status(200).json(trailerWithVideo);
+                       })
+                       .catch(err => err);
+              })
+              .catch(err => res.status(500).json(err));
   }
   static create(req, res) {
     const { tmdbID, title, mediaType } = req.body;
@@ -43,10 +48,16 @@ class TrailerController {
           mediaType: mediaType || trailer.mediaType,
         };
         TrailerDAO.update(dataToUpdate)
-          .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
-          .catch((err) => {
-            res.send(err);
-          });
+                  .then((updatedTrailer) => {
+                    updatedTrailer.fetchVideo()
+                           .then((trailerWithVideo) => {
+                             res.status(200).json(trailerWithVideo);
+                           })
+                           .catch(err => err);
+                  })
+                  .catch((err) => {
+                    res.send(err);
+                  });
       })
       .catch(err => res.send(err));
   }
