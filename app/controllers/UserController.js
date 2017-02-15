@@ -16,7 +16,7 @@ class UserController {
              if (users.error) {
                res.status(500).json(users.error);
              }
-             UserController.fetchUserTrailers(users, res);
+             UserController.fetchAllUserTrailers(users, res);
            })
            .catch(err => res.status(500).json(err));
   }
@@ -27,16 +27,16 @@ class UserController {
              if (users.error) {
                res.status(500).json(users.error);
              }
-             UserController.fetchUserTrailers(users, res);
+             UserController.fetchAllUserTrailers(users, res);
            })
            .catch(err => res.status(500).json(err));
   }
   static show(req, res) {
     UserDAO.find(req.params.user_id)
            .then((user) => {
-             user.fetchTrailers()
-                 .then(userWithTrailers => res.status(200).json(userWithTrailers))
-                 .catch(err => res.status(500).json(err));
+             UserController.fetchUserTrailers(user)
+                           .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                           .catch(err => res.status(500).json(err));
            })
            .catch(err => res.status(500).json(err));
   }
@@ -73,13 +73,30 @@ class UserController {
                   })
                   .catch(err => res.status(500).json(err));
   }
-  static fetchUserTrailers(users, res) {
-    const usersWithTrailers = users.map(user => user.fetchTrailers());
-    Promise.all(usersWithTrailers)
-           .then((data) => {
-             res.status(200).json(data);
+  static fetchAllUserTrailers(users, res) {
+    const userTrailers = users.map((user) => {
+      return UserController.fetchUserTrailers(user);
+    });
+    Promise.all(userTrailers)
+           .then((usersWithTrailers) => {
+             res.status(200).json(usersWithTrailers);
            })
            .catch(err => res.status(500).json(err));
+  }
+  static fetchUserTrailers(user) {
+    const user_id = user.id;
+    return UserTrailerDAO.find({ user_id })
+                         .then((trailers) => {
+                           const trailersWithVideo =  trailers.map((trailer) => {
+                             return trailer.fetchVideo();
+                           });
+                           return Promise.all(trailersWithVideo);
+                         })
+                         .then((trailersWithVideo) => {
+                           user.addTrailers(trailersWithVideo);
+                           return user;
+                         })
+                         .catch(err => err);
   }
 }
 

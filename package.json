@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jasmine",
+    "debug": "node-debug server.js",
     "dev": "NODE_ENV=dev nodemon server.js",
     "start": "NODE_ENV=production node ./server.js"
   },

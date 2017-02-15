@@ -18,7 +18,13 @@ class TrailerController {
   }
   static show(req, res) {
     TrailerDAO.find(req.params.tmdb_id)
-           .then(trailer => res.status(200).json(trailer))
+           .then((trailer) => {
+             trailer.fetchVideo()
+                    .then((trailerWithVideo) => {
+                      res.status(200).json(trailerWithVideo)
+                    })
+                    .catch(err => err);
+           })
            .catch(err => res.status(500).json(err));
   }
   static create(req, res) {
