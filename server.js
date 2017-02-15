@@ -14,7 +14,7 @@ if (!process.env) {
 
 const port = process.env.PORT;
 
-if (process.env.ENV === 'DEV') {
+if (process.env.ENV === 'dev') {
   const compiler = webpack(config);
   const middleware = webpackDevMiddleware(compiler, {
     stats: {

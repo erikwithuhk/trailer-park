@@ -14,12 +14,6 @@ class UserDAO {
   static findBy(keyValue) {
     const key = Object.keys(keyValue)[0];
     const value = keyValue[key];
-    const uniqueKeys = ['id', 'email', 'username'];
-    if (uniqueKeys.includes(key)) {
-      return db.one(sql.find, [key, value])
-               .then(row => new User(row))
-               .catch(err => err);
-    }
     return db.map(sql.where, [key, value], row => new User(row))
              .catch(err => err);
   }

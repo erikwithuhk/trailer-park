@@ -23,6 +23,11 @@ const sqlProvider = {
     update: sql('./sql/user/update.sql'),
     delete: sql('./sql/user/delete.sql'),
   },
+  usersTrailers: {
+    all: sql('./sql/userTrailer/all.sql'),
+    find: sql('./sql/userTrailer/find.sql'),
+    delete: sql('./sql/userTrailer/delete.sql'),
+  },
 };
 
 module.exports = sqlProvider;

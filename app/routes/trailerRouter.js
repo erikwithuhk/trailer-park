@@ -1,7 +1,7 @@
 const express = require('express');
 const TrailerController = require('../controllers/TrailerController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get('/', TrailerController.index);
 router.post('/', TrailerController.create);

@@ -3,4 +3,5 @@ FROM users
 JOIN users_trailers
 ON users.id = users_trailers.user_id
 JOIN trailers
-ON users_trailers.tmdb_id = trailers.tmdb_id;
+ON users_trailers.tmdb_id = trailers.tmdb_id
+WHERE $1^ = $2^;

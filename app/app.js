@@ -28,7 +28,7 @@ if (!process.env) {
   require('dotenv').config();
 }
 
-if(process.env.ENV !== 'DEV') {
+if(process.env.ENV !== 'dev') {
   app.use('/api', authentication);
   app.use('/api', authRouter);
 }

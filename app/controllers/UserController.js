@@ -1,30 +1,51 @@
 const UserDAO = require('../services/UserDAO');
+const UserTrailerDAO = require('../services/UserTrailerDAO');
 
 class UserController {
   static index(req, res) {
     const query = req.query;
     if (Object.keys(query).length > 0) {
-      UserDAO.findBy(query)
-      // TODO support multiple queries
-             .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
-             .catch(err => res.status(500).json(err));
+      UserController.filterUsers(query, res);
     } else {
-      UserDAO.all()
-             .then(users => res.status(200).json(users))
-             .catch(err => res.status(500).json(err));
+      UserController.allUsers(res);
     }
+  }
+  static allUsers(res) {
+    UserDAO.all()
+           .then((users) => {
+             if (users.error) {
+               res.status(500).json(users.error);
+             }
+             UserController.fetchUserTrailers(users, res);
+           })
+           .catch(err => res.status(500).json(err));
+  }
+  static filterUsers(query, res) {
+    UserDAO.findBy(query)
+    // TODO support multiple queries
+           .then((users) => {
+             if (users.error) {
+               res.status(500).json(users.error);
+             }
+             UserController.fetchUserTrailers(users, res);
+           })
+           .catch(err => res.status(500).json(err));
   }
   static show(req, res) {
     UserDAO.find(req.params.user_id)
-           .then(user => res.status(200).json(user))
+           .then((user) => {
+             user.fetchTrailers()
+                 .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                 .catch(err => res.status(500).json(err));
+           })
            .catch(err => res.status(500).json(err));
   }
   static update(req, res) {
     const { email, username, firstName, lastName, bio } = req.body;
-    UserDAO.findBy({ id: req.params.user_id })
+    UserDAO.find(req.params.user_id)
       .then((user) => {
         const dataToUpdate = {
-          id: user.id,
+          id: req.params.user_id,
           email: email || user.email,
           username: username || user.username,
           firstName: firstName || user.firstName,
@@ -33,16 +54,31 @@ class UserController {
           password: user.password,
         };
         UserDAO.update(dataToUpdate)
-          .then(data => !data.error ? res.status(200).json(data) : res.status(500).json(data))
-          .catch((err) => {
-            res.send(err);
-          });
+               .then((updatedUser) => {
+                 updatedUser.fetchTrailers()
+                            .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                            .catch(err => res.status(500).json(err));
+               })
+               .catch(err => res.status(500).json(err));
       })
-      .catch(err => res.send(err));
+      .catch(err => res.status(500).json(err));
   }
   static delete(req, res) {
-    UserDAO.delete(req.params.user_id)
-           .then(() => res.status(204).end())
+    const user_id = parseInt(req.params.user_id, 10);
+    UserTrailerDAO.delete({ user_id })
+                  .then((user_id) => {
+                    UserDAO.delete(user_id)
+                           .then(() => res.status(204).end())
+                           .catch(err => res.status(500).json(err));
+                  })
+                  .catch(err => res.status(500).json(err));
+  }
+  static fetchUserTrailers(users, res) {
+    const usersWithTrailers = users.map(user => user.fetchTrailers());
+    Promise.all(usersWithTrailers)
+           .then((data) => {
+             res.status(200).json(data);
+           })
            .catch(err => res.status(500).json(err));
   }
 }
