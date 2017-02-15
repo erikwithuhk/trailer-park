@@ -1,4 +1,5 @@
 const TrailerDAO = require('../services/TrailerDAO');
+const UserTrailerDAO = require('../services/UserTrailerDAO');
 
 class TrailerController {
   static index(req, res) {
