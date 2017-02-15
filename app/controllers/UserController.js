@@ -74,9 +74,7 @@ class UserController {
                   .catch(err => res.status(500).json(err));
   }
   static fetchAllUserTrailers(users, res) {
-    const userTrailers = users.map((user) => {
-      return UserController.fetchUserTrailers(user);
-    });
+    const userTrailers = users.map(user => UserController.fetchUserTrailers(user));
     Promise.all(userTrailers)
            .then((usersWithTrailers) => {
              res.status(200).json(usersWithTrailers);
@@ -87,9 +85,7 @@ class UserController {
     const user_id = user.id;
     return UserTrailerDAO.find({ user_id })
                          .then((trailers) => {
-                           const trailersWithVideo =  trailers.map((trailer) => {
-                             return trailer.fetchVideo();
-                           });
+                           const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
                            return Promise.all(trailersWithVideo);
                          })
                          .then((trailersWithVideo) => {
