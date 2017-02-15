@@ -4,7 +4,8 @@ const User = require('../models/User');
 
 class UserDAO {
   static all() {
-    return db.map(sql.all, [], row => new User(row));
+    return db.map(sql.all, [], row => new User(row))
+             .catch(err => err);
   }
   static find(id) {
     return db.one(sql.find, ['id', id])
@@ -28,7 +29,8 @@ class UserDAO {
              .catch(err => err);
   }
   static delete(id) {
-    return db.none(sql.delete, [id]);
+    return db.none(sql.delete, [id])
+             .catch(err => err);
   }
 }
 

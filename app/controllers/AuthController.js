@@ -7,19 +7,22 @@ class AuthController {
   static login(req, res) {
     const { email, password } = req.body;
     UserDAO.findBy({ email })
-      .then((user) => {
+      .then((userArray) => {
+        const user = userArray[0];
         if (!bcrypt.compareSync(password, user.password)) {
           res.status(401).json({ error: 'Incorrect password' });
         } else {
-          req.session.currentUser = user;
-          const token = createToken(user);
-          res.cookie('token', token);
-          res.status(200).json(token);
+          user.fetchTrailers()
+              .then((userWithTrailers) => {
+                req.session.currentUser = userWithTrailers;
+                const token = createToken(userWithTrailers);
+                res.cookie('token', token);
+                res.status(200).json(token);
+              })
+              .catch(err => res.status(500).json(err));
         }
       })
-      .catch((err) => {
-        res.status(401).json({ error: 'Unregistered user' });
-      });
+      .catch(err => res.status(500).json(err));
   }
   static signUp(req, res) {
     const email = req.body.email;
@@ -29,10 +32,14 @@ class AuthController {
       password = bcrypt.hashSync(password, 10);
       UserDAO.save({ email, password, username })
           .then((user) => {
-            req.session.currentUser = user;
-            const token = createToken(user);
-            res.cookie('token', token);
-            res.status(200).json(token);
+            user.fetchTrailers()
+                .then((userWithTrailers) => {
+                  req.session.currentUser = userWithTrailers;
+                  const token = createToken(userWithTrailers);
+                  res.cookie('token', token);
+                  res.status(200).json(token);
+                })
+                .catch(err => res.status(500).json(err));
           })
           .catch(err => res.status(500).json(err));
     } else {
