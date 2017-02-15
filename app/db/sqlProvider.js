@@ -25,8 +25,11 @@ const sqlProvider = {
   },
   usersTrailers: {
     all: sql('./sql/userTrailer/all.sql'),
+    save: sql('./sql/userTrailer/save.sql'),
     find: sql('./sql/userTrailer/find.sql'),
-    delete: sql('./sql/userTrailer/delete.sql'),
+    update: sql('./sql/userTrailer/update.sql'),
+    deleteOne: sql('./sql/userTrailer/deleteOne.sql'),
+    deleteAll: sql('./sql/userTrailer/deleteAll.sql'),
   },
 };
 

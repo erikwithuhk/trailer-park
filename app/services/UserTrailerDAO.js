@@ -16,10 +16,22 @@ class UserTrailerDAO {
     })
     .catch(err => err);
   }
-  static delete(keyValue) {
+  static save({ user_id, tmdb_id, blocked }) {
+    return db.none(sql.save, [user_id, tmdb_id, blocked])
+             .catch(err => err);
+  }
+  static update({ user_id, tmdb_id, blocked }) {
+    return db.none(sql.update, [user_id, tmdb_id, blocked])
+             .catch(err => err)
+  }
+  static deleteOne({ user_id, tmdb_id }) {
+    return db.none(sql.deleteOne, [user_id, tmdb_id])
+             .catch(err => err);
+  }
+  static deleteAll(keyValue) {
     const key = Object.keys(keyValue)[0];
     const value = keyValue[key];
-    return db.none(sql.delete, [key, value])
+    return db.none(sql.deleteAll, [key, value])
              .catch(err => err);
   }
 }

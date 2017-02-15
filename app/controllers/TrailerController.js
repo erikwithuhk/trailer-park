@@ -17,7 +17,7 @@ class TrailerController {
     }
   }
   static show(req, res) {
-    TrailerDAO.find(req.params.trailer_id)
+    TrailerDAO.find(req.params.tmdb_id)
            .then(trailer => res.status(200).json(trailer))
            .catch(err => res.status(500).json(err));
   }
@@ -29,7 +29,7 @@ class TrailerController {
   }
   static update(req, res) {
     const { title, mediaType } = req.body;
-    TrailerDAO.find(req.params.trailer_id)
+    TrailerDAO.find(req.params.tmdb_id)
       .then((trailer) => {
         const dataToUpdate = {
           tmdbID: trailer.tmdbID,
@@ -45,7 +45,7 @@ class TrailerController {
       .catch(err => res.send(err));
   }
   static delete(req, res) {
-    TrailerDAO.delete(req.params.trailer_id)
+    TrailerDAO.delete(req.params.tmdb_id)
            .then(() => res.status(204).end())
            .catch(err => res.status(500).json(err));
   }

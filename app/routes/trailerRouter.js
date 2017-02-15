@@ -5,8 +5,8 @@ const router = express.Router({ mergeParams: true });
 
 router.get('/', TrailerController.index);
 router.post('/', TrailerController.create);
-router.get('/:trailer_id', TrailerController.show);
-router.patch('/:trailer_id', TrailerController.update);
-router.delete('/:trailer_id', TrailerController.delete);
+router.get('/:tmdb_id', TrailerController.show);
+router.patch('/:tmdb_id', TrailerController.update);
+router.delete('/:tmdb_id', TrailerController.delete);
 
 module.exports = router;

@@ -65,7 +65,7 @@ class UserController {
   }
   static delete(req, res) {
     const user_id = parseInt(req.params.user_id, 10);
-    UserTrailerDAO.delete({ user_id })
+    UserTrailerDAO.deleteAll({ user_id })
                   .then((user_id) => {
                     UserDAO.delete(user_id)
                            .then(() => res.status(204).end())
