@@ -1,6 +1,6 @@
- const UserTrailerDAO = require('../services/UserTrailerDAO');
+const UserTrailerDAO = require('../services/UserTrailerDAO');
 
- class User {
+class User {
   constructor({ id, email, password, username, first_name, last_name, bio }) {
     this.id = id;
     this.email = email;
@@ -15,6 +15,19 @@
     trailers.forEach((trailer) => {
       this.trailers.push(trailer);
     });
+  }
+  fetchTrailers() {
+    const user_id = this.id;
+    return UserTrailerDAO.find({ user_id })
+                         .then((trailers) => {
+                           const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
+                           return Promise.all(trailersWithVideo);
+                         })
+                         .then((trailersWithVideo) => {
+                           this.addTrailers(trailersWithVideo);
+                           return this;
+                         })
+                         .catch(err => err);
   }
 }
 

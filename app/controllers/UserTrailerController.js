@@ -21,7 +21,7 @@ class UserTrailerController {
                   .then(() => res.status(204).end())
                   .catch(err => res.status(500).json(err));
   }
-  static delete(req, res) {
+  static deleteOne(req, res) {
     const { user_id, tmdb_id } = req.params;
     UserTrailerDAO.deleteOne({ user_id, tmdb_id })
                   .then(() => res.status(204).end())

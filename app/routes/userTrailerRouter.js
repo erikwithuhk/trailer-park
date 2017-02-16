@@ -6,6 +6,6 @@ const router = express.Router({ mergeParams: true });
 router.get('/', UserTrailerController.index);
 router.post('/', UserTrailerController.create);
 router.patch('/:tmdb_id', UserTrailerController.update);
-router.delete('/:tmdb_id', UserTrailerController.delete);
+router.delete('/:tmdb_id', UserTrailerController.deleteOne);
 
 module.exports = router;
