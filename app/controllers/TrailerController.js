@@ -1,43 +1,49 @@
 const TrailerDAO = require('../services/TrailerDAO');
 
 class TrailerController {
-  static index(req, res) {
+  static index(req, res, next) {
     const query = req.query;
-    let trailerPromise;
+    let fetchTrailers;
     if (Object.keys(query).length > 0) {
-      trailerPromise = TrailerDAO.findBy(query);
+      fetchTrailers = TrailerDAO.findBy(query);
       // TODO make case insensitive
       // TODO support multiple queries
     } else {
-      trailerPromise = TrailerDAO.all();
+      fetchTrailers = TrailerDAO.all();
     }
-    trailerPromise.then((trailers) => {
-      const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
-      return Promise.all(trailersWithVideo);
-    })
-    .then((trailersWithVideo) => {
-      res.status(200).json(trailersWithVideo);
-    })
-    .catch(err => res.status(500).json(err));
+    fetchTrailers.then((trailers) => {
+                    const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
+                    return Promise.all(trailersWithVideo);
+                  })
+                  .then((trailersWithVideo) => {
+                    res.status(200).json(trailersWithVideo);
+                  })
+                  .catch(err => next(err));
   }
-  static show(req, res) {
+  static show(req, res, next) {
     TrailerDAO.find(req.params.tmdb_id)
               .then((trailer) => {
                 trailer.fetchVideo()
                        .then((trailerWithVideo) => {
                          res.status(200).json(trailerWithVideo);
                        })
-                       .catch(err => err);
+                       .catch(err => next(err));
               })
-              .catch(err => res.status(500).json(err));
+              .catch(err => next(err));
   }
-  static create(req, res) {
+  static create(req, res, next) {
     const { tmdbID, title, mediaType } = req.body;
     TrailerDAO.save({ tmdbID, title, mediaType })
-              .then(trailer => res.status(200).json(trailer))
-              .catch(err => res.status(500).json(err));
+              .then((trailer) => {
+                trailer.fetchVideo()
+                       .then((trailerWithVideo) => {
+                         res.status(200).json(trailerWithVideo);
+                       })
+                       .catch(err => next(err));
+              })
+              .catch(err => next(err));
   }
-  static update(req, res) {
+  static update(req, res, next) {
     const { title, mediaType } = req.body;
     TrailerDAO.find(req.params.tmdb_id)
       .then((trailer) => {
@@ -52,18 +58,16 @@ class TrailerController {
                            .then((trailerWithVideo) => {
                              res.status(200).json(trailerWithVideo);
                            })
-                           .catch(err => err);
+                           .catch(err => next(err));
                   })
-                  .catch((err) => {
-                    res.send(err);
-                  });
+                  .catch(err => next(err));
       })
-      .catch(err => res.send(err));
+      .catch(err => next(err));
   }
-  static delete(req, res) {
+  static delete(req, res, next) {
     TrailerDAO.delete(req.params.tmdb_id)
-           .then(() => res.status(204).end())
-           .catch(err => res.status(500).json(err));
+              .then(() => res.status(204).end())
+              .catch(err => next(err));
   }
 }
 
