@@ -30,6 +30,9 @@ class TrailerDAO {
   static delete(tmdbID) {
     return db.none(sql.delete, [tmdbID]);
   }
+  static search(searchTerm) {
+    return Trailer.search(searchTerm);
+  }
 }
 
 module.exports = TrailerDAO;

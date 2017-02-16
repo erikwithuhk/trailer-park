@@ -28,28 +28,18 @@ class TMDB {
     }
     return { hasTrailer, imagePath, videoSite, videoKey };
   }
-
-  // static search(searchTerm) {
-  //   return superagent.get(`https://api.themoviedb.org/3/search/multi?query=${searchTerm}&api_key=${process.env.API_KEY}`)
-  //             .then((response) => {
-  //               const searchResultsData = response.body.results;
-  //               const searchResults = [];
-  //               searchResultsData.forEach((searchResultData) => {
-  //                 const { media_type } = searchResultData;
-  //                 if (media_type === 'tv' || media_type === 'movie') {
-  //                   const trailerData = {
-  //                     tmdb_id: searchResultData.id,
-  //                     media_type,
-  //                     title: searchResultData.name || searchResultData.title,
-  //                   };
-  //                   searchResults.push(trailerData);
-  //                 }
-  //               });
-  //               return searchResults;
-  //             })
-  //             .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
-  //             .catch(err => err);
-  // }
+  static fetchSearchResults(searchTerm) {
+    return request.get(`${baseURL}/search/multi?query=${searchTerm}&api_key=${apiKey}`)
+                  .then((response) => {
+                    const searchResultsData = response.body.results;
+                    const filteredResults = searchResultsData.filter((searchResult) => {
+                      const { media_type } = searchResult;
+                      return media_type === 'tv' || media_type === 'movie';
+                    });
+                    return filteredResults;
+                  })
+                  .catch(err => err);
+  }
   // static popular() {
   //   return superagent.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
   //             .then((response) => {

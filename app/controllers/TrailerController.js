@@ -5,6 +5,14 @@ class TrailerController {
     const query = req.query;
     let fetchTrailers;
     if (Object.keys(query).length > 0) {
+      const firstKey = Object.keys(query)[0];
+      if (firstKey === 's') {
+        return TrailerDAO.search(query[firstKey])
+                  .then((trailer) => {
+                    res.status(200).json(trailer);
+                  })
+                  .catch(err => next(err));
+      }
       fetchTrailers = TrailerDAO.findBy(query);
       // TODO make case insensitive
       // TODO support multiple queries
