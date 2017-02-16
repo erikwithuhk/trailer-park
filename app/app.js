@@ -47,10 +47,10 @@ app.use((err, req, res, next) => {
 });
 
 
-if(process.env.ENV !== 'dev') {
+// if(process.env.ENV !== 'dev') {
   app.use('/api', authentication);
   app.use('/api', authRouter);
-}
+// }
 
 app.use('/api/users', userRouter);
 app.use('/api/trailers', trailerRouter);

@@ -1,7 +1,7 @@
 const UserDAO = require('../services/UserDAO');
 
 class UserController {
-  static index(req, res) {
+  static index(req, res, next) {
     const query = req.query;
     let fetchUsers;
     if (Object.keys(query).length > 0) {
@@ -15,20 +15,20 @@ class UserController {
              .then((usersWithTrailers) => {
                res.status(200).json(usersWithTrailers);
              })
-             .catch(err => res.status(500).json(err));
+             .catch(err => next(err));
     })
-   .catch(err => res.status(500).json(err));
+   .catch(err => next(err));
   }
-  static show(req, res) {
+  static show(req, res, next) {
     UserDAO.find(req.params.user_id)
            .then((user) => {
              user.fetchTrailers()
                  .then(userWithTrailers => res.status(200).json(userWithTrailers))
-                 .catch(err => res.status(500).json(err));
+                 .catch(err => next(err));
            })
-           .catch(err => res.status(500).json(err));
+           .catch(err => next(err));
   }
-  static update(req, res) {
+  static update(req, res, next) {
     const { email, username, firstName, lastName, bio } = req.body;
     UserDAO.find(req.params.user_id)
       .then((user) => {
@@ -43,24 +43,27 @@ class UserController {
         };
         UserDAO.update(dataToUpdate)
                .then((updatedUser) => {
-                 UserController.fetchUserTrailers(updatedUser)
-                               .then(userWithTrailers => res.status(200).json(userWithTrailers))
-                               .catch(err => res.status(500).json(err));
+                 updatedUser.fetchTrailers()
+                            .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                            .catch(err => next(err));
                })
-               .catch(err => res.status(500).json(err));
+               .catch(err => next(err));
       })
-      .catch(err => res.status(500).json(err));
+      .catch(err => next(err));
   }
-  static delete(req, res) {
-    const user_id = parseInt(req.params.user_id, 10);
-    // const
-    // UserTrailerDAO.deleteAll({ user_id })
-                  // .then((user_id) => {
-                    UserDAO.delete(userId)
-                           .then(() => res.status(204).end())
-                           .catch(err => res.status(500).json(err));
-                  // })
-                  // .catch(err => res.status(500).json(err));
+  static delete(req, res, next) {
+    const { user_id } = req.params;
+    UserDAO.find(user_id)
+           .then((user) => {
+             user.deleteTrailers()
+                 .then(() => {
+                   UserDAO.delete(user.id)
+                          .then(() => res.status(204).end())
+                          .catch(err => next(err));
+                 })
+                 .catch(err => next(err));
+           })
+           .catch(err => next(err));
   }
   static allUsers() {
     return UserDAO.all()

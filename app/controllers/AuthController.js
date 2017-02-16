@@ -4,7 +4,7 @@ const UserDAO = require('../services/UserDAO');
 const createToken = require('../utils/createToken');
 
 class AuthController {
-  static login(req, res) {
+  static login(req, res, next) {
     const { email, password } = req.body;
     UserDAO.findBy({ email })
       .then((userArray) => {
@@ -19,12 +19,12 @@ class AuthController {
                 res.cookie('token', token);
                 res.status(200).json(token);
               })
-              .catch(err => res.status(500).json(err));
+              .catch(err => next(err));
         }
       })
-      .catch(err => res.status(500).json(err));
+      .catch(err => next(err));
   }
-  static signUp(req, res) {
+  static signUp(req, res, next) {
     const email = req.body.email;
     const username = req.body.username;
     let password = req.body.password;
@@ -39,9 +39,9 @@ class AuthController {
                   res.cookie('token', token);
                   res.status(200).json(token);
                 })
-                .catch(err => res.status(500).json(err));
+                .catch(err => next(err));
           })
-          .catch(err => res.status(500).json(err));
+          .catch(err => next(err));
     } else {
       res.status(400).json({ error: 'No email or password entered' });
     }
