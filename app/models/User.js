@@ -17,8 +17,7 @@ class User {
     });
   }
   fetchTrailers() {
-    const user_id = this.id;
-    return UserTrailerDAO.find({ user_id })
+    return UserTrailerDAO.find({ user_id: this.id })
                          .then((trailers) => {
                            const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
                            return Promise.all(trailersWithVideo);
@@ -28,6 +27,9 @@ class User {
                            return this;
                          })
                          .catch(err => err);
+  }
+  deleteTrailers() {
+    return UserTrailerDAO.deleteAll({ user_id: this.id });
   }
 }
 

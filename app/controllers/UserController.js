@@ -5,9 +5,9 @@ class UserController {
     const query = req.query;
     let fetchUsers;
     if (Object.keys(query).length > 0) {
-      fetchUsers = UserController.filterUsers(query, res);
+      fetchUsers = UserController.filterUsers(query);
     } else {
-      fetchUsers = UserController.allUsers(res);
+      fetchUsers = UserController.allUsers();
     }
     fetchUsers.then((users) => {
       const fetchUserTrailers = users.map(user => user.fetchTrailers(user));
@@ -19,28 +19,10 @@ class UserController {
     })
    .catch(err => res.status(500).json(err));
   }
-  static allUsers(res) {
-    return UserDAO.all()
-           .then((users) => {
-             if (users.error) { return users.error; }
-             return users;
-           })
-           .catch(err => err);
-  }
-  static filterUsers(query, res) {
-    return UserDAO.findBy(query)
-    // TODO support multiple queries
-           .then((users) => {
-             if (users.error) { return users.error; }
-             return users;
-           })
-           .catch(err => err);
-  }
   static show(req, res) {
     UserDAO.find(req.params.user_id)
            .then((user) => {
              user.fetchTrailers()
-            //  UserController.fetchUserTrailers(user)
                  .then(userWithTrailers => res.status(200).json(userWithTrailers))
                  .catch(err => res.status(500).json(err));
            })
@@ -70,14 +52,32 @@ class UserController {
       .catch(err => res.status(500).json(err));
   }
   static delete(req, res) {
-  //   const user_id = parseInt(req.params.user_id, 10);
-  //   UserTrailerDAO.deleteAll({ user_id })
-  //                 .then((user_id) => {
-  //                   UserDAO.delete(user_id)
-  //                          .then(() => res.status(204).end())
-  //                          .catch(err => res.status(500).json(err));
-  //                 })
-  //                 .catch(err => res.status(500).json(err));
+    const user_id = parseInt(req.params.user_id, 10);
+    // const
+    // UserTrailerDAO.deleteAll({ user_id })
+                  // .then((user_id) => {
+                    UserDAO.delete(userId)
+                           .then(() => res.status(204).end())
+                           .catch(err => res.status(500).json(err));
+                  // })
+                  // .catch(err => res.status(500).json(err));
+  }
+  static allUsers() {
+    return UserDAO.all()
+           .then((users) => {
+             if (users.error) { return users.error; }
+             return users;
+           })
+           .catch(err => err);
+  }
+  static filterUsers(query) {
+    return UserDAO.findBy(query)
+    // TODO support multiple queries
+           .then((users) => {
+             if (users.error) { return users.error; }
+             return users;
+           })
+           .catch(err => err);
   }
 }
 

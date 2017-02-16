@@ -28,6 +28,25 @@ if (!process.env) {
   require('dotenv').config();
 }
 
+if (process.env.ENV === 'dev') {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err,
+    });
+  });
+}
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {},
+  });
+});
+
+
 if(process.env.ENV !== 'dev') {
   app.use('/api', authentication);
   app.use('/api', authRouter);
