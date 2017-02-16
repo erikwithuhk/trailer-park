@@ -31,30 +31,48 @@ class TMDB {
   static fetchSearchResults(searchTerm) {
     return request.get(`${baseURL}/search/multi?query=${searchTerm}&api_key=${apiKey}`)
                   .then((response) => {
-                    const searchResultsData = response.body.results;
-                    const filteredResults = searchResultsData.filter((searchResult) => {
-                      const { media_type } = searchResult;
-                      return media_type === 'tv' || media_type === 'movie';
-                    });
-                    return filteredResults;
+                    const filteredResults = TMDB.filterSearchResults(response.body.results);
+                    const searchResultData = TMDB.parseSearchData(filteredResults);
+                    return searchResultData;
                   })
                   .catch(err => err);
   }
-  // static popular() {
-  //   return superagent.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
-  //             .then((response) => {
-  //               const popularResultsData = response.body.results;
-  //               return popularResultsData.map((popularResultData) => {
-  //                 return {
-  //                   tmdb_id: popularResultData.id,
-  //                   media_type: 'movie',
-  //                   title: popularResultData.title,
-  //                 };
-  //               });
-  //             })
-  //             .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
-  //             .catch(err => err);
-  // }
+  static filterSearchResults(searchResults) {
+    const filteredResults = searchResults.filter((searchResult) => {
+      const { media_type } = searchResult;
+      return media_type === 'tv' || media_type === 'movie';
+    });
+    return filteredResults;
+  }
+  static parseSearchData(searchData) {
+    const trailerData = searchData.map((searchResult) => {
+      const tmdb_id = searchResult.id;
+      const { media_type } = searchResult;
+      let title;
+      if (media_type === 'movie') {
+        title = searchResult.title;
+      } else if (media_type === 'tv') {
+        title = searchResult.name;
+      }
+      return { tmdb_id, title, media_type };
+    });
+    return trailerData;
+  }
+  static fetchPopularMovies() {
+    // TODO fetch TV shows and shuffle in
+    return request.get(`${baseURL}/movie/popular?api_key=${apiKey}`)
+                  .then((response) => {
+                    const popularResults = response.body.results;
+                    return popularResults.map((data) => {
+                      return {
+                        tmdb_id: data.id,
+                        title: data.title,
+                        media_type: 'movie',
+                      };
+                    });
+                  })
+                  .catch(err => err);
+  }
   // static getTrailerInfo(trailerID) {
   //   return superagent
   //     .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)

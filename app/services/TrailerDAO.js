@@ -33,6 +33,9 @@ class TrailerDAO {
   static search(searchTerm) {
     return Trailer.search(searchTerm);
   }
+  static popularMovies() {
+    return Trailer.popularMovies();
+  }
 }
 
 module.exports = TrailerDAO;

@@ -8,9 +8,7 @@ class TrailerController {
       const firstKey = Object.keys(query)[0];
       if (firstKey === 's') {
         return TrailerDAO.search(query[firstKey])
-                  .then((trailer) => {
-                    res.status(200).json(trailer);
-                  })
+                  .then(trailer => res.status(200).json(trailer))
                   .catch(err => next(err));
       }
       fetchTrailers = TrailerDAO.findBy(query);
@@ -75,6 +73,11 @@ class TrailerController {
   static delete(req, res, next) {
     TrailerDAO.delete(req.params.tmdb_id)
               .then(() => res.status(204).end())
+              .catch(err => next(err));
+  }
+  static popular(req, res, next) {
+    TrailerDAO.popularMovies()
+              .then(trailers => res.status(200).json(trailers))
               .catch(err => next(err));
   }
 }
