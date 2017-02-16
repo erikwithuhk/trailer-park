@@ -1,3 +1,4 @@
+const createToken = require('../utils/createToken');
 const UserDAO = require('../services/UserDAO');
 
 class UserController {
@@ -44,7 +45,12 @@ class UserController {
         UserDAO.update(dataToUpdate)
                .then((updatedUser) => {
                  updatedUser.fetchTrailers()
-                            .then(userWithTrailers => res.status(200).json(userWithTrailers))
+                            .then((userWithTrailers) => {
+                              req.session.currentUser = userWithTrailers;
+                              const token = createToken(userWithTrailers);
+                              res.cookie('token', token);
+                              res.status(200).json(userWithTrailers);
+                            })
                             .catch(err => next(err));
                })
                .catch(err => next(err));

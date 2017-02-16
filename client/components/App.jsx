@@ -44,7 +44,6 @@ class App extends Component {
              hashHistory.push('/profile');
            })
            .catch(err => console.error(err));
-          //  TODO handle signup error
   }
   logIn(userDetails) {
     request.post('/api/login')
@@ -54,10 +53,9 @@ class App extends Component {
              hashHistory.push('/profile');
            })
            .catch(err => console.error(err));
-          //  TODO handle login error
   }
-  updateUser({ id, email, username, firstName, lastName, bio }) {
-    const userDetails = { email, username, firstName, lastName, bio };
+  updateUser({ id, email, username, firstName, lastName, bio, trailers }) {
+    const userDetails = { email, username, firstName, lastName, bio, trailers };
     request.patch(`/api/users/${id}`)
            .send(userDetails)
            .then((response) => {

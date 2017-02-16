@@ -51,27 +51,16 @@ class TrailerCarousel extends Component {
     const currentTrailerNode = document.querySelector('.current-trailer_li');
     this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
   }
-  generatePreviousPoster() {
-    if (this.props.trailers !== []) {
+  createPoster(position) {
+    if (this.props.trailers.length !== 0) {
       return (
         <div
-          className="trailer_container previous-trailer_container"
-          // style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+          className={`trailer_container ${position}-trailer_container`}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p/w500/${this.props.trailers[this.state.currentTrailerIndex].imagePath}\')` }}
         />
       );
     }
-    return (<div />);
-  }
-  generateNextPoster() {
-    if (this.props.trailers !== []) {
-      return (
-        <div
-          className="trailer_container next-trailer_container"
-          // style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
-        />
-      );
-    }
-    return (<div />);
+    return null;
   }
   generateTrailerTitle() {
     if (this.props.trailers.length) {
@@ -122,13 +111,15 @@ class TrailerCarousel extends Component {
     e.target.setAttribute('class', 'broken-heart blocked');
   }
   render() {
+    const previousPoster = this.createPoster('previous');
+    const nextPoster = this.createPoster('next');
     return (
       <div className="carousel-container">
         <section className="carousel">
           <h3 className="carousel_header" >{this.props.header}</h3>
           <ul className="carousel" style={{ height: `${this.state.currentTrailerHeight}px` }}>
             <li className="previous-trailer_li">
-              {this.generatePreviousPoster()}
+              {previousPoster}
             </li>
             <li className="current-trailer_li">
               <div className="trailer_container current-trailer_container">
@@ -140,7 +131,7 @@ class TrailerCarousel extends Component {
               <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
             </li>
             <li className="next-trailer_li">
-              {this.generateNextPoster()}
+              {nextPoster}
             </li>
           </ul>
         </section>

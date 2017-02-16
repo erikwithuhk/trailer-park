@@ -20,14 +20,10 @@ class Search extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    // this.getTrailers();
+    this.getTrailers();
   }
   getTrailers() {
-    if (!this.state.searchQuery) {
-      this.getPopularTrailers();
-    } else {
-      this.getSearchQuery();
-    }
+    this.state.searchQuery ? this.getSearchQuery() : this.getPopularTrailers();
   }
   getPopularTrailers() {
     request.get('/api/trailers/popular')

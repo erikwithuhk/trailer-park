@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
-import jwtDecode from 'jwt-decode';
 import TrailerCarousel from './TrailerCarousel.jsx';
 
 const propTypes = {

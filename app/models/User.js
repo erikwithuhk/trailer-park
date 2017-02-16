@@ -1,3 +1,4 @@
+const createToken = require('../utils/createToken');
 const UserTrailerDAO = require('../services/UserTrailerDAO');
 
 class User {
