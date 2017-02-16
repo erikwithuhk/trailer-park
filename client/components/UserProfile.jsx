@@ -34,10 +34,8 @@ class UserProfile extends Component {
     this.setCurrentUser(nextProps.currentUser);
   }
   setCurrentUser(currentUser) {
-    if (currentUser) {
-      const { id, email, username, firstName, lastName, bio, trailers } = currentUser;
-      this.setState({ id, email, username, firstName, lastName, bio, trailers });
-    }
+    const { id, email, username, firstName, lastName, bio, trailers } = currentUser;
+    this.setState({ id, email, username, firstName, lastName, bio, trailers });
   }
   handleChange(e) {
     const target = e.target;
