@@ -36,8 +36,8 @@ class UserProfile extends Component {
   }
   setCurrentUser(currentUser) {
     if (currentUser) {
-      const { id, email, username, firstName, lastName, bio } = currentUser;
-      this.setState({ id, email, username, firstName, lastName, bio });
+      const { id, email, username, firstName, lastName, bio, trailers } = currentUser;
+      this.setState({ id, email, username, firstName, lastName, bio, trailers });
     }
   }
   handleChange(e) {
@@ -64,11 +64,11 @@ class UserProfile extends Component {
   render() {
     return (
       <div className="profile-container">
-        {/* <TrailerCarousel
+        <TrailerCarousel
           header="Your Trailers"
-          trailers={trailers}
+          trailers={this.state.trailers}
           userID={`${this.state.id}`}
-        /> */}
+        />
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>
           <input

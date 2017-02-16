@@ -28,7 +28,7 @@ class TrailerCarousel extends Component {
     window.removeEventListener('resize', this.handleResize);
   }
   getVideoEmbedCode() {
-    if (this.props.trailers.length) {
+    if (this.props.trailers[this.state.currentTrailerIndex]) {
       const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
       const videoHostDomain = 'https://www.youtube.com/embed/';
       const currentTrailerKey = currentTrailer.videoKey;
@@ -52,22 +52,22 @@ class TrailerCarousel extends Component {
     this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
   }
   generatePreviousPoster() {
-    if (this.props.trailers.length) {
+    if (this.props.trailers !== []) {
       return (
         <div
           className="trailer_container previous-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+          // style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
     return (<div />);
   }
   generateNextPoster() {
-    if (this.props.trailers.length) {
+    if (this.props.trailers !== []) {
       return (
         <div
           className="trailer_container next-trailer_container"
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
+          // style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p//w500//${this.props.trailers[this.state.currentTrailerIndex].backdrop_path}\')` }}
         />
       );
     }
