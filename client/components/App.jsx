@@ -9,11 +9,10 @@ const propTypes = {
 };
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       currentUser: null,
-      token: null,
     };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -74,7 +73,7 @@ class App extends Component {
   }
   render() {
     let userDisplayElement;
-    if (this.state.token) {
+    if (this.state.currentUser) {
       userDisplayElement = (
         <div className="top-nav_links">
           <Link to="/search" >Search</Link>

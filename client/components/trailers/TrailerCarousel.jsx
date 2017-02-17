@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import request from 'superagent';
 
 const propTypes = {
-  userID: React.PropTypes.string,
+  userID: React.PropTypes.number,
   trailers: React.PropTypes.array,
   header: React.PropTypes.string,
 };

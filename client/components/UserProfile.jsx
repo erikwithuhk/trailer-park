@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
-import TrailerCarousel from './TrailerCarousel.jsx';
+import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
@@ -64,7 +64,7 @@ class UserProfile extends Component {
         <TrailerCarousel
           header="Your Trailers"
           trailers={this.state.trailers}
-          userID={`${this.state.id}`}
+          userID={this.props.currentUser ? this.props.currentUser.id : null}
         />
         <form onSubmit={this.handleSubmit}>
           <h1>My Profile</h1>

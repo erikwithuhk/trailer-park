@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import TrailerCarousel from './TrailerCarousel.jsx';
+import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
 class Community extends Component {
   constructor() {

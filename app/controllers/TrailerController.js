@@ -5,12 +5,6 @@ class TrailerController {
     const query = req.query;
     let fetchTrailers;
     if (Object.keys(query).length > 0) {
-      const firstKey = Object.keys(query)[0];
-      if (firstKey === 's') {
-        return TrailerDAO.search(query[firstKey])
-                  .then(trailer => res.status(200).json(trailer))
-                  .catch(err => next(err));
-      }
       fetchTrailers = TrailerDAO.findBy(query);
       // TODO make case insensitive
       // TODO support multiple queries
@@ -78,6 +72,12 @@ class TrailerController {
   static popular(req, res, next) {
     TrailerDAO.popularMovies()
               .then(trailers => res.status(200).json(trailers))
+              .catch(err => next(err));
+  }
+  static search(req, res, next) {
+    const searchQuery = req.query.q;
+    TrailerDAO.search(searchQuery)
+              .then(trailer => res.status(200).json(trailer))
               .catch(err => next(err));
   }
 }
