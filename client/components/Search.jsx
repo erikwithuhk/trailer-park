@@ -21,31 +21,6 @@ class Search extends Component {
   componentDidMount() {
     this.fetchTrailers();
   }
-  fetchTrailers() {
-    this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
-  }
-  fetchSearchQuery() {
-    const searchQuery = this.state.searchQuery;
-    request.get(`/api/trailers/search?q=${searchQuery}`)
-           .then((response) => {
-             this.setState({
-               trailers: response.body,
-               querySearched: searchQuery.toUpperCase(),
-               searchQuery: '',
-             });
-           })
-           .catch(err => console.error(err));
-  }
-  fetchPopularTrailers() {
-    request.get('/api/trailers/popular')
-           .then((response) => {
-             this.setState({
-               trailers: response.body,
-               querySearched: 'Popular Trailers',
-             });
-           })
-           .catch(err => console.error(err));
-  }
   setSignupButton() {
     if (!this.props.currentUser) {
       return (
@@ -70,6 +45,31 @@ class Search extends Component {
       );
     }
     return null;
+  }
+  fetchTrailers() {
+    this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
+  }
+  fetchSearchQuery() {
+    const searchQuery = this.state.searchQuery;
+    request.get(`/api/trailers/search?q=${searchQuery}`)
+           .then((response) => {
+             this.setState({
+               trailers: response.body,
+               querySearched: searchQuery.toUpperCase(),
+               searchQuery: '',
+             });
+           })
+           .catch(err => console.error(err));
+  }
+  fetchPopularTrailers() {
+    request.get('/api/trailers/popular')
+           .then((response) => {
+             this.setState({
+               trailers: response.body,
+               querySearched: 'Popular Trailers',
+             });
+           })
+           .catch(err => console.error(err));
   }
   handleChange(e) {
     const searchQuery = e.target.value;
