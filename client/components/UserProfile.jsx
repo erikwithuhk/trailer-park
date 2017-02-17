@@ -5,7 +5,7 @@ import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
 const propTypes = {
   currentUser: React.PropTypes.object,
-  handleSignout: React.PropTypes.func,
+  signOut: React.PropTypes.func,
   updateUser: React.PropTypes.func,
 };
 
@@ -15,15 +15,15 @@ class UserProfile extends Component {
     this.state = {
       currentUser: props.currentUser,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleUpdateUser = this.handleUpdateUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     const { currentUser } = nextProps;
     this.setState({ currentUser });
   }
-  handleChange(e) {
+  handleInputChange(e) {
     const { currentUser } = this.state;
     const target = e.target;
     const key = target.getAttribute('name');
@@ -31,15 +31,15 @@ class UserProfile extends Component {
     currentUser[key] = value;
     this.setState({ currentUser });
   }
-  handleUpdate(e) {
+  handleUpdateUser(e) {
     e.preventDefault();
     this.props.updateUser(this.state.currentUser);
   }
-  handleDelete(e) {
+  deleteUser(e) {
     e.preventDefault();
-    request.del(`/api/users/${this.state.id}`)
+    request.del(`/api/users/${this.props.currentUser.id}`)
            .then(() => {
-             this.props.handleSignout();
+             this.props.signOut();
              hashHistory.push('/');
            });
   }
@@ -57,47 +57,47 @@ class UserProfile extends Component {
           <input
             type="text"
             name="email"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             placeholder="email"
             value={currentUser.email}
           />
           <input
             type="text"
             name="username"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             placeholder="Username"
             value={currentUser.username}
           />
           <input
             type="text"
             name="firstName"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             placeholder="First Name"
             value={currentUser.firstName}
           />
           <input
             type="text"
             name="lastName"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             placeholder="Last Name"
             value={currentUser.lastName}
           />
           <input
             type="text"
             name="bio"
-            onChange={this.handleChange}
+            onChange={this.handleInputChange}
             placeholder="My Bio"
             value={currentUser.bio}
           />
           <input
             type="submit"
             value="Update"
-            onClick={this.handleUpdate}
+            onClick={this.handleUpdateUser}
           />
           <input
             type="submit"
             value="Delete"
-            onClick={this.handleDelete}
+            onClick={this.deleteUser}
           />
         </form>
       </div>

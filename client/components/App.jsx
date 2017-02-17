@@ -103,7 +103,7 @@ class App extends Component {
       currentUser: this.state.currentUser,
       handleLogin: this.logIn,
       handleSignup: this.signUp,
-      handleSignout: this.signOut,
+      signOut: this.signOut,
       updateUser: this.updateUser,
     });
     return (
