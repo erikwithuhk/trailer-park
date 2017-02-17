@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 
+import Trailer from './Trailer.jsx';
+
 const propTypes = {
-  userID: React.PropTypes.number,
-  trailers: React.PropTypes.array,
   header: React.PropTypes.string,
+  trailers: React.PropTypes.array,
+  userID: React.PropTypes.number,
 };
 
 class TrailerCarousel extends Component {
@@ -14,7 +16,6 @@ class TrailerCarousel extends Component {
       currentTrailerIndex: 0,
       currentTrailerHeight: '',
     };
-    this.getVideoEmbedCode = this.getVideoEmbedCode.bind(this);
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
     this.handleAddTrailer = this.handleAddTrailer.bind(this);
     this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
@@ -27,55 +28,48 @@ class TrailerCarousel extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
-  getVideoEmbedCode() {
-    if (this.props.trailers[this.state.currentTrailerIndex]) {
-      const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
-      const videoHostDomain = 'https://www.youtube.com/embed/';
-      const currentTrailerKey = currentTrailer.videoKey;
-      const videoHostOptions = '?autoplay=1&controls=0&showinfo=0&autohide=1';
-      const currentTrailerURL = `${videoHostDomain}${currentTrailerKey}${videoHostOptions}`;
-      return (
-        <iframe
-          src={currentTrailerURL}
-          frameBorder="0"
-          allowFullScreen
-        />
-      );
-    }
-    return 'Loading';
-  }
   setCurrentTrailer() {
-    this.setState({ currentTrailer: this.props.trailers[this.state.currentTrailerIndex] });
+    const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
+    this.setState({ currentTrailer });
   }
-  handleResize(e) {
+  handleResize() {
     const currentTrailerNode = document.querySelector('.current-trailer_li');
     this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
   }
   createPoster(position) {
     if (this.props.trailers.length !== 0) {
+      const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
+      const { imagePath } = currentTrailer;
       return (
         <div
           className={`trailer_container ${position}-trailer_container`}
-          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p/w500/${this.props.trailers[this.state.currentTrailerIndex].imagePath}\')` }}
+          style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p/w500/${imagePath}\')` }}
         />
       );
     }
     return null;
   }
-  generateTrailerTitle() {
+  createCurrentTrailerTitle() {
     if (this.props.trailers.length) {
-      return `${this.props.trailers[this.state.currentTrailerIndex].title}`;
+      return (
+        <h4 className="current-trailer_title" >
+          {this.props.trailers[this.state.currentTrailerIndex].title}
+        </h4>
+      );
     }
-    return '';
+    return null;
   }
   handleCarouselButton(e) {
-    document.querySelector('.heart').setAttribute('class', 'heart');
-    document.querySelector('.broken-heart').setAttribute('class', 'broken-heart');
     let { currentTrailerIndex } = this.state;
-    if (e.target.getAttribute('class') === 'next') {
-      currentTrailerIndex = this.advanceIndex(currentTrailerIndex);
-    } else if (e.target.getAttribute('class') === 'prev') {
-      currentTrailerIndex = this.reverseIndex(currentTrailerIndex);
+    switch (e.target.getAttribute('class')) {
+      case 'next':
+        currentTrailerIndex = this.advanceIndex(currentTrailerIndex);
+        break;
+      case 'prev':
+        currentTrailerIndex = this.reverseIndex(currentTrailerIndex);
+        break;
+      default:
+        break;
     }
     this.setState({ currentTrailerIndex });
   }
@@ -108,11 +102,11 @@ class TrailerCarousel extends Component {
   }
   handleBlockTrailer(e) {
     e.preventDefault();
-    e.target.setAttribute('class', 'broken-heart blocked');
   }
   render() {
     const previousPoster = this.createPoster('previous');
     const nextPoster = this.createPoster('next');
+    const currentTrailerTitle = this.createCurrentTrailerTitle();
     return (
       <div className="carousel-container">
         <section className="carousel">
@@ -121,21 +115,16 @@ class TrailerCarousel extends Component {
             <li className="previous-trailer_li">
               {previousPoster}
             </li>
-            <li className="current-trailer_li">
-              <div className="trailer_container current-trailer_container">
-                {this.getVideoEmbedCode(this.state.currentTrailer)}
-                <button className="heart" onClick={this.handleAddTrailer} />
-                <button className="broken-heart" onClick={this.handleBlockTrailer} />
-              </div>
-              <button className="prev" onClick={this.handleCarouselButton} >&lt;</button>
-              <button className="next" onClick={this.handleCarouselButton} >&gt;</button>
-            </li>
+            <Trailer
+              currentTrailer={this.props.trailers[this.state.currentTrailerIndex]}
+              handleCarouselButton={this.handleCarouselButton}
+            />
             <li className="next-trailer_li">
               {nextPoster}
             </li>
           </ul>
         </section>
-        <h4 className="current-trailer_title">{this.generateTrailerTitle()}</h4>
+        {currentTrailerTitle}
       </div>
       );
   }

@@ -12,7 +12,15 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentUser: null,
+      currentUser: {
+        id: null,
+        email: '',
+        username: '',
+        firstName: '',
+        lastName: '',
+        bio: '',
+        trailers: [],
+      },
     };
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -21,6 +29,12 @@ class App extends Component {
   }
   componentDidMount() {
     this.updateAuth();
+  }
+  getCurrentUser(token) {
+    const decoded = jwtDecode(token);
+    const { id, email, username, firstName, lastName, bio, trailers } = decoded;
+    const currentUser = { id, email, username, firstName, lastName, bio, trailers };
+    this.setState({ currentUser });
   }
   createUserDisplayElement() {
     if (this.state.currentUser) {
@@ -39,12 +53,6 @@ class App extends Component {
         <Link to="/login" className="login" >Login</Link>
       </div>
     );
-  }
-  getCurrentUser(token) {
-    const decoded = jwtDecode(token);
-    const { id, email, username, firstName, lastName, bio, trailers } = decoded;
-    const currentUser = { id, email, username, firstName, lastName, bio, trailers };
-    this.setState({ currentUser });
   }
   updateAuth() {
     const token = cookie.load('token');
