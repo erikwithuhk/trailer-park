@@ -21,7 +21,7 @@ class Search extends Component {
   componentDidMount() {
     this.fetchTrailers();
   }
-  setSignupButton() {
+  createSignupButton() {
     if (!this.props.currentUser) {
       return (
         <Link to="/signup" className="signup-link">
@@ -33,7 +33,7 @@ class Search extends Component {
     }
     return null;
   }
-  setWelcomeText() {
+  createWelcomeText() {
     if (!this.props.currentUser) {
       return (
         <div>
@@ -80,8 +80,8 @@ class Search extends Component {
     this.fetchTrailers();
   }
   render() {
-    const welcomeText = this.setWelcomeText();
-    const signupButton = this.setSignupButton();
+    const welcomeText = this.createWelcomeText();
+    const signupButton = this.createSignupButton();
     return (
       <div className="search-container">
         {welcomeText}
