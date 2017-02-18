@@ -37,7 +37,7 @@ class App extends Component {
     this.setState({ currentUser });
   }
   createUserDisplayElement() {
-    if (this.state.currentUser) {
+    if (this.state.currentUser.id) {
       return (
         <div className="top-nav_links">
           <Link to="/search" >Search</Link>
@@ -59,7 +59,16 @@ class App extends Component {
     if (token) {
       return this.getCurrentUser(token);
     }
-    return this.setState({ currentUser: null });
+    const currentUser = {
+      id: null,
+      email: '',
+      username: '',
+      firstName: '',
+      lastName: '',
+      bio: '',
+      trailers: [],
+    };
+    return this.setState({ currentUser });
   }
   signUp(userDetails) {
     request.post('/api/signup')
@@ -101,8 +110,8 @@ class App extends Component {
     const userDisplayElement = this.createUserDisplayElement();
     const childrenWithProps = React.cloneElement(this.props.children, {
       currentUser: this.state.currentUser,
-      handleLogin: this.logIn,
-      handleSignup: this.signUp,
+      logIn: this.logIn,
+      signUp: this.signUp,
       signOut: this.signOut,
       updateUser: this.updateUser,
     });
