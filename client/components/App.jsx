@@ -25,6 +25,7 @@ class App extends Component {
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.updateAuth = this.updateAuth.bind(this);
     this.updateUser = this.updateUser.bind(this);
   }
   componentDidMount() {
@@ -32,9 +33,19 @@ class App extends Component {
   }
   getCurrentUser(token) {
     const decoded = jwtDecode(token);
-    const { id, email, username, firstName, lastName, bio, trailers } = decoded;
-    const currentUser = { id, email, username, firstName, lastName, bio, trailers };
+    const { id, email, username, firstName, lastName, bio } = decoded;
+    const currentUser = { id, email, username, firstName, lastName, bio };
     this.setState({ currentUser });
+    this.fetchTrailers(id);
+  }
+  fetchTrailers(id) {
+    request.get(`/api/users/${id}/trailers`)
+           .then((response) => {
+             const trailers = response.body;
+             const currentUser = { ...this.state.currentUser, trailers };
+             this.setState({ currentUser });
+           })
+           .catch(err => console.error(err));
   }
   createUserDisplayElement() {
     if (this.state.currentUser.id) {

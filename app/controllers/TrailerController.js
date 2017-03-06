@@ -34,6 +34,7 @@ class TrailerController {
   static create(req, res, next) {
     const { tmdbID, title, mediaType } = req.body;
     TrailerDAO.save({ tmdbID, title, mediaType })
+              .then(() => TrailerDAO.find(tmdbID))
               .then((trailer) => {
                 trailer.fetchVideo()
                        .then((trailerWithVideo) => {

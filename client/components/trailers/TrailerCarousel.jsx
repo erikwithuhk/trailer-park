@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import request from 'superagent';
 
 import Trailer from './Trailer.jsx';
 
 const propTypes = {
-  header: React.PropTypes.string,
-  trailers: React.PropTypes.array,
-  userID: React.PropTypes.number,
+  header: PropTypes.string,
+  trailers: PropTypes.array,
+  userID: PropTypes.number,
 };
 
 class TrailerCarousel extends Component {
@@ -17,8 +17,8 @@ class TrailerCarousel extends Component {
       currentTrailerHeight: '',
     };
     this.handleCarouselButton = this.handleCarouselButton.bind(this);
-    this.handleAddTrailer = this.handleAddTrailer.bind(this);
-    this.handleBlockTrailer = this.handleBlockTrailer.bind(this);
+    this.addTrailer = this.addTrailer.bind(this);
+    this.blockTrailer = this.blockTrailer.bind(this);
     this.handleResize = this.handleResize.bind(this);
   }
   componentDidMount() {
@@ -31,6 +31,16 @@ class TrailerCarousel extends Component {
   setCurrentTrailer() {
     const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
     this.setState({ currentTrailer });
+  }
+  updateTrailers() {
+    request.get(`api/users/${this.props.userID}/trailers`)
+           .then((response) => {
+             const trailers = response.body;
+             const { currentUser } = this.state;
+             currentUser[trailers] = trailers;
+             this.setState({ currentUser });
+           })
+           .catch(err => console.error(err));
   }
   handleResize() {
     const currentTrailerNode = document.querySelector('.current-trailer_li');
@@ -60,6 +70,8 @@ class TrailerCarousel extends Component {
     return null;
   }
   handleCarouselButton(e) {
+    const likeButton = document.querySelector('.heart');
+    likeButton.classList.remove('liked');
     let { currentTrailerIndex } = this.state;
     switch (e.target.getAttribute('class')) {
       case 'next':
@@ -85,23 +97,27 @@ class TrailerCarousel extends Component {
     }
     return index - 1;
   }
-  handleAddTrailer(e) {
+  addTrailer(e) {
     e.preventDefault();
-    e.target.setAttribute('class', 'heart liked');
+    const button = e.target;
     const trailerData = {
       tmdbID: this.props.trailers[this.state.currentTrailerIndex].tmdbID,
       mediaType: this.props.trailers[this.state.currentTrailerIndex].mediaType,
       title: this.props.trailers[this.state.currentTrailerIndex].title,
       blocked: false,
-      users_id: this.props.userID,
     };
-    request.post(`/api/users/${this.props.userID}/trailers`)
+    request.post('/api/trailers')
            .send(trailerData)
-           .then(() => 'Trailer added!')
-           .catch(err => err);
+           .then(() => request.post(`/api/users/${this.props.userID}/trailers`)
+                              .send(trailerData))
+           .then(() => {
+             button.classList.toggle('liked');
+           })
+           .catch(err => console.error(err));
   }
-  handleBlockTrailer(e) {
+  blockTrailer(e) {
     e.preventDefault();
+    console.log('block');
   }
   render() {
     const previousPoster = this.createPoster('previous');
@@ -118,6 +134,8 @@ class TrailerCarousel extends Component {
             <Trailer
               currentTrailer={this.props.trailers[this.state.currentTrailerIndex]}
               handleCarouselButton={this.handleCarouselButton}
+              addTrailer={this.addTrailer}
+              blockTrailer={this.blockTrailer}
             />
             <li className="next-trailer_li">
               {nextPoster}

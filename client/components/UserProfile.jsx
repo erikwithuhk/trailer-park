@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
 import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 import UserForm from './users/UserForm.jsx';
 
 const propTypes = {
-  currentUser: React.PropTypes.object,
-  route: React.PropTypes.object,
-  signOut: React.PropTypes.func,
-  updateUser: React.PropTypes.func,
+  currentUser: PropTypes.object,
+  route: PropTypes.object,
+  signOut: PropTypes.func,
+  updateUser: PropTypes.func,
 };
 
 class UserProfile extends Component {

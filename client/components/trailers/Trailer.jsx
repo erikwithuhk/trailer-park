@@ -3,9 +3,11 @@ import React, { PropTypes } from 'react';
 const propTypes = {
   currentTrailer: PropTypes.object,
   handleCarouselButton: PropTypes.func,
+  addTrailer: PropTypes.func,
+  blockTrailer: PropTypes.func,
 };
 
-const Trailer = ({ currentTrailer, handleCarouselButton }) => {
+const Trailer = ({ currentTrailer, handleCarouselButton, addTrailer, blockTrailer }) => {
   let videoEmbed = null;
   if (currentTrailer) {
     videoEmbed = (
@@ -20,6 +22,8 @@ const Trailer = ({ currentTrailer, handleCarouselButton }) => {
     <li className="current-trailer_li">
       <div className="trailer_container current-trailer_container">
         {videoEmbed}
+        <button className="heart" onClick={addTrailer} />
+        <button className="broken-heart" onClick={blockTrailer} />
       </div>
       <button className="prev" onClick={handleCarouselButton} >&lt;</button>
       <button className="next" onClick={handleCarouselButton} >&gt;</button>
@@ -30,5 +34,3 @@ const Trailer = ({ currentTrailer, handleCarouselButton }) => {
 Trailer.propTypes = propTypes;
 
 export default Trailer;
-// <button className="heart" onClick={this.handleAddTrailer} />
-// <button className="broken-heart" onClick={this.handleBlockTrailer} />

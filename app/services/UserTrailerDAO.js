@@ -16,8 +16,8 @@ class UserTrailerDAO {
     })
     .catch(err => err);
   }
-  static save({ user_id, tmdb_id, blocked }) {
-    return db.none(sql.save, [user_id, tmdb_id, blocked])
+  static save({ user_id, tmdbID, blocked }) {
+    return db.none(sql.save, [user_id, tmdbID, blocked])
              .catch(err => err);
   }
   static update({ user_id, tmdb_id, blocked }) {

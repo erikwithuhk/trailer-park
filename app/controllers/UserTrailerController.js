@@ -8,15 +8,15 @@ class UserTrailerController {
                     const fetchVideos = trailers.map(trailer => trailer.fetchVideo());
                     Promise.all(fetchVideos)
                            .then((trailersWithVideo) => {
-                             res.status(200).json(trailersWithVideo)
+                             res.status(200).json(trailersWithVideo);
                            });
                   })
                   .catch(err => next(err));
   }
   static create(req, res, next) {
     const { user_id } = req.params;
-    const { tmdb_id, blocked } = req.body;
-    UserTrailerDAO.save({ user_id, tmdb_id, blocked })
+    const { tmdbID, blocked } = req.body;
+    UserTrailerDAO.save({ user_id, tmdbID, blocked })
                   .then(() => res.status(204).end())
                   .catch(err => next(err));
   }
