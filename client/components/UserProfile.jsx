@@ -6,6 +6,7 @@ import UserForm from './users/UserForm.jsx';
 
 const propTypes = {
   currentUser: PropTypes.object,
+  fetchTrailers: PropTypes.func,
   route: PropTypes.object,
   signOut: PropTypes.func,
   updateUser: PropTypes.func,
@@ -36,6 +37,7 @@ class UserProfile extends Component {
       <div className="profile-container">
         <TrailerCarousel
           header="Your Trailers"
+          fetchTrailers={this.props.fetchTrailers}
           trailers={this.props.currentUser.trailers}
           userID={this.props.currentUser.id}
         />

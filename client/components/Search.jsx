@@ -5,6 +5,7 @@ import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
 const propTypes = {
   currentUser: PropTypes.object,
+  fetchTrailers: PropTypes.func,
 };
 
 class Search extends Component {
@@ -96,6 +97,7 @@ class Search extends Component {
         </form>
         <TrailerCarousel
           header={`Search results for: ${this.state.querySearched}`}
+          fetchTrailers={this.props.fetchTrailers}
           trailers={this.state.trailers}
           userID={this.props.currentUser ? this.props.currentUser.id : null}
         />

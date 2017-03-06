@@ -4,6 +4,7 @@ import request from 'superagent';
 import Trailer from './Trailer.jsx';
 
 const propTypes = {
+  fetchTrailers: PropTypes.func,
   header: PropTypes.string,
   trailers: PropTypes.array,
   userID: PropTypes.number,
@@ -31,16 +32,6 @@ class TrailerCarousel extends Component {
   setCurrentTrailer() {
     const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
     this.setState({ currentTrailer });
-  }
-  updateTrailers() {
-    request.get(`api/users/${this.props.userID}/trailers`)
-           .then((response) => {
-             const trailers = response.body;
-             const { currentUser } = this.state;
-             currentUser[trailers] = trailers;
-             this.setState({ currentUser });
-           })
-           .catch(err => console.error(err));
   }
   handleResize() {
     const currentTrailerNode = document.querySelector('.current-trailer_li');
@@ -111,6 +102,7 @@ class TrailerCarousel extends Component {
            .then(() => request.post(`/api/users/${this.props.userID}/trailers`)
                               .send(trailerData))
            .then(() => {
+             this.props.fetchTrailers();
              button.classList.toggle('liked');
            })
            .catch(err => console.error(err));

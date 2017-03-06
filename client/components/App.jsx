@@ -22,10 +22,10 @@ class App extends Component {
         trailers: [],
       },
     };
+    this.fetchTrailers = this.fetchTrailers.bind(this);
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
     this.signOut = this.signOut.bind(this);
-    this.updateAuth = this.updateAuth.bind(this);
     this.updateUser = this.updateUser.bind(this);
   }
   componentDidMount() {
@@ -34,11 +34,11 @@ class App extends Component {
   getCurrentUser(token) {
     const decoded = jwtDecode(token);
     const { id, email, username, firstName, lastName, bio } = decoded;
-    const currentUser = { id, email, username, firstName, lastName, bio };
-    this.setState({ currentUser });
-    this.fetchTrailers(id);
+    const currentUser = { id, email, username, firstName, lastName, bio, trailers: [] };
+    this.setState({ currentUser }, this.fetchTrailers);
   }
-  fetchTrailers(id) {
+  fetchTrailers() {
+    const { id } = this.state.currentUser;
     request.get(`/api/users/${id}/trailers`)
            .then((response) => {
              const trailers = response.body;
@@ -121,6 +121,7 @@ class App extends Component {
     const userDisplayElement = this.createUserDisplayElement();
     const childrenWithProps = React.cloneElement(this.props.children, {
       currentUser: this.state.currentUser,
+      fetchTrailers: this.fetchTrailers,
       logIn: this.logIn,
       signUp: this.signUp,
       signOut: this.signOut,
