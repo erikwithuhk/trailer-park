@@ -4,7 +4,8 @@ import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
 import request from 'superagent';
 
-import Nav from './Nav.jsx';
+import Header from './layout/Header.jsx';
+import Footer from './layout/Footer.jsx';
 
 const propTypes = {
   children: React.PropTypes.element,
@@ -111,10 +112,12 @@ class App extends Component {
       updateUser: this.updateUser,
     });
     return (
-      <div>
-        <Nav currentUser={this.state.currentUser} signOut={this.signOut} />
-        {childrenWithProps}
-        <footer>&copy;2016 Erik J&ouml;nsson, Annie Burns, and Lynn Fleck</footer>
+      <div className="app-container">
+        <Header currentUser={this.state.currentUser} signOut={this.signOut} />
+        <main>
+          {childrenWithProps}
+        </main>
+        <Footer currentUser={this.state.currentUser} signOut={this.signOut} />
       </div>
     );
   }

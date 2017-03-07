@@ -7,12 +7,24 @@ body {
   zoom: 1;
 }
 
-footer {
-  background-color: $maroon;
-  color: $taupe;
-  display: block;
-  font-size: 75%;
-  letter-spacing: .05em;
-  margin-top: 2em;
-  padding: 1em;
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex: 1;
+  overflow: auto;
+  margin: 0 auto;
+  max-width: 960px;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  main {
+    overflow: visible;
+  }
 }

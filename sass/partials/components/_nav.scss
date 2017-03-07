@@ -1,0 +1,15 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav a {
+  color: $white;
+  display: inline-block;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: darken($white, 10%);
+}
