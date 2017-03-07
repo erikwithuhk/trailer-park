@@ -34,5 +34,5 @@ app.get('/', (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log(`${process.env.ENV.toUpperCase()}: Listening on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });
