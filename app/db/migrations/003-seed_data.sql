@@ -1,4 +1,4 @@
-\c trailer_park_db_new
+\c trailer_park_db
 
 TRUNCATE TABLE users;
 TRUNCATE TABLE trailers;
