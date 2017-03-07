@@ -4,9 +4,9 @@ import request from 'superagent';
 import Trailer from './Trailer.jsx';
 
 const propTypes = {
-  fetchTrailers: PropTypes.func,
-  header: PropTypes.string,
-  trailers: PropTypes.array,
+  fetchTrailers: PropTypes.func.isRequired,
+  header: PropTypes.string.isRequired,
+  trailers: PropTypes.array.isRequired,
   userID: PropTypes.number,
 };
 

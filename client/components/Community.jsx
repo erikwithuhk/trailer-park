@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import request from 'superagent';
 import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
+const propTypes = {
+  fetchTrailers: PropTypes.func.isRequired,
+};
+
 class Community extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      user26: [],
+      user13: [],
       user27: [],
       user29: [],
     };
@@ -45,7 +49,7 @@ class Community extends Component {
   //          .catch(err => err);
   // }
   componentDidMount() {
-    this.getTrailers(26);
+    this.getTrailers(13);
     this.getTrailers(27);
     this.getTrailers(29);
   }
@@ -64,13 +68,14 @@ class Community extends Component {
   }
   render() {
     const carousels = [];
-    if (this.state.user26) {
+    if (this.state.user13) {
       carousels.push((
         <TrailerCarousel
           key="26"
+          fetchTrailers={this.props.fetchTrailers}
           header="iambob's Trailers"
-          trailers={this.state.user26}
-          userID={'26'}
+          trailers={this.state.user13}
+          userID={13}
         />
       ));
     }
@@ -78,9 +83,10 @@ class Community extends Component {
       carousels.push((
         <TrailerCarousel
           key="27"
+          fetchTrailers={this.props.fetchTrailers}
           header="kathere's Trailers"
           trailers={this.state.user27}
-          userID={'27'}
+          userID={27}
         />
       ));
     }
@@ -88,9 +94,10 @@ class Community extends Component {
       carousels.push((
         <TrailerCarousel
           key="29"
+          fetchTrailers={this.props.fetchTrailers}
           header="imjoy's Trailers"
           trailers={this.state.user29}
-          userID={'29'}
+          userID={29}
         />
       ));
     }
@@ -101,5 +108,7 @@ class Community extends Component {
     );
   }
 }
+
+Community.propTypes = propTypes;
 
 export default Community;
