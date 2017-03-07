@@ -14,7 +14,7 @@ if (!process.env) {
 
 const port = process.env.PORT;
 
-if (process.env.ENV === 'dev') {
+if (process.env.NODE_ENV === 'dev') {
   const compiler = webpack(config);
   const middleware = webpackDevMiddleware(compiler, {
     stats: {
@@ -34,5 +34,6 @@ app.get('/', (request, response) => {
 });
 
 app.listen(port, () => {
+  console.log(process.env.NODE_ENV);
   console.log(`Listening on port ${port}`);
 });

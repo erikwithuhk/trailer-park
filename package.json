@@ -7,10 +7,11 @@
     "node": "6.8.0"
   },
   "scripts": {
-    "test": "jasmine",
+    "build": "webpack",
     "debug": "node-debug server.js",
     "dev": "NODE_ENV=dev nodemon server.js",
-    "start": "NODE_ENV=production node ./server.js"
+    "start": "NODE_ENV=production node ./server.js",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
