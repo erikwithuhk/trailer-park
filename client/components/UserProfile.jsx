@@ -1,93 +1,34 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { hashHistory, withRouter } from 'react-router';
 import request from 'superagent';
-import jwtDecode from 'jwt-decode';
-import TrailerCarousel from './TrailerCarousel.jsx';
+import TrailerCarousel from './trailers/TrailerCarousel.jsx';
+import UserForm from './users/UserForm.jsx';
 
 const propTypes = {
-  token: React.PropTypes.string,
-  handleSignout: React.PropTypes.func,
+  currentUser: PropTypes.object,
+  fetchTrailers: PropTypes.func,
+  route: PropTypes.object,
+  signOut: PropTypes.func,
+  updateUser: PropTypes.func,
 };
 
 class UserProfile extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      id: '',
-      email: '',
-      username: '',
-      firstName: '',
-      lastName: '',
-      bio: '',
-      trailers: [],
+      currentUser: props.currentUser,
     };
-    this.getCurrentUser = this.getCurrentUser.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-  componentDidMount() {
-    const { token } = this.props;
-    if (token) {
-      this.getCurrentUser(token);
-      this.getTrailers(token.id);
-    }
+    this.deleteUser = this.deleteUser.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    const { token } = nextProps;
-    if (token) {
-      this.getCurrentUser(token);
-      this.getTrailers(token.id);
-    }
+    const { currentUser } = nextProps;
+    this.setState({ currentUser });
   }
-  getCurrentUser(token) {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const id = decoded.id;
-      this.getTrailers(id);
-      this.setState({
-        id: decoded.id,
-        email: decoded.email,
-        username: decoded.username,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        bio: decoded.bio,
-      });
-    }
-  }
-  getTrailers(id) {
-    if (id) {
-      const url = `/api/users/${id}/trailers`;
-      request.get(url)
-      .then((response) => {
-        const trailers = response.body;
-        this.setState({ trailers });
-      })
-      .catch(err => err);
-    }
-  }
-  handleChange(e) {
-    const target = e.target;
-    const name = target.getAttribute('name');
-    const value = target.value;
-    const updated = {};
-    updated[name] = value;
-    this.setState(updated);
-  }
-  handleUpdate(e) {
+  deleteUser(e) {
     e.preventDefault();
-    request.patch(`/api/users/${this.state.id}`)
-           .send(this.state)
-           .then((response) => {
-             const updated = response.body;
-             this.setState(updated);
-           });
-  }
-  handleDelete(e) {
-    e.preventDefault();
-    request.del(`/api/users/${this.state.id}`)
+    request.del(`/api/users/${this.props.currentUser.id}`)
            .then(() => {
-             this.props.handleSignout();
+             this.props.signOut();
              hashHistory.push('/');
            });
   }
@@ -96,57 +37,20 @@ class UserProfile extends Component {
       <div className="profile-container">
         <TrailerCarousel
           header="Your Trailers"
-          trailers={this.state.trailers}
-          userID={`${this.state.id}`}
+          fetchTrailers={this.props.fetchTrailers}
+          trailers={this.props.currentUser.trailers}
+          userID={this.props.currentUser.id}
         />
-        <form onSubmit={this.handleSubmit}>
-          <h1>My Profile</h1>
-          <input
-            type="text"
-            name="email"
-            onChange={this.handleChange}
-            placeholder="email"
-            value={this.state.email}
-          />
-          <input
-            type="text"
-            name="username"
-            onChange={this.handleChange}
-            placeholder="Username"
-            value={this.state.username}
-          />
-          <input
-            type="text"
-            name="firstName"
-            onChange={this.handleChange}
-            placeholder="First Name"
-            value={this.state.firstName}
-          />
-          <input
-            type="text"
-            name="lastName"
-            onChange={this.handleChange}
-            placeholder="Last Name"
-            value={this.state.lastName}
-          />
-          <input
-            type="text"
-            name="bio"
-            onChange={this.handleChange}
-            placeholder="My Bio"
-            value={this.state.bio}
-          />
-          <input
-            type="submit"
-            value="Update"
-            onClick={this.handleUpdate}
-          />
-          <input
-            type="submit"
-            value="Delete"
-            onClick={this.handleDelete}
-          />
-        </form>
+        <UserForm
+          currentUser={this.props.currentUser}
+          route={this.props.route}
+          updateUser={this.props.updateUser}
+        />
+        <input
+          type="submit"
+          value="Delete"
+          onClick={this.deleteUser}
+        />
       </div>
     );
   }

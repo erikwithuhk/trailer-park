@@ -4,7 +4,7 @@ module.exports = {
   devtool: 'source-map',
   entry: path.join(__dirname, 'client', 'index.jsx'),
   output: {
-    path: path.join(__dirname, 'dist', 'js'),
+    path: path.join(__dirname, 'public', 'js'),
     filename: 'bundle.js',
   },
   module: {
@@ -15,6 +15,7 @@ module.exports = {
         exclude: /node_modules/,
         query: {
           presets: ['es2015', 'react'],
+          plugins: ['transform-object-rest-spread'],
         },
       },
     ],

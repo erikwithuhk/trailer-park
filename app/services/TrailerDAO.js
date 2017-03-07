@@ -1,48 +1,40 @@
-const superagent = require('superagent');
-const TrailerListItem = require('../models/TrailerListItem');
+const db = require('../db/db');
+const sql = require('../db/sqlProvider').trailers;
+const Trailer = require('../models/Trailer');
 
 class TrailerDAO {
+  static all() {
+    return db.map(sql.all, [], row => new Trailer(row));
+  }
+  static find(id) {
+    return db.one(sql.find, ['tmdb_id', id])
+             .then(row => new Trailer(row))
+             .catch(err => err);
+  }
+  static findBy(keyValue) {
+    const key = Object.keys(keyValue)[0];
+    const value = keyValue[key];
+    return db.map(sql.where, [key, value], row => new Trailer(row))
+             .catch(err => err);
+  }
+  static save({ tmdbID, title, mediaType }) {
+    return db.one(sql.save, [tmdbID, title, mediaType])
+             .then(row => new Trailer(row))
+             .catch(err => err);
+  }
+  static update({ tmdbID, title, mediaType }) {
+    return db.one(sql.update, [tmdbID, title, mediaType])
+             .then(row => new Trailer(row))
+             .catch(err => err);
+  }
+  static delete(tmdbID) {
+    return db.none(sql.delete, [tmdbID]);
+  }
   static search(searchTerm) {
-    return superagent.get(`https://api.themoviedb.org/3/search/multi?query=${searchTerm}&api_key=${process.env.API_KEY}`)
-              .then((response) => {
-                const searchResultsData = response.body.results;
-                const searchResults = [];
-                searchResultsData.forEach((searchResultData) => {
-                  const { media_type } = searchResultData;
-                  if (media_type === 'tv' || media_type === 'movie') {
-                    const trailerData = {
-                      tmdb_id: searchResultData.id,
-                      media_type,
-                      title: searchResultData.name || searchResultData.title,
-                    };
-                    searchResults.push(trailerData);
-                  }
-                });
-                return searchResults;
-              })
-              .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
-              .catch(err => err);
+    return Trailer.search(searchTerm);
   }
-  static popular() {
-    return superagent.get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}`)
-              .then((response) => {
-                const popularResultsData = response.body.results;
-                return popularResultsData.map((popularResultData) => {
-                  return {
-                    tmdb_id: popularResultData.id,
-                    media_type: 'movie',
-                    title: popularResultData.title,
-                  };
-                });
-              })
-              .then(response => response.map(trailerData => new TrailerListItem(trailerData)))
-              .catch(err => err);
-  }
-  static getTrailerInfo(trailerID) {
-    return superagent
-      .get(`https://api.themoviedb.org/3/movie/${trailerID}?api_key=${process.env.API_KEY}&append_to_response=videos,credits`)
-      .then(trailerDetails => trailerDetails.body)
-      .catch(err => err);
+  static popularMovies() {
+    return Trailer.popularMovies();
   }
 }
 
