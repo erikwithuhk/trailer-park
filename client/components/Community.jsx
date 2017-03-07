@@ -10,97 +10,32 @@ class Community extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user13: [],
-      user27: [],
-      user29: [],
+      users: [],
     };
-    this.getTrailers = this.getTrailers.bind(this);
   }
-  // componentDidMount() {
-  //   this.getUsers();
-  // }
-  // getUsers() {
-  //   request.get('/api/users')
-  //   .then((response) => {
-  //     const users = response.body;
-  //     this.setState({ users });
-  //     // this.getTrailers(users);
-  //   });
-  // }
-  // getTrailers(users) {
-  //   const usersTrailers = users.map((user) => {
-  //     const url = `/api/users/${user.id}/trailers`;
-  //     return request.get(url);
-  //   });
-  //   let components;
-  //   Promise.all(usersTrailers)
-  //          .then((responseArray) => {
-  //            components = responseArray.map((response) => {
-  //              const trailers = response.body;
-  //              return (
-  //                <li>
-  //                  <TrailerCarousel header={`s Trailers`} trailers={trailers} />
-  //                </li>
-  //              );
-  //            });
-  //            console.log(components);
-  //            return components;
-  //          })
-  //          .catch(err => err);
-  // }
   componentDidMount() {
-    this.getTrailers(13);
-    this.getTrailers(27);
-    this.getTrailers(29);
+    this.getUsers();
   }
-  getTrailers(id) {
-    if (id) {
-      const url = `/api/users/${id}/trailers`;
-      request.get(url)
-      .then((response) => {
-        const trailers = response.body;
-        const stateObject = {};
-        stateObject[`user${id}`] = trailers;
-        this.setState(stateObject);
-      })
-      .catch(err => err);
-    }
+  getUsers() {
+    request.get('/api/users')
+    .then((response) => {
+      const users = response.body;
+      this.setState({ users });
+    });
+  }
+  createCarousels() {
+    return this.state.users.map(user => (
+      <TrailerCarousel
+        key={user.id}
+        header={`${user.username}'s Trailers`}
+        fetchTrailers={this.props.fetchTrailers}
+        trailers={user.trailers}
+        userID={user.id}
+      />
+    ));
   }
   render() {
-    const carousels = [];
-    if (this.state.user13) {
-      carousels.push((
-        <TrailerCarousel
-          key="26"
-          fetchTrailers={this.props.fetchTrailers}
-          header="iambob's Trailers"
-          trailers={this.state.user13}
-          userID={13}
-        />
-      ));
-    }
-    if (this.state.user27) {
-      carousels.push((
-        <TrailerCarousel
-          key="27"
-          fetchTrailers={this.props.fetchTrailers}
-          header="kathere's Trailers"
-          trailers={this.state.user27}
-          userID={27}
-        />
-      ));
-    }
-    if (this.state.user29) {
-      carousels.push((
-        <TrailerCarousel
-          key="29"
-          fetchTrailers={this.props.fetchTrailers}
-          header="imjoy's Trailers"
-          trailers={this.state.user29}
-          userID={29}
-        />
-      ));
-    }
+    const carousels = this.createCarousels();
     return (
       <div className="community-container">
         {carousels}

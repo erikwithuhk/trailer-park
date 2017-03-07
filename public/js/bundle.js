@@ -30301,102 +30301,45 @@
 	    var _this = _possibleConstructorReturn(this, (Community.__proto__ || Object.getPrototypeOf(Community)).call(this, props));
 	
 	    _this.state = {
-	      user13: [],
-	      user27: [],
-	      user29: []
+	      users: []
 	    };
-	    _this.getTrailers = _this.getTrailers.bind(_this);
 	    return _this;
 	  }
-	  // componentDidMount() {
-	  //   this.getUsers();
-	  // }
-	  // getUsers() {
-	  //   request.get('/api/users')
-	  //   .then((response) => {
-	  //     const users = response.body;
-	  //     this.setState({ users });
-	  //     // this.getTrailers(users);
-	  //   });
-	  // }
-	  // getTrailers(users) {
-	  //   const usersTrailers = users.map((user) => {
-	  //     const url = `/api/users/${user.id}/trailers`;
-	  //     return request.get(url);
-	  //   });
-	  //   let components;
-	  //   Promise.all(usersTrailers)
-	  //          .then((responseArray) => {
-	  //            components = responseArray.map((response) => {
-	  //              const trailers = response.body;
-	  //              return (
-	  //                <li>
-	  //                  <TrailerCarousel header={`s Trailers`} trailers={trailers} />
-	  //                </li>
-	  //              );
-	  //            });
-	  //            console.log(components);
-	  //            return components;
-	  //          })
-	  //          .catch(err => err);
-	  // }
-	
 	
 	  _createClass(Community, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getTrailers(13);
-	      this.getTrailers(27);
-	      this.getTrailers(29);
+	      this.getUsers();
 	    }
 	  }, {
-	    key: 'getTrailers',
-	    value: function getTrailers(id) {
+	    key: 'getUsers',
+	    value: function getUsers() {
 	      var _this2 = this;
 	
-	      if (id) {
-	        var url = '/api/users/' + id + '/trailers';
-	        _superagent2.default.get(url).then(function (response) {
-	          var trailers = response.body;
-	          var stateObject = {};
-	          stateObject['user' + id] = trailers;
-	          _this2.setState(stateObject);
-	        }).catch(function (err) {
-	          return err;
+	      _superagent2.default.get('/api/users').then(function (response) {
+	        var users = response.body;
+	        _this2.setState({ users: users });
+	      });
+	    }
+	  }, {
+	    key: 'createCarousels',
+	    value: function createCarousels() {
+	      var _this3 = this;
+	
+	      return this.state.users.map(function (user) {
+	        return _react2.default.createElement(_TrailerCarousel2.default, {
+	          key: user.id,
+	          header: user.username + '\'s Trailers',
+	          fetchTrailers: _this3.props.fetchTrailers,
+	          trailers: user.trailers,
+	          userID: user.id
 	        });
-	      }
+	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var carousels = [];
-	      if (this.state.user13) {
-	        carousels.push(_react2.default.createElement(_TrailerCarousel2.default, {
-	          key: '26',
-	          fetchTrailers: this.props.fetchTrailers,
-	          header: 'iambob\'s Trailers',
-	          trailers: this.state.user13,
-	          userID: 13
-	        }));
-	      }
-	      if (this.state.user27) {
-	        carousels.push(_react2.default.createElement(_TrailerCarousel2.default, {
-	          key: '27',
-	          fetchTrailers: this.props.fetchTrailers,
-	          header: 'kathere\'s Trailers',
-	          trailers: this.state.user27,
-	          userID: 27
-	        }));
-	      }
-	      if (this.state.user29) {
-	        carousels.push(_react2.default.createElement(_TrailerCarousel2.default, {
-	          key: '29',
-	          fetchTrailers: this.props.fetchTrailers,
-	          header: 'imjoy\'s Trailers',
-	          trailers: this.state.user29,
-	          userID: 29
-	        }));
-	      }
+	      var carousels = this.createCarousels();
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'community-container' },
