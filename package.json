@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "jasmine",
-    "start": "node ./server.js"
+    "debug": "node-debug server.js",
+    "dev": "NODE_ENV=dev nodemon server.js",
+    "start": "NODE_ENV=production node ./server.js"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,7 @@
     "webpack-hot-middleware": "^2.12.2"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "eslint": "^3.7.1",
     "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^2.0.0",

@@ -1,36 +1,85 @@
 const TrailerDAO = require('../services/TrailerDAO');
 
 class TrailerController {
-  static searchTrailers(request, response) {
-    const searchTerm = request.query.q;
-    TrailerDAO.search(searchTerm)
-              .then((trailerListItems) => {
-                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
-                return Promise.all(trailersWithVideo).then((videosData) => {
-                  const hasVideo = trailer => trailer.hasTrailer;
-                  response.status(200).send(videosData.filter(hasVideo));
-                });
-              })
-
-              .catch(err => response.status(500).send(err));
+  static index(req, res, next) {
+    const query = req.query;
+    let fetchTrailers;
+    if (Object.keys(query).length > 0) {
+      fetchTrailers = TrailerDAO.findBy(query);
+      // TODO make case insensitive
+      // TODO support multiple queries
+    } else {
+      fetchTrailers = TrailerDAO.all();
+    }
+    fetchTrailers.then((trailers) => {
+                    const trailersWithVideo = trailers.map(trailer => trailer.fetchVideo());
+                    return Promise.all(trailersWithVideo);
+                  })
+                  .then((trailersWithVideo) => {
+                    res.status(200).json(trailersWithVideo);
+                  })
+                  .catch(err => next(err));
   }
-  static popularTrailers(request, response) {
-    TrailerDAO.popular()
-              .then((trailerListItems) => {
-                const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
-                return Promise.all(trailersWithVideo).then((videosData) => {
-                  const hasVideo = trailer => trailer.hasTrailer;
-                  response.status(200).send(videosData.filter(hasVideo));
-                });
+  static show(req, res, next) {
+    TrailerDAO.find(req.params.tmdb_id)
+              .then((trailer) => {
+                trailer.fetchVideo()
+                       .then((trailerWithVideo) => {
+                         res.status(200).json(trailerWithVideo);
+                       })
+                       .catch(err => next(err));
               })
-
-              .catch(err => response.status(500).send(err));
+              .catch(err => next(err));
   }
-  static getTrailerInfo(request, response) {
-    const trailerID = request.params.trailer_id;
-    TrailerDAO.getTrailerInfo(trailerID)
-              .then(trailerInfo => response.status(200).send(trailerInfo))
-              .catch(err => response.status(500).json(err));
+  static create(req, res, next) {
+    const { tmdbID, title, mediaType } = req.body;
+    TrailerDAO.save({ tmdbID, title, mediaType })
+              .then(() => TrailerDAO.find(tmdbID))
+              .then((trailer) => {
+                trailer.fetchVideo()
+                       .then((trailerWithVideo) => {
+                         res.status(200).json(trailerWithVideo);
+                       })
+                       .catch(err => next(err));
+              })
+              .catch(err => next(err));
+  }
+  static update(req, res, next) {
+    const { title, mediaType } = req.body;
+    TrailerDAO.find(req.params.tmdb_id)
+      .then((trailer) => {
+        const dataToUpdate = {
+          tmdbID: trailer.tmdbID,
+          title: title || trailer.title,
+          mediaType: mediaType || trailer.mediaType,
+        };
+        TrailerDAO.update(dataToUpdate)
+                  .then((updatedTrailer) => {
+                    updatedTrailer.fetchVideo()
+                           .then((trailerWithVideo) => {
+                             res.status(200).json(trailerWithVideo);
+                           })
+                           .catch(err => next(err));
+                  })
+                  .catch(err => next(err));
+      })
+      .catch(err => next(err));
+  }
+  static delete(req, res, next) {
+    TrailerDAO.delete(req.params.tmdb_id)
+              .then(() => res.status(204).end())
+              .catch(err => next(err));
+  }
+  static popular(req, res, next) {
+    TrailerDAO.popularMovies()
+              .then(trailers => res.status(200).json(trailers))
+              .catch(err => next(err));
+  }
+  static search(req, res, next) {
+    const searchQuery = req.query.q;
+    TrailerDAO.search(searchQuery)
+              .then(trailer => res.status(200).json(trailer))
+              .catch(err => next(err));
   }
 }
 

@@ -1,83 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import request from 'superagent';
-import jwtDecode from 'jwt-decode';
-import TrailerCarousel from './TrailerCarousel.jsx';
+import TrailerCarousel from './trailers/TrailerCarousel.jsx';
 
 const propTypes = {
-  token: React.PropTypes.string,
-}
+  currentUser: PropTypes.object,
+  fetchTrailers: PropTypes.func,
+};
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchQuery: '',
-      querySearched: 'Popular Trailers',
+      querySearched: '',
       trailers: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    const { token } = this.props;
-    if (token) {
-      this.getCurrentUser(token);
-    }
-    this.getTrailers();
+    this.fetchTrailers();
   }
-  getCurrentUser(token) {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const id = decoded.id;
-      this.setState({
-        id,
-        email: decoded.email,
-        username: decoded.username,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        bio: decoded.bio,
-      });
-    }
-  }
-  getTrailers() {
-    if (this.state.searchQuery === '') {
-      request.get('/api/trailers/popular')
-      .then((response) => {
-        this.setState({ trailers: response.body });
-      });
-    } else {
-      request.get(`/api/trailers/search?q=${this.state.searchQuery}`)
-      .then((response) => {
-        this.setState({ trailers: response.body });
-      });
-    }
-  }
-  handleChange(e) {
-    const searchQuery = e.target.value;
-    this.setState({ searchQuery });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    this.getTrailers();
-    this.setState({
-      querySearched: this.state.searchQuery,
-      searchQuery: '',
-    });
-  }
-  render() {
-    let welcomeText;
-    let signupButton;
-    if (!this.props.token) {
-      welcomeText = (
-        <div>
-          <h1 className="welcome-text">
-            Welcome to the <em>Trailer Park</em>!
-          </h1>
-          <h2>Go ahead, binge-watch those trailers.</h2>
-        </div>
-      );
-      signupButton = (
+  createSignupButton() {
+    if (!this.props.currentUser) {
+      return (
         <Link to="/signup" className="signup-link">
           <button className="signup-button">
             Create a list
@@ -85,6 +32,57 @@ class Search extends Component {
         </Link>
       );
     }
+    return null;
+  }
+  createWelcomeText() {
+    if (!this.props.currentUser) {
+      return (
+        <div>
+          <h1 className="welcome-text">
+            Welcome to the <em>Trailer Park</em>!
+          </h1>
+          <h2>Go ahead, binge-watch those trailers.</h2>
+        </div>
+      );
+    }
+    return null;
+  }
+  fetchTrailers() {
+    this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
+  }
+  fetchSearchQuery() {
+    const searchQuery = this.state.searchQuery;
+    request.get(`/api/trailers/search?q=${searchQuery}`)
+           .then((response) => {
+             this.setState({
+               trailers: response.body,
+               querySearched: searchQuery.toUpperCase(),
+               searchQuery: '',
+             });
+           })
+           .catch(err => console.error(err));
+  }
+  fetchPopularTrailers() {
+    request.get('/api/trailers/popular')
+           .then((response) => {
+             this.setState({
+               trailers: response.body,
+               querySearched: 'Popular Trailers',
+             });
+           })
+           .catch(err => console.error(err));
+  }
+  handleChange(e) {
+    const searchQuery = e.target.value;
+    this.setState({ searchQuery });
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.fetchTrailers();
+  }
+  render() {
+    const welcomeText = this.createWelcomeText();
+    const signupButton = this.createSignupButton();
     return (
       <div className="search-container">
         {welcomeText}
@@ -99,8 +97,9 @@ class Search extends Component {
         </form>
         <TrailerCarousel
           header={`Search results for: ${this.state.querySearched}`}
+          fetchTrailers={this.props.fetchTrailers}
           trailers={this.state.trailers}
-          userID={`${this.state.id}`}
+          userID={this.props.currentUser ? this.props.currentUser.id : null}
         />
         {signupButton}
       </div>

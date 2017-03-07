@@ -1,10 +1,14 @@
 const express = require('express');
 const TrailerController = require('../controllers/TrailerController');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.get('/search', TrailerController.searchTrailers);
-router.get('/popular', TrailerController.popularTrailers);
-router.get('/:trailer_id', TrailerController.getTrailerInfo);
+router.get('/', TrailerController.index);
+router.post('/', TrailerController.create);
+router.get('/popular', TrailerController.popular);
+router.get('/search', TrailerController.search);
+router.get('/:tmdb_id', TrailerController.show);
+router.patch('/:tmdb_id', TrailerController.update);
+router.delete('/:tmdb_id', TrailerController.delete);
 
 module.exports = router;

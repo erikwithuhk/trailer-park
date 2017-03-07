@@ -1,15 +1,38 @@
-const db = require('../config/db');
-const sql = require('../config/sqlProvider').usersTrailers;
-const TrailerListItem = require('../models/TrailerListItem');
+const db = require('../db/db');
+const sql = require('../db/sqlProvider').usersTrailers;
+const User = require('../models/User');
+const Trailer = require('../models/Trailer');
 
 class UserTrailerDAO {
-  static allUserTrailers(userID) {
-    return db.map(sql.all, [userID], row => new TrailerListItem(row));
+  static find(keyValue) {
+    const key = Object.keys(keyValue)[0];
+    const value = keyValue[key];
+    return db.map(sql.find, [key, value], (row) => {
+      if (key === 'user_id') {
+        return new Trailer(row);
+      } else if (key === 'tmdb_id') {
+        return new User(row);
+      }
+    })
+    .catch(err => err);
   }
-  static addTrailer(trailerData) {
-    const { tmdb_id, media_type, title, blocked, users_id } = trailerData;
-    return db.one(sql.create, [tmdb_id, media_type, title, blocked, users_id])
-             .then(row => row);
+  static save({ user_id, tmdbID, blocked }) {
+    return db.none(sql.save, [user_id, tmdbID, blocked])
+             .catch(err => err);
+  }
+  static update({ user_id, tmdb_id, blocked }) {
+    return db.none(sql.update, [user_id, tmdb_id, blocked])
+             .catch(err => err)
+  }
+  static deleteOne({ user_id, tmdb_id }) {
+    return db.none(sql.deleteOne, [user_id, tmdb_id])
+             .catch(err => err);
+  }
+  static deleteAll(keyValue) {
+    const key = Object.keys(keyValue)[0];
+    const value = keyValue[key];
+    return db.none(sql.deleteAll, [key, value])
+             .catch(err => err);
   }
 }
 

@@ -1,27 +1,37 @@
-const TrailerDAO = require('../services/TrailerDAO');
 const UserTrailerDAO = require('../services/UserTrailerDAO');
 
 class UserTrailerController {
-  static getTrailers(request, response) {
-    UserTrailerDAO.allUserTrailers(request.params.user_id).then((trailerListItems) => {
-      const trailersWithVideo = trailerListItems.map(trailerListItem => trailerListItem.getVideoKeyAndImage());
-      return Promise.all(trailersWithVideo).then(videosData => response.status(200).send(videosData));
-    })
-    .catch(err => response.status(500).json(err));
-  }
-  static addTrailer(request, response) {
-    const trailerData = {
-      tmdb_id: request.body.tmdbID,
-      media_type: request.body.mediaType,
-      title: request.body.title,
-      blocked: request.body.blocked,
-      users_id: request.params.user_id,
-    };
-    UserTrailerDAO.addTrailer(trailerData)
-                  .then((trailerItem) => {
-                    response.status(200).send(trailerItem);
+  static index(req, res, next) {
+    const user_id = req.params.user_id;
+    UserTrailerDAO.find({ user_id })
+                  .then((trailers) => {
+                    const fetchVideos = trailers.map(trailer => trailer.fetchVideo());
+                    Promise.all(fetchVideos)
+                           .then((trailersWithVideo) => {
+                             res.status(200).json(trailersWithVideo);
+                           });
                   })
-                  .catch(err => response.status(500).json(err));
+                  .catch(err => next(err));
+  }
+  static create(req, res, next) {
+    const { user_id } = req.params;
+    const { tmdbID, blocked } = req.body;
+    UserTrailerDAO.save({ user_id, tmdbID, blocked })
+                  .then(() => res.status(204).end())
+                  .catch(err => next(err));
+  }
+  static update(req, res, next) {
+    const { user_id, tmdb_id } = req.params;
+    const { blocked } = req.body;
+    UserTrailerDAO.update({ user_id, tmdb_id, blocked })
+                  .then(() => res.status(204).end())
+                  .catch(err => next(err));
+  }
+  static deleteOne(req, res, next) {
+    const { user_id, tmdb_id } = req.params;
+    UserTrailerDAO.deleteOne({ user_id, tmdb_id })
+                  .then(() => res.status(204).end())
+                  .catch(err => next(err));
   }
 }
 
