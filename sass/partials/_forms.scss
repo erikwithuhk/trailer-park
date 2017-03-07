@@ -1,0 +1,22 @@
+input {
+  border: 2px solid $taupe;
+  border-radius: 5px;
+  background: none;
+  color: $amber;
+  display: block;
+  margin: 1em auto;
+  padding: .5em;
+  letter-spacing: .2em;
+  text-align: center;
+  text-transform: uppercase;
+  width: 90%;
+}
+
+input[type=submit] {
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: $taupe;
+  color: $black;
+}

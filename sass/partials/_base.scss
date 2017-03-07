@@ -1,0 +1,18 @@
+body {
+  background-color: $black;
+}
+
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+
+footer {
+  background-color: $maroon;
+  color: $taupe;
+  display: block;
+  font-size: 75%;
+  letter-spacing: .05em;
+  margin-top: 2em;
+  padding: 1em;
+}

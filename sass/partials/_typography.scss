@@ -1,0 +1,29 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  color: $white;
+  font-family: $roboto;
+  font-size: 1.6rem;
+  line-height: 1.25em;
+  text-align: center;
+}
+
+// h1 {
+//   font-size: 300%;
+//   margin: 1em;
+//   font-weight: 400;
+// }
+//
+// h1 em {
+//   font-family: $airstream;
+//   font-size: 125%;
+//   letter-spacing: .05em;
+//   padding-right: .05em;
+// }
+
+h2 {
+  font-weight: 300;
+  margin: 1em;
+}

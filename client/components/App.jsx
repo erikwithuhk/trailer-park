@@ -4,6 +4,8 @@ import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
 import request from 'superagent';
 
+import Nav from './Nav.jsx';
+
 const propTypes = {
   children: React.PropTypes.element,
 };
@@ -46,24 +48,6 @@ class App extends Component {
              this.setState({ currentUser });
            })
            .catch(err => console.error(err));
-  }
-  createUserDisplayElement() {
-    if (this.state.currentUser.id) {
-      return (
-        <div className="top-nav_links">
-          <Link to="/search" >Search</Link>
-          <Link to="/community" >Community</Link>
-          <Link to="/profile" className="profile" >Profile</Link>
-          <Link to="#" onClick={this.signOut} >Sign out</Link>
-        </div>
-        );
-    }
-    return (
-      <div className="top-nav_links">
-        <Link to="/signup" className="signup" >Sign up</Link>
-        <Link to="/login" className="login" >Login</Link>
-      </div>
-    );
   }
   updateAuth() {
     const token = cookie.load('token');
@@ -118,7 +102,6 @@ class App extends Component {
            .catch(err => console.error(err));
   }
   render() {
-    const userDisplayElement = this.createUserDisplayElement();
     const childrenWithProps = React.cloneElement(this.props.children, {
       currentUser: this.state.currentUser,
       fetchTrailers: this.fetchTrailers,
@@ -129,16 +112,7 @@ class App extends Component {
     });
     return (
       <div>
-        <div className="top-nav clearfix">
-          <Link to="/">
-            <img
-              className="trailericon"
-              src="./images/TrailerParkLogo_main.png"
-              alt="trailerparklogo"
-            />
-          </Link>
-          {userDisplayElement}
-        </div>
+        <Nav currentUser={this.state.currentUser} signOut={this.signOut} />
         {childrenWithProps}
         <footer>&copy;2016 Erik J&ouml;nsson, Annie Burns, and Lynn Fleck</footer>
       </div>
