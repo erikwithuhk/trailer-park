@@ -43,6 +43,9 @@ header {
 
 @media (min-width: $tablet) {
   header {
+    position: fixed;
+    width: 100%;
+
     & .logo img {
       float: left;
     }
