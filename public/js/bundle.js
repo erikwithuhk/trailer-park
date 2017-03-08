@@ -21449,19 +21449,19 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _Search = __webpack_require__(247);
+	var _Search = __webpack_require__(250);
 	
 	var _Search2 = _interopRequireDefault(_Search);
 	
-	var _UserForm = __webpack_require__(250);
+	var _UserForm = __webpack_require__(253);
 	
 	var _UserForm2 = _interopRequireDefault(_UserForm);
 	
-	var _UserProfile = __webpack_require__(251);
+	var _UserProfile = __webpack_require__(254);
 	
 	var _UserProfile2 = _interopRequireDefault(_UserProfile);
 	
-	var _Community = __webpack_require__(252);
+	var _Community = __webpack_require__(255);
 	
 	var _Community2 = _interopRequireDefault(_Community);
 	
@@ -27170,6 +27170,14 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
+	var _Header = __webpack_require__(247);
+	
+	var _Header2 = _interopRequireDefault(_Header);
+	
+	var _Footer = __webpack_require__(249);
+	
+	var _Footer2 = _interopRequireDefault(_Footer);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27242,50 +27250,6 @@
 	      }).catch(function (err) {
 	        return console.error(err);
 	      });
-	    }
-	  }, {
-	    key: 'createUserDisplayElement',
-	    value: function createUserDisplayElement() {
-	      if (this.state.currentUser.id) {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'top-nav_links' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/search' },
-	            'Search'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/community' },
-	            'Community'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/profile', className: 'profile' },
-	            'Profile'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '#', onClick: this.signOut },
-	            'Sign out'
-	          )
-	        );
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'top-nav_links' },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/signup', className: 'signup' },
-	          'Sign up'
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/login', className: 'login' },
-	          'Login'
-	        )
-	      );
 	    }
 	  }, {
 	    key: 'updateAuth',
@@ -27365,7 +27329,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var userDisplayElement = this.createUserDisplayElement();
 	      var childrenWithProps = _react2.default.cloneElement(this.props.children, {
 	        currentUser: this.state.currentUser,
 	        fetchTrailers: this.fetchTrailers,
@@ -27376,27 +27339,14 @@
 	      });
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'app-container' },
+	        _react2.default.createElement(_Header2.default, { currentUser: this.state.currentUser, signOut: this.signOut }),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'top-nav clearfix' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' },
-	            _react2.default.createElement('img', {
-	              className: 'trailericon',
-	              src: './images/TrailerParkLogo_main.png',
-	              alt: 'trailerparklogo'
-	            })
-	          ),
-	          userDisplayElement
-	        ),
-	        childrenWithProps,
-	        _react2.default.createElement(
-	          'footer',
+	          'main',
 	          null,
-	          '\xA92016 Erik J\xF6nsson, Annie Burns, and Lynn Fleck'
-	        )
+	          childrenWithProps
+	        ),
+	        _react2.default.createElement(_Footer2.default, { currentUser: this.state.currentUser, signOut: this.signOut })
 	      );
 	    }
 	  }]);
@@ -29421,6 +29371,178 @@
 	  value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(173);
+	
+	var _Nav = __webpack_require__(248);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var propTypes = {
+	  currentUser: _react.PropTypes.object.isRequired,
+	  signOut: _react.PropTypes.func.isRequired
+	};
+	
+	var Header = function Header(_ref) {
+	  var currentUser = _ref.currentUser;
+	  var signOut = _ref.signOut;
+	
+	  return _react2.default.createElement(
+	    'header',
+	    { className: 'clearfix' },
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/', className: 'logo' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'image-container' },
+	        _react2.default.createElement('img', {
+	          src: 'images/TrailerParkLogo_main.png',
+	          alt: 'Trailer Park Logo'
+	        })
+	      )
+	    ),
+	    _react2.default.createElement(_Nav2.default, { currentUser: currentUser, signOut: signOut })
+	  );
+	};
+	
+	Header.propTypes = propTypes;
+	
+	exports.default = Header;
+
+/***/ },
+/* 248 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(173);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var propTypes = {
+	  currentUser: _react.PropTypes.object.isRequired,
+	  signOut: _react.PropTypes.func.isRequired
+	};
+	
+	var Nav = function Nav(_ref) {
+	  var currentUser = _ref.currentUser;
+	  var signOut = _ref.signOut;
+	
+	  if (currentUser.id) {
+	    return _react2.default.createElement(
+	      'nav',
+	      null,
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/search' },
+	        'Search'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/community' },
+	        'Community'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '/profile', className: 'profile' },
+	        'Profile'
+	      ),
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { to: '#', onClick: signOut },
+	        'Sign out'
+	      )
+	    );
+	  }
+	  return _react2.default.createElement(
+	    'nav',
+	    null,
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/signup', className: 'signup' },
+	      'Sign up'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/login', className: 'login' },
+	      'Login'
+	    )
+	  );
+	};
+	
+	Nav.propTypes = propTypes;
+	
+	exports.default = Nav;
+
+/***/ },
+/* 249 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Nav = __webpack_require__(248);
+	
+	var _Nav2 = _interopRequireDefault(_Nav);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var propTypes = {
+	  currentUser: _react.PropTypes.object.isRequired,
+	  signOut: _react.PropTypes.func.isRequired
+	};
+	
+	var Footer = function Footer(_ref) {
+	  var currentUser = _ref.currentUser;
+	  var signOut = _ref.signOut;
+	
+	  return _react2.default.createElement(
+	    'footer',
+	    null,
+	    _react2.default.createElement(_Nav2.default, { currentUser: currentUser, signOut: signOut }),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      '\xA92016 Erik J\xF6nsson, Annie Burns, and Lynn Fleck'
+	    )
+	  );
+	};
+	
+	Footer.propTypes = propTypes;
+	
+	exports.default = Footer;
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
@@ -29433,7 +29555,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _TrailerCarousel = __webpack_require__(248);
+	var _TrailerCarousel = __webpack_require__(251);
 	
 	var _TrailerCarousel2 = _interopRequireDefault(_TrailerCarousel);
 	
@@ -29476,7 +29598,7 @@
 	  }, {
 	    key: 'createSignupButton',
 	    value: function createSignupButton() {
-	      if (!this.props.currentUser) {
+	      if (!this.props.currentUser.id) {
 	        return _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/signup', className: 'signup-link' },
@@ -29492,13 +29614,13 @@
 	  }, {
 	    key: 'createWelcomeText',
 	    value: function createWelcomeText() {
-	      if (!this.props.currentUser) {
+	      if (!this.props.currentUser.id) {
 	        return _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'welcome-text' },
 	          _react2.default.createElement(
 	            'h1',
-	            { className: 'welcome-text' },
+	            null,
 	            'Welcome to the ',
 	            _react2.default.createElement(
 	              'em',
@@ -29508,7 +29630,7 @@
 	            '!'
 	          ),
 	          _react2.default.createElement(
-	            'h2',
+	            'p',
 	            null,
 	            'Go ahead, binge-watch those trailers.'
 	          )
@@ -29519,7 +29641,7 @@
 	  }, {
 	    key: 'fetchTrailers',
 	    value: function fetchTrailers() {
-	      this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
+	      return this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
 	    }
 	  }, {
 	    key: 'fetchSearchQuery',
@@ -29569,8 +29691,8 @@
 	      var welcomeText = this.createWelcomeText();
 	      var signupButton = this.createSignupButton();
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'search-container' },
+	        'section',
+	        { className: 'search' },
 	        welcomeText,
 	        _react2.default.createElement(
 	          'form',
@@ -29584,7 +29706,7 @@
 	          })
 	        ),
 	        _react2.default.createElement(_TrailerCarousel2.default, {
-	          header: 'Search results for: ' + this.state.querySearched,
+	          header: this.state.querySearched,
 	          fetchTrailers: this.props.fetchTrailers,
 	          trailers: this.state.trailers,
 	          userID: this.props.currentUser ? this.props.currentUser.id : null
@@ -29602,7 +29724,7 @@
 	exports.default = Search;
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29621,7 +29743,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _Trailer = __webpack_require__(249);
+	var _Trailer = __webpack_require__(252);
 	
 	var _Trailer2 = _interopRequireDefault(_Trailer);
 	
@@ -29679,7 +29801,7 @@
 	  }, {
 	    key: 'handleResize',
 	    value: function handleResize() {
-	      var currentTrailerNode = document.querySelector('.current-trailer_li');
+	      var currentTrailerNode = document.querySelector('.trailer');
 	      this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
 	    }
 	  }, {
@@ -29689,8 +29811,8 @@
 	        var currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
 	        var imagePath = currentTrailer.imagePath;
 	
-	        return _react2.default.createElement('div', {
-	          className: 'trailer_container ' + position + '-trailer_container',
+	        return _react2.default.createElement('article', {
+	          className: 'poster poster--' + position,
 	          style: { backgroundImage: 'url(\'http://image.tmdb.org/t/p/w500/' + imagePath + '\')' }
 	        });
 	      }
@@ -29701,8 +29823,8 @@
 	    value: function createCurrentTrailerTitle() {
 	      if (this.props.trailers.length) {
 	        return _react2.default.createElement(
-	          'h4',
-	          { className: 'current-trailer_title' },
+	          'p',
+	          { className: 'carousel__now-playing' },
 	          this.props.trailers[this.state.currentTrailerIndex].title
 	        );
 	      }
@@ -29778,36 +29900,24 @@
 	      var nextPoster = this.createPoster('next');
 	      var currentTrailerTitle = this.createCurrentTrailerTitle();
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'carousel-container' },
+	        'article',
+	        { className: 'carousel' },
+	        _react2.default.createElement(
+	          'h3',
+	          { className: 'carousel__header' },
+	          this.props.header
+	        ),
 	        _react2.default.createElement(
 	          'section',
-	          { className: 'carousel' },
-	          _react2.default.createElement(
-	            'h3',
-	            { className: 'carousel_header' },
-	            this.props.header
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'carousel', style: { height: this.state.currentTrailerHeight + 'px' } },
-	            _react2.default.createElement(
-	              'li',
-	              { className: 'previous-trailer_li' },
-	              previousPoster
-	            ),
-	            _react2.default.createElement(_Trailer2.default, {
-	              currentTrailer: this.props.trailers[this.state.currentTrailerIndex],
-	              handleCarouselButton: this.handleCarouselButton,
-	              addTrailer: this.addTrailer,
-	              blockTrailer: this.blockTrailer
-	            }),
-	            _react2.default.createElement(
-	              'li',
-	              { className: 'next-trailer_li' },
-	              nextPoster
-	            )
-	          )
+	          { className: 'carousel__media clearfix', style: { height: this.state.currentTrailerHeight + 'px' } },
+	          previousPoster,
+	          _react2.default.createElement(_Trailer2.default, {
+	            currentTrailer: this.props.trailers[this.state.currentTrailerIndex],
+	            handleCarouselButton: this.handleCarouselButton,
+	            addTrailer: this.addTrailer,
+	            blockTrailer: this.blockTrailer
+	          }),
+	          nextPoster
 	        ),
 	        currentTrailerTitle
 	      );
@@ -29822,7 +29932,7 @@
 	exports.default = TrailerCarousel;
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29859,15 +29969,15 @@
 	    });
 	  }
 	  return _react2.default.createElement(
-	    "li",
-	    { className: "current-trailer_li" },
+	    "article",
+	    { className: "trailer" },
 	    _react2.default.createElement(
 	      "div",
-	      { className: "trailer_container current-trailer_container" },
-	      videoEmbed,
-	      _react2.default.createElement("button", { className: "heart", onClick: addTrailer }),
-	      _react2.default.createElement("button", { className: "broken-heart", onClick: blockTrailer })
+	      null,
+	      videoEmbed
 	    ),
+	    _react2.default.createElement("button", { className: "heart", onClick: addTrailer }),
+	    _react2.default.createElement("button", { className: "broken-heart", onClick: blockTrailer }),
 	    _react2.default.createElement(
 	      "button",
 	      { className: "prev", onClick: handleCarouselButton },
@@ -29886,7 +29996,7 @@
 	exports.default = Trailer;
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30115,24 +30225,20 @@
 	      var currentUser = this.props.currentUser;
 	
 	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit },
-	          header,
-	          _react2.default.createElement('input', {
-	            type: 'text',
-	            name: 'email',
-	            onChange: this.handleInputChange,
-	            placeholder: 'email',
-	            value: currentUser.email
-	          }),
-	          passwordInput,
-	          usernameInput,
-	          additionalFields,
-	          submitButton
-	        )
+	        'form',
+	        { onSubmit: this.handleSubmit },
+	        header,
+	        _react2.default.createElement('input', {
+	          type: 'text',
+	          name: 'email',
+	          onChange: this.handleInputChange,
+	          placeholder: 'email',
+	          value: currentUser.email
+	        }),
+	        passwordInput,
+	        usernameInput,
+	        additionalFields,
+	        submitButton
 	      );
 	    }
 	  }]);
@@ -30145,7 +30251,7 @@
 	exports.default = UserForm;
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30166,11 +30272,11 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _TrailerCarousel = __webpack_require__(248);
+	var _TrailerCarousel = __webpack_require__(251);
 	
 	var _TrailerCarousel2 = _interopRequireDefault(_TrailerCarousel);
 	
-	var _UserForm = __webpack_require__(250);
+	var _UserForm = __webpack_require__(253);
 	
 	var _UserForm2 = _interopRequireDefault(_UserForm);
 	
@@ -30227,8 +30333,8 @@
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'profile-container' },
+	        'section',
+	        { className: 'profile' },
 	        _react2.default.createElement(_TrailerCarousel2.default, {
 	          header: 'Your Trailers',
 	          fetchTrailers: this.props.fetchTrailers,
@@ -30257,7 +30363,7 @@
 	exports.default = (0, _reactRouter.withRouter)(UserProfile);
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30276,7 +30382,7 @@
 	
 	var _superagent2 = _interopRequireDefault(_superagent);
 	
-	var _TrailerCarousel = __webpack_require__(248);
+	var _TrailerCarousel = __webpack_require__(251);
 	
 	var _TrailerCarousel2 = _interopRequireDefault(_TrailerCarousel);
 	
@@ -30341,8 +30447,8 @@
 	    value: function render() {
 	      var carousels = this.createCarousels();
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'community-container' },
+	        'section',
+	        { className: 'community' },
 	        carousels
 	      );
 	    }

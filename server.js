@@ -15,17 +15,18 @@ if (!process.env) {
 
 const port = process.env.PORT;
 
-app.use(sassMiddleware({
-  src: path.join(__dirname, 'sass'),
-  dest: path.join(__dirname, 'public', 'css'),
-  debug: true,
-  outputStyle: 'compressed',
-  force: true,
-  prefix: '/css',
-  log: (severity, key, value) => console.log(severity, key, value),
-}));
 
 if (process.env.NODE_ENV === 'dev') {
+  app.use(sassMiddleware({
+    src: path.join(__dirname, 'sass'),
+    dest: path.join(__dirname, 'public', 'css'),
+    debug: true,
+    outputStyle: 'compressed',
+    force: true,
+    prefix: '/css',
+    log: (severity, key, value) => console.log(severity, key, value),
+  }));
+
   const compiler = webpack(config);
   const middleware = webpackDevMiddleware(compiler, {
     stats: {
