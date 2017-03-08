@@ -1,0 +1,51 @@
+
+.search {
+  & .welcome-text {
+    font-size: 80%;
+    margin: 1em 0 1.5em;
+
+    & h1 {
+      margin: 0.125em 0;
+    }
+  }
+
+  & .carousel__header:before {
+    content: "Search results for: ";
+    font: inherit;
+    font-weight: 400;
+  }
+
+  & a.signup-link {
+    margin: 0 auto;
+  }
+
+  & button.signup-button {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url('../images/button-bkgd.png');
+    border: none;
+    cursor: pointer;
+    padding: 2rem;
+    font-family: 'Airstream', arial;
+    font-size: 3rem;
+    color: #fff;
+    background-color: #02030D;
+  }
+
+  & button.signup-button:focus {
+    outline: none;
+  }
+
+  & button.signup-button:hover {
+    opacity: .8;
+  }
+}
+
+
+@media (min-width: $tablet) {
+  .search {
+    & .welcome-text {
+      font-size: 100%;
+    }
+  }
+}

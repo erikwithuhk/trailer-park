@@ -34,7 +34,7 @@ class TrailerCarousel extends Component {
     this.setState({ currentTrailer });
   }
   handleResize() {
-    const currentTrailerNode = document.querySelector('.current-trailer_li');
+    const currentTrailerNode = document.querySelector('.trailer');
     this.setState({ currentTrailerHeight: currentTrailerNode.offsetHeight });
   }
   createPoster(position) {
@@ -42,8 +42,8 @@ class TrailerCarousel extends Component {
       const currentTrailer = this.props.trailers[this.state.currentTrailerIndex];
       const { imagePath } = currentTrailer;
       return (
-        <div
-          className={`trailer_container ${position}-trailer_container`}
+        <article
+          className={`poster poster--${position}`}
           style={{ backgroundImage: `url(\'http://image.tmdb.org/t/p/w500/${imagePath}\')` }}
         />
       );
@@ -53,9 +53,9 @@ class TrailerCarousel extends Component {
   createCurrentTrailerTitle() {
     if (this.props.trailers.length) {
       return (
-        <h4 className="current-trailer_title" >
+        <p className="carousel__now-playing" >
           {this.props.trailers[this.state.currentTrailerIndex].title}
-        </h4>
+        </p>
       );
     }
     return null;
@@ -116,26 +116,20 @@ class TrailerCarousel extends Component {
     const nextPoster = this.createPoster('next');
     const currentTrailerTitle = this.createCurrentTrailerTitle();
     return (
-      <div className="carousel-container">
-        <section className="carousel">
-          <h3 className="carousel_header" >{this.props.header}</h3>
-          <ul className="carousel" style={{ height: `${this.state.currentTrailerHeight}px` }}>
-            <li className="previous-trailer_li">
-              {previousPoster}
-            </li>
-            <Trailer
-              currentTrailer={this.props.trailers[this.state.currentTrailerIndex]}
-              handleCarouselButton={this.handleCarouselButton}
-              addTrailer={this.addTrailer}
-              blockTrailer={this.blockTrailer}
-            />
-            <li className="next-trailer_li">
-              {nextPoster}
-            </li>
-          </ul>
+      <article className="carousel">
+        <h3 className="carousel__header" >{this.props.header}</h3>
+        <section className="carousel__media clearfix" style={{ height: `${this.state.currentTrailerHeight}px` }}>
+          {previousPoster}
+          <Trailer
+            currentTrailer={this.props.trailers[this.state.currentTrailerIndex]}
+            handleCarouselButton={this.handleCarouselButton}
+            addTrailer={this.addTrailer}
+            blockTrailer={this.blockTrailer}
+          />
+          {nextPoster}
         </section>
         {currentTrailerTitle}
-      </div>
+      </article>
       );
   }
 }

@@ -1,0 +1,42 @@
+body {
+  background-color: $black;
+}
+
+.clearfix {
+  overflow: auto;
+  zoom: 1;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex: 1;
+  overflow: auto;
+  margin: 0 auto;
+  max-width: 700px;
+  width: 100%;
+
+  & > section,
+  & > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 1em 0;
+    width: 100%;
+  }
+}
+
+@media (min-width: $tablet) {
+  main {
+    padding-top: 4.5em;
+    overflow: visible;
+  }
+}

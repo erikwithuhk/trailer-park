@@ -4,6 +4,7 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const sassMiddleware = require('node-sass-middleware');
 
 const config = require('./webpack.config');
 const app = require('./app/app');
@@ -13,6 +14,16 @@ if (!process.env) {
 }
 
 const port = process.env.PORT;
+
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'sass'),
+  dest: path.join(__dirname, 'public', 'css'),
+  debug: true,
+  outputStyle: 'compressed',
+  force: true,
+  prefix: '/css',
+  log: (severity, key, value) => console.log(severity, key, value),
+}));
 
 if (process.env.NODE_ENV === 'dev') {
   const compiler = webpack(config);
@@ -34,6 +45,5 @@ app.get('/', (request, response) => {
 });
 
 app.listen(port, () => {
-  console.log(process.env.NODE_ENV);
   console.log(`Listening on port ${port}`);
 });

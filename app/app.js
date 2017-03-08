@@ -28,7 +28,7 @@ if (!process.env) {
   require('dotenv').config();
 }
 
-if (process.env.ENV === 'dev') {
+if (process.env.NODE_ENV === 'dev') {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {

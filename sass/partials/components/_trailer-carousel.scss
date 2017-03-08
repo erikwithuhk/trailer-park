@@ -1,0 +1,57 @@
+.carousel {
+  font-size: 80%;
+  margin: 3rem auto;
+  position: relative;
+  width: 100%;
+
+  &__header {
+    margin: 1rem;
+  }
+
+  &__media {
+    margin: 2em 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .poster {
+      background-color: transparent;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.4;
+      height: 80%;
+      width: 50%;
+      z-index: 0;
+
+      &--previous {
+        float: left;
+      }
+
+      &--next {
+        float: right;
+      }
+    }
+
+    & > * {
+      display: inline-block;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  &__now-playing {
+    color: $amber;
+    font-weight: 700;
+    margin: 1em auto;
+    text-align: center;
+    text-transform: uppercase;
+
+    &:before {
+      content: "Now playing: ";
+      color: $amber;
+      font: inherit;
+      font-weight: 400;
+    }
+  }
+}

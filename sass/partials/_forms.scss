@@ -1,0 +1,27 @@
+form {
+  width: 100%;
+}
+
+input {
+  border: 2px solid $taupe;
+  border-radius: 5px;
+  background: none;
+  color: $amber;
+  display: block;
+  margin: 1em auto;
+  padding: .5em;
+  letter-spacing: .2em;
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 60rem;
+  width: 90%;
+
+  &[type=submit] {
+    cursor: pointer;
+  }
+
+  &[type=submit]:hover {
+    background-color: $taupe;
+    color: $black;
+  }
+}

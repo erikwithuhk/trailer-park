@@ -37,9 +37,9 @@ class Community extends Component {
   render() {
     const carousels = this.createCarousels();
     return (
-      <div className="community-container">
+      <section className="community">
         {carousels}
-      </div>
+      </section>
     );
   }
 }

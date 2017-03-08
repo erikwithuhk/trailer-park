@@ -23,7 +23,7 @@ class Search extends Component {
     this.fetchTrailers();
   }
   createSignupButton() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser.id) {
       return (
         <Link to="/signup" className="signup-link">
           <button className="signup-button">
@@ -35,20 +35,20 @@ class Search extends Component {
     return null;
   }
   createWelcomeText() {
-    if (!this.props.currentUser) {
+    if (!this.props.currentUser.id) {
       return (
-        <div>
-          <h1 className="welcome-text">
+        <div className="welcome-text">
+          <h1>
             Welcome to the <em>Trailer Park</em>!
           </h1>
-          <h2>Go ahead, binge-watch those trailers.</h2>
+          <p>Go ahead, binge-watch those trailers.</p>
         </div>
       );
     }
     return null;
   }
   fetchTrailers() {
-    this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
+    return this.state.searchQuery ? this.fetchSearchQuery() : this.fetchPopularTrailers();
   }
   fetchSearchQuery() {
     const searchQuery = this.state.searchQuery;
@@ -84,7 +84,7 @@ class Search extends Component {
     const welcomeText = this.createWelcomeText();
     const signupButton = this.createSignupButton();
     return (
-      <div className="search-container">
+      <section className="search">
         {welcomeText}
         <form className="search-form" onSubmit={this.handleSubmit}>
           <input
@@ -96,13 +96,13 @@ class Search extends Component {
           />
         </form>
         <TrailerCarousel
-          header={`Search results for: ${this.state.querySearched}`}
+          header={this.state.querySearched}
           fetchTrailers={this.props.fetchTrailers}
           trailers={this.state.trailers}
           userID={this.props.currentUser ? this.props.currentUser.id : null}
         />
         {signupButton}
-      </div>
+      </section>
     );
   }
 }
