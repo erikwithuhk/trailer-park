@@ -170,22 +170,20 @@ class UserForm extends Component {
     const submitButton = this.createSubmitButton();
     const { currentUser } = this.props;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          {header}
-          <input
-            type="text"
-            name="email"
-            onChange={this.handleInputChange}
-            placeholder="email"
-            value={currentUser.email}
-          />
-          {passwordInput}
-          {usernameInput}
-          {additionalFields}
-          {submitButton}
-        </form>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        {header}
+        <input
+          type="text"
+          name="email"
+          onChange={this.handleInputChange}
+          placeholder="email"
+          value={currentUser.email}
+        />
+        {passwordInput}
+        {usernameInput}
+        {additionalFields}
+        {submitButton}
+      </form>
     );
   }
 }

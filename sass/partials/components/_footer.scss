@@ -5,18 +5,21 @@ footer {
   flex-shrink: 0;
   font-size: 75%;
   padding: 1em 2em;
-}
 
-footer p {
-  display: none;
-}
-
-@media (min-width: 480px) {
-  footer nav {
+  & p {
     display: none;
   }
+}
 
-  footer p {
-    display: block;
+@media (min-width: $tablet) {
+  footer {
+
+    & nav {
+      display: none;
+    }
+
+    & p {
+      display: block;
+    }
   }
 }

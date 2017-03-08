@@ -1,3 +1,7 @@
+form {
+  width: 100%;
+}
+
 input {
   border: 2px solid $taupe;
   border-radius: 5px;
@@ -9,14 +13,15 @@ input {
   letter-spacing: .2em;
   text-align: center;
   text-transform: uppercase;
+  max-width: 60rem;
   width: 90%;
-}
 
-input[type=submit] {
-  cursor: pointer;
-}
+  &[type=submit] {
+    cursor: pointer;
+  }
 
-input[type=submit]:hover {
-  background-color: $taupe;
-  color: $black;
+  &[type=submit]:hover {
+    background-color: $taupe;
+    color: $black;
+  }
 }

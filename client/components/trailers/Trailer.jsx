@@ -19,15 +19,15 @@ const Trailer = ({ currentTrailer, handleCarouselButton, addTrailer, blockTraile
     );
   }
   return (
-    <li className="current-trailer_li">
-      <div className="trailer_container current-trailer_container">
+    <article className="trailer">
+      <div>
         {videoEmbed}
-        <button className="heart" onClick={addTrailer} />
-        <button className="broken-heart" onClick={blockTrailer} />
       </div>
+      <button className="heart" onClick={addTrailer} />
+      <button className="broken-heart" onClick={blockTrailer} />
       <button className="prev" onClick={handleCarouselButton} >&lt;</button>
       <button className="next" onClick={handleCarouselButton} >&gt;</button>
-    </li>
+    </article>
   );
 };
 

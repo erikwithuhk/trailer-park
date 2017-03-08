@@ -34,7 +34,7 @@ class UserProfile extends Component {
   }
   render() {
     return (
-      <div className="profile-container">
+      <section className="profile">
         <TrailerCarousel
           header="Your Trailers"
           fetchTrailers={this.props.fetchTrailers}
@@ -51,7 +51,7 @@ class UserProfile extends Component {
           value="Delete"
           onClick={this.deleteUser}
         />
-      </div>
+      </section>
     );
   }
 }
