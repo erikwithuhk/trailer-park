@@ -5,6 +5,10 @@ header {
   flex-shrink: 0;
   justify-content: center;
   padding: 1rem;
+  -webkit-box-shadow: $nav-box-shadow;
+  -moz-box-shadow: $nav-box-shadow;
+  box-shadow: $nav-box-shadow;
+  z-index: 5000;
 
   & .logo {
     flex: 1;

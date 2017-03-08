@@ -5,6 +5,10 @@ footer {
   flex-shrink: 0;
   font-size: 75%;
   padding: 1em 2em;
+  -webkit-box-shadow: $nav-box-shadow;
+  -moz-box-shadow: $nav-box-shadow;
+  box-shadow: $nav-box-shadow;
+  z-index: 5000;
 
   & p {
     display: none;
