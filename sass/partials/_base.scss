@@ -19,8 +19,16 @@ main {
   flex: 1;
   overflow: auto;
   margin: 0 auto;
-  max-width: 700px;
   width: 100%;
+
+  @media #{$mq-small} {
+    padding-top: 4.5em;
+    overflow: visible;
+  }
+
+  @media #{$mq-large} {
+    width: 75%;
+  }
 
   & > section,
   & > form {
@@ -32,11 +40,5 @@ main {
     padding: 1em 0;
     width: 100%;
   }
-}
 
-@media (min-width: $tablet) {
-  main {
-    padding-top: 4.5em;
-    overflow: visible;
-  }
 }

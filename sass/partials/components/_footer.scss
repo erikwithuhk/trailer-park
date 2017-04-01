@@ -15,7 +15,7 @@ footer {
   }
 }
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   footer {
 
     & nav {

@@ -84,7 +84,7 @@
   }
 }
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   .trailer {
     width: 50%;
   }
