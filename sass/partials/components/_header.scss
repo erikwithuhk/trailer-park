@@ -10,9 +10,14 @@ header {
   box-shadow: $nav-box-shadow;
   z-index: 5000;
 
+  @media #{$mq-small} {
+    position: fixed;
+    width: 100%;
+  }
+
   & .logo {
     flex: 1;
-    max-width: 7.5rem;
+    max-width: 5em;
     width: 25%;
 
     & .image-container {
@@ -26,6 +31,10 @@ header {
       height: 100%;
       position: absolute;
       width: 100%;
+
+      @media #{$mq-small} {
+        float: left;
+      }
     }
   }
 
@@ -34,24 +43,13 @@ header {
     flex: 2;
     justify-content: flex-end;
 
+    @media #{$mq-small} {
+      display: flex;
+    }
+
     & a {
       font-size: 87.5%;
       padding: 0.5em;
-    }
-  }
-}
-
-@media #{$mq-small} {
-  header {
-    position: fixed;
-    width: 100%;
-
-    & .logo img {
-      float: left;
-    }
-
-    & nav {
-      display: flex;
     }
   }
 }
