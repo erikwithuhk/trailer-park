@@ -5,9 +5,32 @@ html {
 body {
   color: $white;
   font-family: $roboto;
-  font-size: 1.6rem;
-  line-height: 1.25em;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
   text-align: center;
+
+  @media #{$mq-small} {
+    body {
+      line-height: 1.375em;
+    }
+  }
+
+  @media #{$mq-medium} {
+    font-size: $base-font-size*1.2;
+    line-height: $base-line-height*1.2;
+  }
+
+  @media #{$mq-large} {
+    font-size: $base-font-size*1.3;
+  }
+
+  @media #{$mq-xlarge} {
+    font-size: $base-font-size*1.4;
+  }
+
+  @media #{$mq-xxlarge} {
+    font-size: $base-font-size*1.6;
+  }
 }
 
 h1, h2, h3, h4 {
@@ -26,60 +49,66 @@ h3, h4 {
 
 h1 {
   font-size: 2em;
+
+  @media #{$mq-small} {
+    h1 {
+      font-size: 2.5em;
+      line-height: 1.125em;
+    }
+  }
+
+  @media #{$mq-medium} {
+    h1 {
+      font-size: 3em;
+      line-height: 1.05em;
+    }
+  }
 }
 
 h2 {
   font-size: 1.625em;
   line-height: 1.15384615em;
+
+  @media #{$mq-small} {
+    h2 {
+      font-size: 2em;
+      line-height: 1.25em;
+    }
+  }
+
+  @media #{$mq-medium} {
+    h2 {
+      font-size: 2.25em;
+    }
+  }
 }
 
 h3 {
   font-family: $roboto;
   font-size: 1.375em;
   line-height: 1.13636364em;
+
+  @media #{$mq-small} {
+    h3 {
+      font-size: 1.5em;
+      line-height: 1.25em;
+    }
+  }
+
+  @media #{$mq-medium} {
+    h3 {
+      font-size: 1.75em;
+    }
+  }
 }
 
 h4 {
   font-size: 1.125em;
   line-height: 1.11111111em;
-}
 
-@media #{$mq-small} {
-  body {
-    line-height: 1.375em;
-  }
-
-  h1 {
-    font-size: 2.5em;
-    line-height: 1.125em;
-  }
-
-  h2 {
-    font-size: 2em;
-    line-height: 1.25em;
-  }
-
-  h3 {
-    font-size: 1.5em;
-    line-height: 1.25em;
-  }
-
-  h4 {
-    line-height: 1.22222222em;
-  }
-}
-
-@media #{$mq-medium} {
-  h1 {
-    font-size: 3em;
-    line-height: 1.05em;
-  }
-
-  h2 {
-    font-size: 2.25em;
-  }
-
-  h3 {
-    font-size: 1.75em;
+  @media #{$mq-small} {
+    h4 {
+      line-height: 1.22222222em;
+    }
   }
 }
