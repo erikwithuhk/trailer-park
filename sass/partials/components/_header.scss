@@ -41,7 +41,7 @@ header {
   }
 }
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   header {
     position: fixed;
     width: 100%;

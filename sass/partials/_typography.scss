@@ -44,7 +44,7 @@ h4 {
   line-height: 1.11111111em;
 }
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   body {
     line-height: 1.375em;
   }
@@ -69,7 +69,7 @@ h4 {
   }
 }
 
-@media (min-width: $desktop) {
+@media #{$mq-medium} {
   h1 {
     font-size: 3em;
     line-height: 1.05em;

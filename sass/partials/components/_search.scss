@@ -42,7 +42,7 @@
 }
 
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   .search {
     & .welcome-text {
       font-size: 100%;

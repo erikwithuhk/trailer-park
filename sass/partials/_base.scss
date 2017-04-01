@@ -34,7 +34,7 @@ main {
   }
 }
 
-@media (min-width: $tablet) {
+@media #{$mq-small} {
   main {
     padding-top: 4.5em;
     overflow: visible;
