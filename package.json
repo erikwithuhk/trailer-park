@@ -38,7 +38,10 @@
     "react-dom": "^15.4.2",
     "react-modal": "^1.7.3",
     "react-router": "^2.8.1",
-    "superagent": "^2.3.0"
+    "superagent": "^2.3.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
@@ -55,9 +58,6 @@
     "jasmine": "^2.5.2",
     "morgan": "^1.8.1",
     "nodemon": "^1.11.0",
-    "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.10.1",
-    "webpack-dev-server": "^1.16.3",
-    "webpack-hot-middleware": "^2.18.0"
+    "webpack-dev-server": "^1.16.3"
   }
 }
